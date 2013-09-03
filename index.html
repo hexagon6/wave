@@ -2,8 +2,8 @@
 <html><head>
 <meta http-equiv="Content-Type" content="text/html"; charset="utf8"></meta>
 <meta name="author" content="Tobi Turing">
-<meta name="version" content="0.1">
-<meta name="date" content="2013-08-04">
+<meta name="version" content="0.2beta">
+<meta name="date" content="2013-09-03">
 <meta name="keywords" content="Cellular, Automata, Wave, Generator, Greenberg-Hastings Cellular Automaton">
 <title class="item">Cellular Automaton - Wave Generator</title>
 <script type='text/javascript' src='jquery-2.0.3.js'></script>
@@ -37,6 +37,9 @@
 </div>
 <script type='text/javascript' src='grid.js'></script>
 <script type='text/javascript'>
+
+"use strict";
+
 function next_cycle(){
   var verbose = false;
   update_cycleview(++cycle);
