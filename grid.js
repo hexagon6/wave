@@ -5,7 +5,7 @@
 *   License: 
 *   The MIT License (MIT)
 
-Copyright (c) <year> <copyright holders>
+Copyright (c) 2013 Tobi Turing
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -28,11 +28,11 @@ THE SOFTWARE.
 
 "use strict";
 
-function init_2Dcanvas(id){
+function init_2Dcanvas(id) {
   var canvas = document.getElementById(id);
-  var max_size = Math.min(window.innerWidth,window.innerHeight-10);
-  var canvas_size = Math.max(max_size,256);
-  canvas.width = canvas.height = canvas_size;
+  var edge = 40;
+  var max_size = Math.min(window.innerWidth-edge,window.innerHeight-edge);
+  canvas.width = canvas.height = Math.max(max_size, 256);
   return canvas.getContext('2d');
 }
 
@@ -86,7 +86,7 @@ function draw_grid(canvas_context){
 
 function draw_pixel(canvas_context,rel_pos) {
   if(rel_pos.x< 0 || rel_pos.x>grid.x || rel_pos.y< 0 || rel_pos.y>grid.y) {
-    throw new Error('pixel position out of range',x,y); 
+    throw new Error('pixel position out of range',rel_pos.x,rel_pos.y); 
   }
   var pos = {
     'x': rel_pos.x*grid.pixel,
@@ -185,7 +185,7 @@ function checkerboard(){
 
 function init_grid(){
   var cycles = 0;
-  var detail = document.getElementById('detail').value;
+  var detail = document.getElementById('detail_select').value;
   //console.log($('#detail').filter(':first')[0].selectedIndex);
   var grid_bit_resolution = Math.log(c.canvas.width)/Math.log(2) - detail;
   grid = { 
@@ -214,5 +214,3 @@ function grid_main(){
   init_grid();
   //fill_rect({'x':1,'y':0}, {'x':3,'y':3});
 }
-
-grid_main();

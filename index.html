@@ -1,44 +1,69 @@
 <!DOCTYPE html>
 <html><head>
-<meta http-equiv="Content-Type" content="text/html"; charset="utf8"></meta>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8">
 <meta name="author" content="Tobi Turing">
 <meta name="version" content="0.2beta">
 <meta name="date" content="2013-09-03">
 <meta name="keywords" content="Cellular, Automata, Wave, Generator, Greenberg-Hastings Cellular Automaton">
 <title class="item">Cellular Automaton - Wave Generator</title>
-<script type='text/javascript' src='jquery-2.0.3.js'></script>
+<script src='jquery-2.0.3.js'></script>
 <!-- http://en.wikipedia.org/wiki/Greenberg-Hastings_cellular_automaton -->
-<!--<script type='text/javascript' src='jcanvas.min.js'></script>-->
 </head>
-<body style="font-family:helvetica">
+<body style="font-family:helvetica;">
 <div>
-<canvas id="c" style="border:1px dotted;float:left" ></canvas>
-<input type="button" value="next cycle" onclick=next_cycle();></input>
-<input type="button" value="checkerboard" onclick=checkerboard();></input>
-<input type="button" value="reset" onclick=reset_canvas();></input>
+<canvas id="c" style="border:1px dotted;float:left;" ></canvas>
+<h2>Wave Generator</h2>
+<form>
+<button id="next_cycle_button" type="button">next cycle</button>
+<button id="reset_button" type="button">reset grid</button>
 <br/>
-<select id="detail" type="list" list="detail_list" onchange=reset_canvas();>
-<datalist id="detail_list">
-  <option>1</option>
-  <option>2</option>
-  <option>3</option>
-  <option>4</option>
-  <option selected>5</option>
-  <option>6</option>
-  <option>7</option>
-</datalist>
+<p>functions:</p>
+<button id="checkerboard_button" type="button">draw checkerboard</button>
+<p>options:</p>
+<select id="detail_select" type="list" list="detail_list">
 </select>
-<label for="detail">detail</label>
+<label for="detail_select">detail</label>
+</form>
 </div>
 <div>
-  cycle<p id='cycle'>&nbsp;</p>
-  mouse<p id='mouse_pos'>&nbsp;</p>
-  grid<p id='grid_pos'>&nbsp;</p>  
+<table border="1">
+<tr><th>info:</th></tr>
+<tr><td>cycle</td><td><span id='cycle'>&nbsp;</span></td></tr>
+<tr><td>mouse</td><td><span id='mouse_pos'>&nbsp;</span></td></tr>
+<tr><td>grid</td><td><span id='grid_pos'>&nbsp;</span></td></tr>
+</table>  
 </div>
-<script type='text/javascript' src='grid.js'></script>
+click on the blue rectangle!
+<script src='grid.js'></script>
 <script type='text/javascript'>
 
 "use strict";
+
+function toScope(ids) {
+  var a = [];
+  if(typeof(ids) !== undefined) { 
+    for(var n=0; n<ids.length; n++){
+      a[ids[n]] = document.getElementById(ids[n]);
+    }
+  }
+  return a;
+}
+
+// DOM Elements
+var buttons = toScope(['next_cycle_button', 'checkerboard_button', 'reset_button']);
+var selects = toScope(['detail_select']);
+//variables from grid.js
+var matrix;
+var grid;
+var cycle;
+var c;
+//functions from grid.js
+var update_cycleview;
+var log_matrix;
+var pixel;
+var init_grid;
+var checkerboard;
+var grid_main;
 
 function next_cycle(){
   var verbose = false;
@@ -46,32 +71,34 @@ function next_cycle(){
   var size = matrix.size;
   log_matrix(matrix.data);
   var last_matrix = [];
-  for(var x=0; x<size; x++){
+  console.log(matrix);
+  var x,y;
+  for(x=0; x<size; x++){
       last_matrix.push(matrix.data[x].slice());
   }
-  for(var y=0; y<size; y++){  
-    for(var x=0; x<size; x++){
+  for(y=0; y<size; y++){  
+    for(x=0; x<size; x++){
       var x_left = (x-1<0) && size-1 || x-1;
       var x_right = (x+1)%(size);
       var y_top = (y-1<0) && size-1 || y-1;
       var y_bottom = (y+1)%(size);
-      var left = parseInt(last_matrix[x_left][y]);
-      var right = parseInt(last_matrix[x_right][y]);
-      var top = parseInt(last_matrix[x][y_top]);
-      var bottom = parseInt(last_matrix[x][y_bottom]);
+      var left = parseInt(last_matrix[x_left][y], 10);
+      var right = parseInt(last_matrix[x_right][y], 10);
+      var top = parseInt(last_matrix[x][y_top], 10);
+      var bottom = parseInt(last_matrix[x][y_bottom], 10);
       var result;
       //rule 1 and 2
-      if(last_matrix[x][y] == 1 || last_matrix[x][y] == 2) { 
+      if(last_matrix[x][y] === 1 || last_matrix[x][y] === 2) { 
         pixel(x,y);
-        if(verbose) result = (last_matrix[x][y] + 1 )%3;
-      } else if(last_matrix[x][y] == 0) { //rule 3
-        if(left == 1 || right == 1 || top == 1 || bottom == 1) {
+        if(verbose) { result = (last_matrix[x][y] + 1 )%3; }
+      } else if(last_matrix[x][y] === 0) { //rule 3
+        if(left === 1 || right === 1 || top === 1 || bottom === 1) {
           pixel(x,y);
-          if(verbose) result = (last_matrix[x][y] + 1 )%3;
-        } else if(left == 0 && right == 0 && top == 0 && bottom == 0){
+          if(verbose) { result = (last_matrix[x][y] + 1 )%3; }
+        } else if(left === 0 && right === 0 && top === 0 && bottom === 0){
           // do nothing
-          if(verbose) result = (last_matrix[x][y] )%3;
-        } else { if(verbose) var result = (last_matrix[x][y] )%3; }
+          if(verbose) { result = (last_matrix[x][y] )%3; }
+        } else { if(verbose) { result = (last_matrix[x][y] )%3; } }
       }
       if(verbose){
         console.log('['+x+']['+y+']');
@@ -93,8 +120,26 @@ function reset_canvas(){
   update_cycleview(cycle);
 }
 
+function append_options(id, num, default_value){
+    var select = document.getElementById(id);
+    var options = [];
+    for( var n = 1; n <= num; n++){
+      options[n] = document.createElement('option');
+      if ( n === default_value ) {  options[n].setAttribute('selected',true); }
+      options[n].innerHTML=n;
+      select.appendChild(options[n]);
+    }
+  }
+
 function main(){
+  append_options('detail_select', 6, 4);
+  grid_main();
 }
+
+buttons.next_cycle_button.onclick = function() { next_cycle(); };
+buttons.checkerboard_button.onclick = function() { checkerboard(); };
+buttons.reset_button.onclick = function() { reset_canvas(); };
+selects.detail_select.onchange= function() { reset_canvas(); };
 
 $('canvas').click(function(e){
   var x = e.pageX - this.offsetLeft;
