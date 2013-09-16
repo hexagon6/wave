@@ -1,7 +1,7 @@
 /***
 *   Author: Tobi Turing <webdev@fet.li>
 *   Version: 0.2.2
-*   Date: 2013-09-16
+*   Date: 2013-09-17
 *   License: 
 *   The MIT License (MIT)
 
