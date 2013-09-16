@@ -2,8 +2,8 @@
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8">
 <meta name="author" content="Tobi Turing">
-<meta name="version" content="0.2beta">
-<meta name="date" content="2013-09-03">
+<meta name="version" content="0.2">
+<meta name="date" content="2013-09-16">
 <meta name="keywords" content="Cellular, Automata, Wave, Generator, Greenberg-Hastings Cellular Automaton">
 <title class="item">Cellular Automaton - Wave Generator</title>
 <script src='jquery-2.0.3.js'></script>
@@ -15,25 +15,31 @@
 <h2>Wave Generator</h2>
 <form>
 <button id="next_cycle_button" type="button">next cycle</button>
+<button id="start_button" type="button">start</button>
+<button id="stop_button" type="button">stop</button>
 <button id="reset_button" type="button">reset grid</button>
 <br/>
+<div id='functions_div'>
 <p>functions:</p>
 <button id="checkerboard_button" type="button">draw checkerboard</button>
-<p>options:</p>
+</div>
+<br/>
 <select id="detail_select" type="list" list="detail_list">
 </select>
 <label for="detail_select">detail</label>
 </form>
 </div>
-<div>
+<div id='debug_info'>
 <table border="1">
 <tr><th>info:</th></tr>
 <tr><td>cycle</td><td><span id='cycle'>&nbsp;</span></td></tr>
+<tr><td>speed</td><td><span id='speed'>&nbsp;</span></td></tr>
 <tr><td>mouse</td><td><span id='mouse_pos'>&nbsp;</span></td></tr>
 <tr><td>grid</td><td><span id='grid_pos'>&nbsp;</span></td></tr>
 </table>  
 </div>
-click on the blue rectangle!
+<br/>
+click on / touch the blue canvas to start!
 <script src='grid.js'></script>
 <script type='text/javascript'>
 
@@ -50,7 +56,7 @@ function toScope(ids) {
 }
 
 // DOM Elements
-var buttons = toScope(['next_cycle_button', 'checkerboard_button', 'reset_button']);
+var buttons = toScope(['next_cycle_button', 'start_button', 'stop_button', 'checkerboard_button', 'reset_button']);
 var selects = toScope(['detail_select']);
 //variables from grid.js
 var matrix;
@@ -64,6 +70,16 @@ var pixel;
 var init_grid;
 var checkerboard;
 var grid_main;
+var parse_url;
+
+/* ****** */
+var debug=false;
+
+var url_string = parse_url();
+if(typeof(url_string.debug) !== 'undefined') { 
+  debug = (url_string.debug === 'true'); 
+}
+
 
 function next_cycle(){
   var verbose = false;
@@ -71,7 +87,7 @@ function next_cycle(){
   var size = matrix.size;
   log_matrix(matrix.data);
   var last_matrix = [];
-  console.log(matrix);
+  if(debug) { console.log(matrix); }
   var x,y;
   for(x=0; x<size; x++){
       last_matrix.push(matrix.data[x].slice());
@@ -129,16 +145,89 @@ function append_options(id, num, default_value){
       options[n].innerHTML=n;
       select.appendChild(options[n]);
     }
+}
+
+var clock;
+var speed = 125; //interval time in ms
+
+function start_clock(speed){
+    function start(){
+        next_cycle();  
+        console.log('cycling..'+cycle+'. iteration');
+    }
+    clock = window.setInterval(start,speed);
+}
+
+function stop_clock(){
+    clearInterval(clock);
+    console.log('stopping auto cycle');
+}
+
+function draw_logo(x,y){
+  //w
+  pixel(1+x,4+y);
+  pixel(2+x,5+y);
+  pixel(2+x,6+y);
+  pixel(3+x,5+y);
+  pixel(4+x,5+y);
+  pixel(4+x,6+y);
+  pixel(5+x,4+y);
+  //a
+  pixel(6+x,6+y);
+  pixel(7+x,4+y);
+  pixel(7+x,5+y);
+  pixel(8+x,4+y);
+  pixel(9+x,5+y);
+  pixel(9+x,6+y);
+  //v
+  pixel(11+x,4+y);
+  pixel(12+x,5+y);
+  pixel(12+x,6+y);
+  pixel(13+x,5+y);
+  pixel(14+x,4+y);
+}
+
+function intro(){
+  var r = Math.floor(Math.random()*100);
+  pixel(0,0);
+  start_clock(75);
+  window.setTimeout(stop_clock,1800);
+  window.setTimeout(draw_logo,2200,0,3);
+  if(r > 75 ) { //long intro
+    window.setTimeout(pixel,2700,8,8);
+    window.setTimeout(pixel,2900,8,8);
+    window.setTimeout(start_clock,3000,125);
+    window.setTimeout(stop_clock,3500);
+    window.setTimeout(pixel,3750,8,8);
+    window.setTimeout(start_clock,4000,50);
+    window.setTimeout(stop_clock,4950);
+    window.setTimeout(reset_canvas,5000);
+  } else { //short intro
+    window.setTimeout(start_clock,3000,75);
+    window.setTimeout(stop_clock,3500);
+    window.setTimeout(reset_canvas,3501);
   }
+  console.log(r);
+  
+}
 
 function main(){
-  append_options('detail_select', 6, 4);
+  $('#functions_div').hide();
+  $('#debug_info').hide();
+  console.log(debug);
+  if(debug === true) {
+    $('#debug_info').show();
+  } 
+  append_options('detail_select', 8, 4);
   grid_main();
+  intro();
 }
 
 buttons.next_cycle_button.onclick = function() { next_cycle(); };
+buttons.start_button.onclick = function() { start_clock(speed); };
+buttons.stop_button.onclick = function() { stop_clock(); };
 buttons.checkerboard_button.onclick = function() { checkerboard(); };
-buttons.reset_button.onclick = function() { reset_canvas(); };
+buttons.reset_button.onclick = function() { stop_clock(); reset_canvas(); };
 selects.detail_select.onchange= function() { reset_canvas(); };
 
 $('canvas').click(function(e){
