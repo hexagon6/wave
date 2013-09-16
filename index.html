@@ -41,6 +41,7 @@
 <br/>
 click on / touch the blue canvas to start!
 <script src='grid.js'></script>
+<script src='draw.js'></script>
 <script type='text/javascript'>
 
 "use strict";
@@ -71,13 +72,21 @@ var init_grid;
 var checkerboard;
 var grid_main;
 var parse_url;
+//functions from draw.js
+var draw_heart;
+var draw_t_k;
+var draw_logo;
 
 /* ****** */
 var debug=false;
+var karel=false;
 
 var url_string = parse_url();
 if(typeof(url_string.debug) !== 'undefined') { 
   debug = (url_string.debug === 'true'); 
+}
+if(typeof(url_string.karel) !== 'undefined') { 
+  karel = (url_string.karel === 'true'); 
 }
 
 
@@ -169,52 +178,43 @@ function stop_clock(){
     clock_state = false;
 }
 
-function draw_logo(x,y){
-  //w
-  pixel(1+x,4+y);
-  pixel(2+x,5+y);
-  pixel(2+x,6+y);
-  pixel(3+x,5+y);
-  pixel(4+x,5+y);
-  pixel(4+x,6+y);
-  pixel(5+x,4+y);
-  //a
-  pixel(6+x,6+y);
-  pixel(7+x,4+y);
-  pixel(7+x,5+y);
-  pixel(8+x,4+y);
-  pixel(9+x,5+y);
-  pixel(9+x,6+y);
-  //v
-  pixel(11+x,4+y);
-  pixel(12+x,5+y);
-  pixel(12+x,6+y);
-  pixel(13+x,5+y);
-  pixel(14+x,4+y);
-}
-
 function intro(){
   var r = Math.floor(Math.random()*100);
-  pixel(0,0);
-  start_clock(60);
-  window.setTimeout(stop_clock,2000);
-  window.setTimeout(draw_logo,2200,0,3);
-  if(r > 75 ) { //long intro
-    window.setTimeout(pixel,2700,8,8);
-    window.setTimeout(pixel,2900,8,8);
-    window.setTimeout(start_clock,3000,125);
-    window.setTimeout(stop_clock,3500);
-    window.setTimeout(pixel,3750,8,8);
-    window.setTimeout(start_clock,4000,50);
-    window.setTimeout(stop_clock,4950);
-    window.setTimeout(reset_canvas,5000);
-  } else { //short intro
-    window.setTimeout(start_clock,3000,75);
-    window.setTimeout(stop_clock,3500);
-    window.setTimeout(reset_canvas,3501);
+  if( karel ) {
+    window.setTimeout(draw_heart,10);
+    window.setTimeout(draw_heart,2000);
+    window.setTimeout(draw_heart,2100);
+    window.setTimeout(draw_heart,2150);
+    window.setTimeout(draw_t_k,2050);
+    window.setTimeout(draw_t_k,2150);
+    window.setTimeout(start_clock,2300);
+    window.setTimeout(stop_clock,2499);
+    window.setTimeout(reset_canvas,2500);
+  } else {
+    pixel(0,0);
+    start_clock(60);
+    window.setTimeout(stop_clock,2000);
+    window.setTimeout(draw_logo,2200,0,3);
+    if( r > 90 || r < 10 ) {
+      window.setTimeout(draw_logo,2100,1,0);
+      window.setTimeout(draw_logo,2400,1,0);
+    }
+    if( r > 75 ) { //long intro
+      window.setTimeout(pixel,2700,8,8);
+      window.setTimeout(pixel,2900,8,8);
+      window.setTimeout(start_clock,3000,125);
+      window.setTimeout(stop_clock,3500);
+      window.setTimeout(pixel,3750,8,8);
+      window.setTimeout(start_clock,4000,50);
+      window.setTimeout(stop_clock,4950);
+      window.setTimeout(reset_canvas,5000);
+    } else { //short intro
+      window.setTimeout(start_clock,3000,75);
+      window.setTimeout(stop_clock,3500);
+      window.setTimeout(reset_canvas,3501);
+    }
   }
   console.log(r);
-  
 }
 
 function main(){
