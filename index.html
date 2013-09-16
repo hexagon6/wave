@@ -2,7 +2,7 @@
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8">
 <meta name="author" content="Tobi Turing">
-<meta name="version" content="0.2">
+<meta name="version" content="0.2.1">
 <meta name="date" content="2013-09-16">
 <meta name="keywords" content="Cellular, Automata, Wave, Generator, Greenberg-Hastings Cellular Automaton">
 <title class="item">Cellular Automaton - Wave Generator</title>
@@ -26,7 +26,7 @@
 <br/>
 <select id="detail_select" type="list" list="detail_list">
 </select>
-<label for="detail_select">detail</label>
+<label for="detail_select">level of detail</label>
 </form>
 </div>
 <div id='debug_info'>
@@ -148,19 +148,25 @@ function append_options(id, num, default_value){
 }
 
 var clock;
+var clock_state = false;
 var speed = 125; //interval time in ms
 
 function start_clock(speed){
     function start(){
         next_cycle();  
-        console.log('cycling..'+cycle+'. iteration');
+        if(debug) { console.log('cycling..'+cycle+'. iteration'); }
     }
-    clock = window.setInterval(start,speed);
+      
+    if ( !clock_state ) {
+      clock_state = true;
+      clock = window.setInterval(start,speed);
+    }
 }
 
 function stop_clock(){
     clearInterval(clock);
     console.log('stopping auto cycle');
+    clock_state = false;
 }
 
 function draw_logo(x,y){
@@ -190,8 +196,8 @@ function draw_logo(x,y){
 function intro(){
   var r = Math.floor(Math.random()*100);
   pixel(0,0);
-  start_clock(75);
-  window.setTimeout(stop_clock,1800);
+  start_clock(60);
+  window.setTimeout(stop_clock,2000);
   window.setTimeout(draw_logo,2200,0,3);
   if(r > 75 ) { //long intro
     window.setTimeout(pixel,2700,8,8);
