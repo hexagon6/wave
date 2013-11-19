@@ -33,7 +33,7 @@ THE SOFTWARE.
 
 //global definitions
 var karel, pixel, start_clock, stop_clock, pattern, reset_canvas, 
-show_interaction_text, set_untouched;
+show_interaction_text, set_untouched_state;
 
 var seq = {
     intro: function () {
