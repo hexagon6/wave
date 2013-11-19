@@ -2,263 +2,204 @@
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8">
 <meta name="author" content="Tobi Turing">
-<meta name="version" content="0.2.3">
-<meta name="date" content="2013-11-19">
+<meta id="vers" name="version" content="">
+<meta id="date" name="date" content="">
 <meta name="keywords" content="Cellular, Automata, Wave, Generator, Greenberg-Hastings Cellular Automaton">
-<title class="item">Cellular Automaton - Wave Generator</title>
-<script src='jquery-2.0.3.js'></script>
+<title class="item">Wave Generator</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="wave.css" title="compact" rel="stylesheet" type="text/css">
+<script src='ext/jquery-2.0.3.js'></script>
+<script src='settings.js'></script>
 <!-- http://en.wikipedia.org/wiki/Greenberg-Hastings_cellular_automaton -->
 </head>
-<body style="font-family:helvetica;">
-<div>
-<canvas id="c" style="border:1px dotted;float:left;" ></canvas>
-<h2>Wave Generator</h2>
-<form>
-<button id="next_cycle_button" type="button">next cycle</button>
-<button id="start_button" type="button">start</button>
-<button id="stop_button" type="button">stop</button>
-<button id="reset_button" type="button">reset grid</button>
-<br/>
-<div id='functions_div'>
-<p>functions:</p>
-<button id="checkerboard_button" type="button">draw checkerboard</button>
-<button id="export_button" type="button">export grid</button>
+<body>
+<div class="main">
+<div id="logo">
+    <h2 id="logo_titel" class="unselectable">Wave Generator</h2>
 </div>
-<br/>
-<select id="detail_select" type="list" list="detail_list">
-</select>
-<label for="detail_select">level of detail</label>
+<div id="canvas_container">
+    <div id="hover_text">
+    Click here
+    </div>
+    <canvas id="c" class="main">
+    </canvas>
+</div>
+<form>
+<button id="reset_button" class="controls" type="button">reset</button>
+<button id="start_button" class="controls" type="button">start</button>
+<button id="next_cycle_button" class="controls" type="button">next</button>
+<button id="save_button" class="state" type="button">save</button>
+<button id="load_button" class="state" type="button">load</button>
+<button id="export_button" class="state" type="button">export</button>
+<select id="detail_select" class="controls" type="list" list="detail_list"></select>
+<label id="detail_label" class="controls" for="detail_select">level of detail</label>
 </form>
 </div>
 <div id='debug_info'>
-<table border="1">
-<tr><th>info:</th></tr>
-<tr><td>cycle</td><td><span id='cycle'>&nbsp;</span></td></tr>
-<tr><td>speed</td><td><span id='speed'>&nbsp;</span></td></tr>
-<tr><td>mouse</td><td><span id='mouse_pos'>&nbsp;</span></td></tr>
-<tr><td>grid</td><td><span id='grid_pos'>&nbsp;</span></td></tr>
-</table>  
+    <table border="1">
+    <tr><th>info:</th></tr>
+    <tr><td>cycle</td><td><span id='cycle'>&nbsp;</span></td></tr>
+    <tr><td>speed</td><td><span id='speed'>&nbsp;</span></td></tr>
+    <tr><td>mouse</td><td><span id='mouse_pos'>&nbsp;</span></td></tr>
+    <tr><td>grid</td><td><span id='grid_pos'>&nbsp;</span></td></tr>
+    </table>  
 </div>
-<br/>
-click on / touch the blue canvas to start!
 <script src='grid.js'></script>
-<script src='draw.js'></script>
+<script src='view.js'></script>
+<script src='pattern.js'></script>
+<script src='seq.js'></script>
+<script src='tick.js'></script>
 <script type='text/javascript'>
 
 "use strict";
 
-function toScope(ids) {
-  var a = [];
-  if(typeof(ids) !== undefined) { 
-    for(var n=0; n<ids.length; n++){
-      a[ids[n]] = document.getElementById(ids[n]);
-    }
-  }
-  return a;
-}
+//global vars
+var $, c, cycle, clock_state, grid, grid_main, js, log_matrix, matrix,
+next_cycle, pixel, parse_url, reset_canvas, seq, settings, set_grid, start_clock,
+stop_clock;
 
-// DOM Elements
-var buttons = toScope(['next_cycle_button', 'start_button', 'stop_button', 
-  'checkerboard_button', 'reset_button', 'export_button']);
-var selects = toScope(['detail_select']);
-//variables from grid.js
-var matrix;
-var grid;
-var cycle;
-var c;
-//functions from grid.js
-var update_cycleview;
-var log_matrix;
-var pixel;
-var init_grid;
-var checkerboard;
-var grid_main;
-var parse_url;
-//functions from draw.js
-var draw_heart;
-var draw_t_k;
-var draw_logo;
-
-/* ****** */
-var debug=false;
-var karel=false;
+var karel = false;
 
 var url_string = parse_url();
-if(typeof(url_string.debug) !== 'undefined') { 
-  debug = (url_string.debug === 'true'); 
+if (typeof(url_string.debug) !== 'undefined') { 
+    settings.debug = (url_string.debug === 'true'); 
 }
-if(typeof(url_string.karel) !== 'undefined') { 
-  karel = (url_string.karel === 'true'); 
-}
-
-
-function next_cycle(){
-  var verbose = false;
-  update_cycleview(++cycle);
-  var size = matrix.size;
-  log_matrix(matrix.data);
-  var last_matrix = [];
-  if(debug) { console.log(matrix); }
-  var x,y;
-  for(x=0; x<size; x++){
-      last_matrix.push(matrix.data[x].slice());
-  }
-  for(y=0; y<size; y++){  
-    for(x=0; x<size; x++){
-      var x_left = (x-1<0) && size-1 || x-1;
-      var x_right = (x+1)%(size);
-      var y_top = (y-1<0) && size-1 || y-1;
-      var y_bottom = (y+1)%(size);
-      var left = parseInt(last_matrix[x_left][y], 10);
-      var right = parseInt(last_matrix[x_right][y], 10);
-      var top = parseInt(last_matrix[x][y_top], 10);
-      var bottom = parseInt(last_matrix[x][y_bottom], 10);
-      var result;
-      //rule 1 and 2
-      if(last_matrix[x][y] === 1 || last_matrix[x][y] === 2) { 
-        pixel(x,y);
-        if(verbose) { result = (last_matrix[x][y] + 1 )%3; }
-      } else if(last_matrix[x][y] === 0) { //rule 3
-        if(left === 1 || right === 1 || top === 1 || bottom === 1) {
-          pixel(x,y);
-          if(verbose) { result = (last_matrix[x][y] + 1 )%3; }
-        } else if(left === 0 && right === 0 && top === 0 && bottom === 0){
-          // do nothing
-          if(verbose) { result = (last_matrix[x][y] )%3; }
-        } else { if(verbose) { result = (last_matrix[x][y] )%3; } }
-      }
-      if(verbose){
-        console.log('['+x+']['+y+']');
-        console.log('  '+top);
-        console.log(left+' '+last_matrix[x][y]+' '+right+'  => '+result);
-        console.log('  '+bottom);
-      }
-    }
-  }
-  log_matrix(last_matrix);
-  log_matrix(matrix.data);
+if (typeof(url_string.karel) !== 'undefined') { 
+    karel = (url_string.karel === 'true'); 
 }
 
-function reset_canvas(){
-  c.canvas.width++;
-  c.canvas.width--;
-  init_grid();
-  cycle = 0;
-  update_cycleview(cycle);
-}
-
-function export_grid(){
-  var m = JSON.stringify(matrix);
-  var generator=window.open('','name','height=400,width=500');
-  generator.document.write(JSON.stringify(matrix));
-  generator.document.close();
-
-
-}
-
-function append_options(id, num, default_value){
+function append_options(id, num, default_value) {
     var select = document.getElementById(id);
     var options = [];
-    for( var n = 1; n <= num; n++){
-      options[n] = document.createElement('option');
-      if ( n === default_value ) {  options[n].setAttribute('selected',true); }
-      options[n].innerHTML=n;
-      select.appendChild(options[n]);
+    for (var n = 1; n <= num; n++) {
+        options[n] = document.createElement('option');
+        if (n === default_value) { 
+            options[n].setAttribute('selected', true); 
+        }
+        options[n].innerHTML = n;
+        select.appendChild(options[n]);
     }
 }
 
-var clock;
-var clock_state = false;
-var speed = 125; //interval time in ms
-
-function start_clock(speed){
-    function start(){
-        next_cycle();  
-        if(debug) { console.log('cycling..'+cycle+'. iteration'); }
-    }
-      
-    if ( !clock_state ) {
-      clock_state = true;
-      clock = window.setInterval(start,speed);
+function press_start_stop_button(b, speed) {
+    if (!clock_state) {
+        b.innerHTML = 'stop';
+        start_clock(speed);
+        $('#save_button').attr("disabled",true);
+        $('#next_cycle_button').attr("disabled",true);
+    } else {
+        b.innerHTML = 'start';
+        stop_clock();
+        $('#save_button').attr("disabled",false);
+        $('#next_cycle_button').attr("disabled",false);
     }
 }
 
-function stop_clock(){
-    clearInterval(clock);
-    console.log('stopping auto cycle');
-    clock_state = false;
+function enable_control_buttons() {
+    $('#next_cycle_button').click(function (e) { 
+        next_cycle();
+    });
+    $('#start_button').click(function (e) { 
+        press_start_stop_button(this, settings.speed);
+    });
+    $('#reset_button').click(function (e) { 
+        stop_clock(); 
+        reset_canvas(); 
+    });
+    $('.controls').attr("disabled",false);
 }
 
-function intro(){
-  var r = Math.floor(Math.random()*100);
-  if( karel ) {
-    window.setTimeout(draw_heart,10);
-    window.setTimeout(draw_heart,2000);
-    window.setTimeout(draw_heart,2100);
-    window.setTimeout(draw_heart,2150);
-    window.setTimeout(draw_t_k,2050);
-    window.setTimeout(draw_t_k,2150);
-    window.setTimeout(start_clock,2300);
-    window.setTimeout(stop_clock,2499);
-    window.setTimeout(reset_canvas,2500);
-  } else {
-    pixel(0,0);
-    start_clock(60);
-    window.setTimeout(stop_clock,2000);
-    window.setTimeout(draw_logo,2200,0,3);
-    if( r > 90 || r < 10 ) {
-      window.setTimeout(draw_logo,2100,1,0);
-      window.setTimeout(draw_logo,2400,1,0);
-    }
-    if( r > 75 ) { //long intro
-      window.setTimeout(pixel,2700,8,8);
-      window.setTimeout(pixel,2900,8,8);
-      window.setTimeout(start_clock,3000,125);
-      window.setTimeout(stop_clock,3500);
-      window.setTimeout(pixel,3750,8,8);
-      window.setTimeout(start_clock,4000,50);
-      window.setTimeout(stop_clock,4950);
-      window.setTimeout(reset_canvas,5000);
-    } else { //short intro
-      window.setTimeout(start_clock,3000,75);
-      window.setTimeout(stop_clock,3500);
-      window.setTimeout(reset_canvas,3501);
-    }
-  }
-  console.log(r);
-}
-
-function main(){
-  //$('#functions_div').hide();
-  $('#debug_info').hide();
-  console.log(debug);
-  if(debug === true) {
-    $('#debug_info').show();
-  } 
-  append_options('detail_select', 8, 4);
-  grid_main();
-  intro();
-}
-
-buttons.next_cycle_button.onclick = function() { next_cycle(); };
-buttons.start_button.onclick = function() { start_clock(speed); };
-buttons.stop_button.onclick = function() { stop_clock(); };
-buttons.checkerboard_button.onclick = function() { checkerboard(); };
-buttons.export_button.onclick = function() { export_grid(); };
-buttons.reset_button.onclick = function() { stop_clock(); reset_canvas(); };
-selects.detail_select.onchange= function() { reset_canvas(); };
-
-
-$('canvas').click(function(e){
-  var x = e.pageX - this.offsetLeft;
-  var y = e.pageY - this.offsetTop;
-  $('#mouse_pos').html(x + ', ' + y);
-  var g_x = Math.floor( x / grid.pixel );
-  var g_y = Math.floor( y / grid.pixel );
-  pixel(g_x,g_y);
-  $('#grid_pos').html(g_x + ', ' + g_y);
-  log_matrix(matrix.data);
+$('#detail_select').change(function () {
+    reset_canvas();
+    $('#load_button').attr("disabled",true);
 });
+
+$('#save_button').click(function (e) {
+    if (settings.verbose) {
+        log_matrix(matrix.data);
+    }
+    settings.save = JSON.stringify(matrix);
+    console.log('cookie saved', settings.save);
+    $('#load_button').attr("disabled",false);
+});
+
+$('#load_button').click(function (e) {
+    if (settings.verbose) {
+        log_matrix(matrix.data);
+    }
+    set_grid(JSON.parse(settings.save));
+});
+
+$('#export_button').click(function (e) {
+    var m = JSON.stringify(matrix);
+    var generator=window.open('','name','height=400,width=500');
+    generator.document.write(JSON.stringify(matrix));
+    generator.document.close();
+});
+
+function set_touched_state() {
+    settings.touched = true;
+    $('#save_button').attr("disabled",false);
+    $('#export_button').attr("disabled",false);
+    $('#hover_text').hide();
+    $('.controls').attr("disabled",false);
+}
+
+function set_untouched_state() {
+    settings.touched = false;
+    $('#save_button').attr("disabled",true);
+    $('#export_button').attr("disabled",true);
+    $('#hover_text').show();
+    $('.controls').attr("disabled",true);
+}
+
+$('canvas').click(function (e) {
+    if (!settings.touched && settings.ready) {
+        set_touched_state();
+        $('canvas').css({"border-width": "1px"});
+    }
+    var x = e.pageX - this.offsetLeft;
+    var y = e.pageY - this.offsetTop;
+    $('#mouse_pos').html(x + ', ' + y);
+    var g_x = Math.floor(x / grid.pixel);
+    var g_y = Math.floor(y / grid.pixel);
+    pixel(g_x, g_y);
+    $('#grid_pos').html(g_x + ', ' + g_y);
+    log_matrix(matrix.data);
+});
+
+function show_interaction_text() {
+    $('#hover_text').show();
+}
+
+function set_ready() {
+    settings.ready = true;
+}
+
+function main() {
+    enable_control_buttons();
+    $('#vers').attr("content", settings.version);
+    $('#date').attr("content", settings.date);
+    $('#hover_text').hide();
+    $('#debug_info').hide();
+    $('.state').attr("disabled",true);
+    $('.controls').attr("disabled",true);
+    if (settings.debug === true) {
+        $('#debug_info').show();
+    } 
+    append_options('detail_select', settings.detail.max, settings.detail.initial);
+    grid_main();
+    $('.unselectable').on('selectstart dragstart', 
+    function (evt) {
+        evt.preventDefault();
+        return false; 
+    });
+    if (settings.intro) { 
+        seq.intro();
+    } else {
+        settings.ready = true;
+    }
+}
 
 main();
 </script>

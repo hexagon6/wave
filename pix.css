@@ -1,0 +1,65 @@
+/* pix.css */
+
+html, body {
+    font-family:helvetica;
+    float:center;
+    background-color: #2E9AFE;
+    color: #58FAF4;
+}
+
+#logo {
+    height: 40px;
+}
+#hover_text {
+    width: 99%;
+    text-align: center;
+    position: absolute;
+    top: 180px;
+    font-weight:900;
+    pointer-events: none;
+    color: #58FAF4;
+    font-size:3.5em;
+}
+
+#logo_titel {
+    padding: 0px;
+    margin: 0px;
+    color: #2ECCFA;
+    pointer-events: none;
+}
+
+#logo_dot {
+    position: relative;
+    top: -60px;
+    left: +8px;
+    font-size: 4em;
+    pointer-events: none;
+}
+
+div.main {
+    display: block; 
+    float:center; 
+    margin-left: auto; 
+    margin-right: auto;
+    text-align: center;
+    font-family:helvetica;
+}
+
+div#canvas_container > * {
+    float:center;
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+canvas.main {
+    border:0px dotted;
+    border-color: #2ECCFA;
+    padding:0px;
+    margin:0px;
+}
+
+div#debug_info {
+    position: absolute;
+    top: 50px;
+    left: 0px;
+}
