@@ -2,8 +2,8 @@
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8">
 <meta name="author" content="Tobi Turing">
-<meta name="version" content="0.2.2">
-<meta name="date" content="2013-09-17">
+<meta name="version" content="0.2.3">
+<meta name="date" content="2013-11-19">
 <meta name="keywords" content="Cellular, Automata, Wave, Generator, Greenberg-Hastings Cellular Automaton">
 <title class="item">Cellular Automaton - Wave Generator</title>
 <script src='jquery-2.0.3.js'></script>
@@ -22,6 +22,7 @@
 <div id='functions_div'>
 <p>functions:</p>
 <button id="checkerboard_button" type="button">draw checkerboard</button>
+<button id="export_button" type="button">export grid</button>
 </div>
 <br/>
 <select id="detail_select" type="list" list="detail_list">
@@ -57,7 +58,8 @@ function toScope(ids) {
 }
 
 // DOM Elements
-var buttons = toScope(['next_cycle_button', 'start_button', 'stop_button', 'checkerboard_button', 'reset_button']);
+var buttons = toScope(['next_cycle_button', 'start_button', 'stop_button', 
+  'checkerboard_button', 'reset_button', 'export_button']);
 var selects = toScope(['detail_select']);
 //variables from grid.js
 var matrix;
@@ -145,6 +147,15 @@ function reset_canvas(){
   update_cycleview(cycle);
 }
 
+function export_grid(){
+  var m = JSON.stringify(matrix);
+  var generator=window.open('','name','height=400,width=500');
+  generator.document.write(JSON.stringify(matrix));
+  generator.document.close();
+
+
+}
+
 function append_options(id, num, default_value){
     var select = document.getElementById(id);
     var options = [];
@@ -218,7 +229,7 @@ function intro(){
 }
 
 function main(){
-  $('#functions_div').hide();
+  //$('#functions_div').hide();
   $('#debug_info').hide();
   console.log(debug);
   if(debug === true) {
@@ -233,8 +244,10 @@ buttons.next_cycle_button.onclick = function() { next_cycle(); };
 buttons.start_button.onclick = function() { start_clock(speed); };
 buttons.stop_button.onclick = function() { stop_clock(); };
 buttons.checkerboard_button.onclick = function() { checkerboard(); };
+buttons.export_button.onclick = function() { export_grid(); };
 buttons.reset_button.onclick = function() { stop_clock(); reset_canvas(); };
 selects.detail_select.onchange= function() { reset_canvas(); };
+
 
 $('canvas').click(function(e){
   var x = e.pageX - this.offsetLeft;
