@@ -1,10 +1,17 @@
 /* pix.css */
 
-html, body {
+html, body, a {
     font-family:helvetica;
     float:center;
-    background-color: #2E9AFE;
-    color: #58FAF4;
+    background-color: #000000;
+    color: #FF0000;
+    text-decoration: none;
+}
+
+.main {
+    background-color: #000000;
+    color: #FF0000;
+    border-color: #FFFFFF;
 }
 
 #logo {
@@ -17,14 +24,13 @@ html, body {
     top: 180px;
     font-weight:900;
     pointer-events: none;
-    color: #58FAF4;
     font-size:3.5em;
 }
 
 #logo_titel {
     padding: 0px;
     margin: 0px;
-    color: #2ECCFA;
+    color: #FFFFFF;
     pointer-events: none;
 }
 
@@ -53,7 +59,6 @@ div#canvas_container > * {
 
 canvas.main {
     border:0px dotted;
-    border-color: #2ECCFA;
     padding:0px;
     margin:0px;
 }
@@ -63,3 +68,10 @@ div#debug_info {
     top: 50px;
     left: 0px;
 }
+
+div#footer {
+    font-size:0.7em;
+    left:0px;
+    float:left;
+}
+

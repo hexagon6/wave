@@ -7,7 +7,7 @@ var js = {
 };
 
 var settings = {
-    version: '0.2.4',
+    version: '0.2.5',
     date: '2013-11-19',
     canvas: {
         size: 640

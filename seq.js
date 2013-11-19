@@ -63,14 +63,14 @@ var seq = {
             window.setTimeout(stop_clock, 4950);
             window.setTimeout(reset_canvas, 5000);
             window.setTimeout(show_interaction_text, 5002);
-            window.setTimeout(set_untouched, 5003);
+            window.setTimeout(set_untouched_state, 5003);
             window.setTimeout(set_ready, 5004);
         } else { //short intro
             window.setTimeout(start_clock, 3000, 75);
             window.setTimeout(stop_clock, 3500);
             window.setTimeout(reset_canvas, 3501);
             window.setTimeout(show_interaction_text, 3502);
-            window.setTimeout(set_untouched, 3503);
+            window.setTimeout(set_untouched_state, 3503);
             window.setTimeout(set_ready, 3504);
         }
         

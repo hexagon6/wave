@@ -52,7 +52,11 @@ var grid;
 var matrix;
 var cycle = 0;
 // 0: resting, 1: excited, 2: refractoring
-var state_colors = [ '#2E9AFE', '#58FAF4' , '#2ECCFA' ];
+var state_colors = [ 
+    $('#style').css('background-color'), 
+    $('#style').css('color'), 
+    $('#style').css('border-left-color') 
+];
 
 function parse_url() {
     var query_string = {};

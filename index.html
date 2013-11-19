@@ -7,18 +7,19 @@
 <meta name="keywords" content="Cellular, Automata, Wave, Generator, Greenberg-Hastings Cellular Automaton">
 <title class="item">Wave Generator</title>
 <meta http-equiv="Content-Style-Type" content="text/css">
-<link href="wave.css" title="compact" rel="stylesheet" type="text/css">
+<link href="wave.css" title="wave" rel="stylesheet" type="text/css">
+<link href="pix.css" title="pixelove" rel="alternate stylesheet" type="text/css">
 <script src='ext/jquery-2.0.3.js'></script>
 <script src='settings.js'></script>
-<!-- http://en.wikipedia.org/wiki/Greenberg-Hastings_cellular_automaton -->
 </head>
 <body>
+<span id="style" class="main"></span>
 <div class="main">
 <div id="logo">
     <h2 id="logo_titel" class="unselectable">Wave Generator</h2>
 </div>
 <div id="canvas_container">
-    <div id="hover_text">
+    <div id="hover_text" class="main">
     Click here
     </div>
     <canvas id="c" class="main">
@@ -43,6 +44,11 @@
     <tr><td>mouse</td><td><span id='mouse_pos'>&nbsp;</span></td></tr>
     <tr><td>grid</td><td><span id='grid_pos'>&nbsp;</span></td></tr>
     </table>  
+</div>
+<div id='footer' class='main'>
+  <a href="http://en.wikipedia.org/wiki/Greenberg-Hastings_cellular_automaton">
+  Info</a>, author: 
+  <a href="http://dev.fet.li">Tobi Turing</a>
 </div>
 <script src='grid.js'></script>
 <script src='view.js'></script>
@@ -201,6 +207,8 @@ function main() {
     }
 }
 
-main();
+$(document).ready(function() {
+  main();
+});
 </script>
 </body></html>
