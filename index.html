@@ -34,6 +34,10 @@
 <button id="export_button" class="state" type="button">export</button>
 <select id="detail_select" class="controls" type="list" list="detail_list"></select>
 <label id="detail_label" class="controls" for="detail_select">level of detail</label>
+<select id="nb_select" class="controls" type="list" list="neighborhood_list"></select>
+<label id="nb_label" class="controls" for="nb_select">neighborhood</label>
+<select id="nb_r_select" class="controls" type="list" list="neighborhood_r_list"></select>
+<label id="nb_r_label" class="controls" for="nb_r_select">radius</label>
 </form>
 </div>
 <div id='debug_info'>
@@ -62,7 +66,7 @@
 //global vars
 var $, c, cycle, clock_state, grid, grid_main, js, log_matrix, matrix,
 next_cycle, pixel, parse_url, reset_canvas, seq, settings, set_grid, start_clock,
-stop_clock;
+stop_clock, algorithms;
 
 var karel = false;
 
@@ -78,6 +82,33 @@ function append_options(id, num, default_value) {
     var select = document.getElementById(id);
     var options = [];
     for (var n = 1; n <= num; n++) {
+        options[n] = document.createElement('option');
+        if (n === default_value) { 
+            options[n].setAttribute('selected', true); 
+        }
+        options[n].innerHTML = n;
+        select.appendChild(options[n]);
+    }
+}
+
+function append_options_nb(id, algorithms, default_value) {
+    var select = document.getElementById(id);
+    var options = [];
+    for (var key in algorithms.GH.neighborhood) {
+        options[key] = document.createElement('option');
+        if (key === default_value) { 
+            options[key].setAttribute('selected', true); 
+        }
+        options[key].innerHTML = key;
+        select.appendChild(options[key]);
+    }
+}
+
+function append_options_nb_r(id, neighborhood, default_value) {
+    var select = document.getElementById(id);
+    $('#'+id).children().remove();
+    var options = [];
+    for (var n = 1; n <= algorithms.GH.neighborhood[neighborhood].length; n++) {
         options[n] = document.createElement('option');
         if (n === default_value) { 
             options[n].setAttribute('selected', true); 
@@ -118,6 +149,15 @@ function enable_control_buttons() {
 $('#detail_select').change(function () {
     reset_canvas();
     $('#load_button').attr("disabled",true);
+});
+
+$('#nb_select').change(function () {
+    settings.algorithm.neighborhood.type = $(this).val();
+    append_options_nb_r('nb_r_select', $(this).val(), 1);
+});
+
+$('#nb_r_select').change(function () {
+    settings.algorithm.neighborhood.r = parseInt($(this).val());
 });
 
 $('#save_button').click(function (e) {
@@ -194,6 +234,8 @@ function main() {
         $('#debug_info').show();
     } 
     append_options('detail_select', settings.detail.max, settings.detail.initial);
+    append_options_nb('nb_select', algorithms, 1);
+    append_options_nb_r('nb_r_select', 'neumann', 1);
     grid_main();
     $('.unselectable').on('selectstart dragstart', 
     function (evt) {

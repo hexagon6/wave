@@ -7,8 +7,15 @@ var js = {
 };
 
 var settings = {
-    version: '0.2.5',
-    date: '2013-11-19',
+    version: '0.3',
+    date: '2013-11-20',
+    algorithm: {
+        type: 'GH',
+        neighborhood: {
+            type: 'neumann', //neumann or moore
+            r: 1 //distance
+        }
+    },
     canvas: {
         size: 640
     },
