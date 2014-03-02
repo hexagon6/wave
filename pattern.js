@@ -129,4 +129,15 @@ var pattern = {
         pixel(12,8);
         
     },
+    
+    line:function (){
+	for(var j=0; j<2; j++){
+          for(var i=0; i<matrix.size; i++){
+            pixel(i,j);
+          }
+        }
+        for(var i=0; i<matrix.size; i++){
+            pixel(i,0);
+        }
+    },
 }

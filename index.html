@@ -2,7 +2,7 @@
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8">
 <meta name="author" content="Tobi Turing">
-<meta id="vers" name="version" content="0.2.6">
+<meta id="vers" name="version" content="0.2.7">
 <meta id="date" name="date" content="2014-03-02">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="Cellular, Automata, Wave, Generator, Greenberg-Hastings Cellular Automaton">
@@ -145,8 +145,9 @@ function enable_control_buttons() {
     });
     $('#reset_button').click(function (e) { 
         stop_clock(); 
-        reset_canvas(); 
-        pattern.heart();
+        reset_canvas();
+        $('#start_button').html('start');
+        //pattern.line();
     });
     $('.controls').attr("disabled", false);
 }
