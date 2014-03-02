@@ -8,6 +8,10 @@ html, body, a {
     text-decoration: none;
 }
 
+body,div{
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 .main {
     background-color: #2E9AFE;
     color: #58FAF4;
