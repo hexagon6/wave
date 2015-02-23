@@ -7,15 +7,24 @@ var js = {
 };
 
 var settings = {
-    version: '0.3',
-    date: '2013-11-20',
-    algorithm: {
-        type: 'GH',
-        neighborhood: {
-            type: 'neumann', //neumann or moore
-            r: 1 //distance
+    version: '0.4',
+    date: '2015-02-23',
+    algorithms: {
+        'GH': {
+            neighborhood: {
+                type: 'neumann', //neumann or moore
+                r: 1 //distance
+            },
+        },
+        'TT' : {
+            neighborhood: {
+                type: 'random',
+                r: 1
+            }
         }
     },
+    algorithm: 'TT',
+    algorithm_state: 0,
     canvas: {
         size: 640
     },

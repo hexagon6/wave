@@ -2,8 +2,8 @@
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8">
 <meta name="author" content="Tobi Turing">
-<meta id="vers" name="version" content="0.2.7">
-<meta id="date" name="date" content="2014-03-02">
+<meta id="vers" name="version" content="0.4">
+<meta id="date" name="date" content="2015-02-23">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="Cellular, Automata, Wave, Generator, Greenberg-Hastings Cellular Automaton">
 <title class="item">Wave Generator</title>
@@ -11,6 +11,7 @@
 <link href="wave.css" title="wave" rel="stylesheet" type="text/css">
 <link href="pix.css" title="pixelove" rel="alternate stylesheet" type="text/css">
 <script src='ext/jquery-2.0.3.js'></script>
+<script src='ext/underscore.js'></script>
 <script src='settings.js'></script>
 </head>
 <body>
@@ -36,6 +37,8 @@
 <button id="toimage_button" type="button" style="display:none">2image</button>
 <select id="detail_select" class="controls" type="list" list="detail_list"></select>
 <label id="detail_label" class="controls" for="detail_select">level of detail</label>
+<select id="algo_select" class="controls" type="list" list="algo_list"></select>
+<label id="algo_label" class="controls" for="algo_select">algorithm</label>
 <select id="nb_select" class="controls" type="list" list="neighborhood_list"></select>
 <label id="nb_label" class="controls" for="nb_select">neighborhood</label>
 <select id="nb_r_select" class="controls" type="list" list="neighborhood_r_list"></select>
@@ -56,6 +59,7 @@
   Info</a>, author: 
   <a href="http://dev.fet.li">Tobi Turing</a>
 </div>
+<script src='algo.js'></script>
 <script src='grid.js'></script>
 <script src='view.js'></script>
 <script src='pattern.js'></script>
@@ -93,26 +97,40 @@ function append_options(id, num, default_value) {
     }
 }
 
-function append_options_nb(id, algorithms, default_value) {
+function append_options_algo(id, algorithms, default_value) {
     var select = document.getElementById(id);
     var options = [];
-    for (var key in algorithms.GH.neighborhood) {
-        if (algorithms.GH.neighborhood.hasOwnProperty(key)) {
-            options[key] = document.createElement('option');
-            if (key === default_value) { 
-                options[key].setAttribute('selected', true); 
-            }
-            options[key].innerHTML = key;
-            select.appendChild(options[key]);
+    _.each(algorithms, function(num, key) {
+        options[num] = document.createElement('option');
+        if (num === default_value) {
+            options[num].setAttribute('selected', true);
         }
-    }
+        options[num].innerHTML = num;
+        select.appendChild(options[num]);
+    });
+}
+
+function append_options_nb(id, algorithms, default_value) {
+    var select = document.getElementById(id);
+    $('#' + id).children().remove();
+    var options = [];
+
+    var n = _.keys(algorithms.neighborhood);
+    _.each(n, function(num, key) {
+        options[num] = document.createElement('option');
+        if (num === default_value) { 
+            options[num].setAttribute('selected', true); 
+        }
+        options[num].innerHTML = num;
+        select.appendChild(options[num]);
+    });
 }
 
 function append_options_nb_r(id, neighborhood, default_value) {
     var select = document.getElementById(id);
     $('#' + id).children().remove();
     var options = [];
-    for (var n = 1; n <= algorithms.GH.neighborhood[neighborhood].length; n++) {
+    for (var n = 1; n <= algorithms[settings.algorithm].neighborhood[neighborhood].radius.length; n++) {
         options[n] = document.createElement('option');
         if (n === default_value) { 
             options[n].setAttribute('selected', true); 
@@ -158,12 +176,17 @@ $('#detail_select').change(function () {
 });
 
 $('#nb_select').change(function () {
-    settings.algorithm.neighborhood.type = $(this).val();
+    settings.algorithms[settings.algorithm].neighborhood.type = $(this).val();
     append_options_nb_r('nb_r_select', $(this).val(), 1);
 });
 
 $('#nb_r_select').change(function () {
-    settings.algorithm.neighborhood.r = parseInt($(this).val(), 10);
+    settings.algorithms[settings.algorithm].neighborhood.r = parseInt($(this).val(), 10);
+});
+
+$('#algo_select').change(function (){
+    settings.algorithm = $(this).val();
+    append_options_nb('nb_select', algorithms[settings.algorithm], 1);
 });
 
 $('#save_button').click(function (e) {
@@ -255,8 +278,9 @@ function main() {
         $('#debug_info').show();
     } 
     append_options('detail_select', settings.detail.max, settings.detail.initial);
-    append_options_nb('nb_select', algorithms, 1);
-    append_options_nb_r('nb_r_select', 'neumann', 1);
+    append_options_nb('nb_select', algorithms[settings.algorithm], 1);
+    append_options_nb_r('nb_r_select', 'random', 1);
+    append_options_algo('algo_select', _.keys(settings.algorithms), settings.algorithm);
     grid_main();
     $('.unselectable').on('selectstart dragstart', 
     function (evt) {
