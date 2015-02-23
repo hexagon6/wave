@@ -33,7 +33,7 @@ THE SOFTWARE.
 "use strict";
 
 //from settings.js
-var js, settings;
+var js, settings, $;
 js.grid = true;
 
 //from view.js
@@ -42,7 +42,7 @@ var update_cycleview;
 function init_2Dcanvas(id) {
     var canvas = document.getElementById(id);
     var edge = 100;
-    var max_size = Math.min(window.innerWidth-edge,window.innerHeight-edge);
+    var max_size = Math.min(window.innerWidth - edge,window.innerHeight - edge);
     canvas.width = canvas.height = Math.max(max_size, 256);
     return canvas.getContext('2d');
 }
@@ -172,8 +172,7 @@ function fill_rect(start, end) {
 }
 
 function log_matrix(matrix) {
-    var verbose = settings.verbose;
-    if (verbose) {
+    if (settings.verbose) {
         console.group('matrix data:');
         var x = 0;
         for (x = 0; x < matrix.length; x++) {
