@@ -53,10 +53,15 @@ var matrix;
 var cycle = 0;
 // 0: resting, 1: excited, 2: refractoring
 var state_colors = [ 
-    $('#style').css('background-color'), 
-    $('#style').css('color'), 
-    $('#style').css('border-left-color') 
+    $('#style').css('background-color'),
+    '#000000',
+    '#0FDFFF',
+    '#FFFFFF',
+    $('#style').css('color'),
+    $('#style').css('border-left-color')
 ];
+settings.steps = state_colors.length;
+
 
 function parse_url() {
     var query_string = {};
@@ -95,7 +100,7 @@ function draw_pixel(canvas_context, rel_pos) {
 }
 
 function next_value(x, y) {
-    matrix.data[x][y] = (matrix.data[x][y] + 1) % 3;
+    matrix.data[x][y] = (matrix.data[x][y] + 1) % settings.steps;
     return matrix.data[x][y];
 }
 

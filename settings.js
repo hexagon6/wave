@@ -36,6 +36,7 @@ var settings = {
     ready: false,
     save: false,
     speed: 125,
+    steps: 4,
     verbose: false   
 }
 
