@@ -43,6 +43,8 @@
 <label id="nb_label" class="controls" for="nb_select">neighborhood</label>
 <select id="nb_r_select" class="controls" type="list" list="neighborhood_r_list"></select>
 <label id="nb_r_label" class="controls" for="nb_r_select">radius</label>
+<select id="state_select" class="controls" type="list" list="state"></select>
+<label id="state_label" class="controls" for="state_select">state</label>
 </form>
 </div>
 <div id='debug_info'>
@@ -72,7 +74,7 @@
 //global vars
 var $, c, cycle, clock_state, grid, grid_main, js, log_matrix, matrix,
 next_cycle, pixel, parse_url, reset_canvas, seq, settings, set_grid, start_clock,
-stop_clock, algorithms, pattern;
+stop_clock, algorithms, pattern, state;
 
 var karel = false;
 
@@ -140,6 +142,26 @@ function append_options_nb_r(id, neighborhood, default_value) {
     }
 }
 
+function append_options_state(id, state, default_value){
+	console.log('append_options_state');
+	console.log(settings.state);
+	console.log(state);
+    var select = document.getElementById(id);
+    $('#' + id).children().remove();
+    var options = [];
+	var n = _.keys(state.colors);
+	console.log(n);
+    _.each(n, function(num, key) {
+		console.log(num)
+        options[num] = document.createElement('option');
+        if (num === default_value) { 
+            options[num].setAttribute('selected', true); 
+        }
+        options[num].innerHTML = num;
+        select.appendChild(options[num]);
+    });
+}
+
 function press_start_stop_button(b, speed) {
     if (!clock_state) {
         b.innerHTML = 'stop';
@@ -185,8 +207,18 @@ $('#nb_r_select').change(function () {
 });
 
 $('#algo_select').change(function (){
+	console.log("THIS:");
+	console.log($(this));
     settings.algorithm = $(this).val();
-    append_options_nb('nb_select', algorithms[settings.algorithm], 1);
+    append_options_nb('nb_select', algorithms[settings.algorithm]);
+});
+
+$('#state_select').change(function (){
+	settings.state = $(this).val();
+	console.log('settings.state');
+	console.log(settings.state);
+	append_options_state('state_select', state);
+	update_steps()
 });
 
 $('#save_button').click(function (e) {
@@ -278,9 +310,10 @@ function main() {
         $('#debug_info').show();
     } 
     append_options('detail_select', settings.detail.max, settings.detail.initial);
-    append_options_nb('nb_select', algorithms[settings.algorithm], 1);
-    append_options_nb_r('nb_r_select', 'random', 1);
+    append_options_nb('nb_select', algorithms[settings.algorithm], settings.algorithm);
+    append_options_nb_r('nb_r_select', 'random', settings.algorithms[settings.algorithm].neighborhood.r);
     append_options_algo('algo_select', _.keys(settings.algorithms), settings.algorithm);
+    append_options_state('state_select', state, settings.state);
     grid_main();
     $('.unselectable').on('selectstart dragstart', 
     function (evt) {

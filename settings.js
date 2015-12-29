@@ -19,7 +19,7 @@ var settings = {
         'TT' : {
             neighborhood: {
                 type: 'random',
-                r: 1
+                r: 2
             }
         }
     },
@@ -46,6 +46,7 @@ var settings = {
     save: false,
     speed: 125,
     steps: 4,
-    verbose: false   
+    verbose: false,
+	state: 'original'
 }
 

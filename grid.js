@@ -51,17 +51,37 @@ var c = init_2Dcanvas('c');
 var grid;
 var matrix;
 var cycle = 0;
-// 0: resting, 1: excited, 2: refractoring
-var state_colors = [ 
-    $('#style').css('background-color'),
-    '#000000',
-    '#0FDFFF',
-    '#FFFFFF',
-    $('#style').css('color'),
-    $('#style').css('border-left-color')
-];
-settings.steps = state_colors.length;
+var state = { colors: {
+	// 0: resting, 1: excited, 2: refractoring
+    original: [
+		$('#style').css('background-color'),
+		$('#style').css('color'),
+		$('#style').css('border-left-color')
+	],
+	eighteen: [
+		$('#style').css('background-color'),
+		'#000000',
+		'#770000',
+		'#BB0000',
+		'#FF0000',
+		'#BB7700',
+		'#77BB00',
+		'#00FF00',
+		'#00FF77',
+		'#00FFBB',
+		'#00FFFF',
+		'#0FDFFF',
+		'#9FFFFF',
+		'#FFFFFF',
+		$('#style').css('color'),
+		$('#style').css('border-left-color')
+	]
+	}
+};
 
+function get_steps() { return state.colors[settings.state].length; }
+function update_steps() { settings.steps = get_steps(); }
+update_steps();
 
 function parse_url() {
     var query_string = {};
@@ -156,14 +176,14 @@ function drawGridLines(rel_pos) {
 
 function pixel(x, y) {
     var rel_pos = {'x': x, 'y': y};
-    c.fillStyle = state_colors[next_value(x, y)]; 
+    c.fillStyle = state.colors[settings.state][next_value(x, y)]; 
     draw_pixel(c, rel_pos);
     drawGridLines(rel_pos);
 }
 
 function redraw_pixel(x, y) {
     var rel_pos = {'x': x, 'y': y};
-    c.fillStyle = state_colors[matrix.data[x][y]]; 
+    c.fillStyle = state.colors[settings.state][matrix.data[x][y]]; 
     draw_pixel(c, rel_pos);
     drawGridLines(rel_pos);
 }
@@ -217,7 +237,7 @@ function init_grid() {
         'y': c.canvas.height,
         'pixel': Math.pow(2, grid_bit_resolution)
     };
-    c.fillStyle = state_colors[0];
+    c.fillStyle = state.colors[settings.state][0];
     c.fillRect(0, 0, grid.x, grid.y);
     drawGridLines();
     matrix = init_matrix(detail);

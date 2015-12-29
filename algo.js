@@ -36,7 +36,7 @@ js.algo = true;
 
 function rand(){
     var r = Math.floor(Math.random()*3-1);
-    console.log(r);
+    //console.log(r);
     return r;
 }
 
@@ -275,7 +275,7 @@ function random_algorithm(nb,last_matrix,x,y,r){
 
 function get_neighbors(m, x, y, def) {
     var nb = {};
-    console.log(def);
+    //console.log(def);
     for (var key in def) {
         nb[key] = get_neighbor(m, x, y, def[key][0], def[key][1]);
     }
