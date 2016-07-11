@@ -3,7 +3,7 @@
 html, body, a {
     font-family:helvetica;
     float:center;
-    background-color: #2E9AFE;
+    /* background-color: #2E9AFE; */
     color: #58FAF4;
     text-decoration: none;
 }
@@ -18,9 +18,6 @@ body,div{
     border-color: #2ECCFA;
 }
 
-#logo {
-    height: 40px;
-}
 #hover_text {
     width: 99%;
     text-align: center;
@@ -46,9 +43,9 @@ body,div{
 }
 
 div.main {
-    display: block; 
-    float:center; 
-    margin-left: auto; 
+    display: block;
+    float:center;
+    margin-left: auto;
     margin-right: auto;
     text-align: center;
     font-family:helvetica;
@@ -56,8 +53,12 @@ div.main {
 
 div#canvas_container > * {
     float:center;
-    margin-left: auto; 
+    margin-left: auto;
     margin-right: auto;
+}
+
+div#canvas_container {
+    padding-left: 0px;
 }
 
 canvas.main {
@@ -77,4 +78,3 @@ div#footer {
     left:0px;
     float:left;
 }
-

@@ -41,9 +41,23 @@ var update_cycleview;
 
 function init_2Dcanvas(id) {
     var canvas = document.getElementById(id);
-    var edge = 100;
-    var max_size = Math.min(window.innerWidth - edge,window.innerHeight - edge);
-    canvas.width = canvas.height = Math.max(max_size, 256);
+    /// get parent element (assuming it exist)
+    var parent = canvas.parentElement;
+    //console.log(parent);
+    /// get computed style
+    var cs = getComputedStyle(parent);
+    //console.log(cs);
+
+    /// get size of parent in pixels and remove the 'px' at the end
+    /// and convert to integer -
+    var w = parseInt(cs.getPropertyValue('width'), 10);
+    var w_max = Math.min(window.screen.width, window.innerWidth);
+    var nav_offset = $('#navigation').height();
+    var h_max = Math.min(window.screen.height, window.innerHeight) - (nav_offset + 25);
+    var size = Math.min(Math.max(w, window.screen.width), h_max);
+    size = Math.min(size, 768);
+    canvas.width = canvas.height = size;
+    console.log(canvas.width);
     return canvas.getContext('2d');
 }
 

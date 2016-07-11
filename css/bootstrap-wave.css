@@ -1,0 +1,53 @@
+/* bootstrap-wave.css */
+
+body > .container-fluid {
+    padding-top: 40px;
+}
+
+.btn {
+    padding-left: 6px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.navbar {
+    min-height: 35px;
+    margin-bottom: 4px;
+}
+
+.navbar-brand {
+    height: 35px;
+    padding-top: 8px;
+    padding-bottom: 7px;
+}
+
+.navbar-nav {
+    margin: 0px;
+}
+
+.navbar-btn {
+    padding-top: 8px;
+    padding-bottom: 7px;
+    margin: 0px;
+}
+
+.panel {
+    margin: 2px;
+}
+
+.panel-body {
+    padding: 2px;
+}
+
+.list-group-item {
+    padding-bottom: 5px;
+    padding-top: 3px;
+}
+
+.form-group {
+    margin-bottom: 0px;
+}
+
+label {
+    /*  color: white; */
+}

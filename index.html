@@ -8,58 +8,95 @@
 <meta name="keywords" content="Cellular, Automata, Wave, Generator, Greenberg-Hastings Cellular Automaton">
 <title class="item">Wave Generator</title>
 <meta http-equiv="Content-Style-Type" content="text/css">
-<link href="wave.css" title="wave" rel="stylesheet" type="text/css">
-<link href="pix.css" title="pixelove" rel="alternate stylesheet" type="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="css/bootstrap.min-cyborg.css" rel="stylesheet">
+<link href="css/wave.css" title="wave" rel="stylesheet" type="text/css">
+<link href="css/bootstrap-wave.css" rel="stylesheet" type="text/css">
 <script src='ext/jquery-2.0.3.js'></script>
 <script src='ext/underscore.js'></script>
+<script src='ext/bootstrap.min.js'></script>
+
 <script src='settings.js'></script>
 </head>
 <body>
 <span id="style" class="main"></span>
-<div class="main">
-<div id="logo">
-    <h2 id="logo_titel" class="unselectable">Wave Generator</h2>
-</div>
-<div id="canvas_container">
-    <div id="hover_text" class="main">
-    Click here
+<nav id="navigation" class="navbar navbar-default navbar-fixed-top">
+<div class="container-fluid">
+  <div class="navbar-header">
+    <a id="reset_button" class="navbar-brand" href="#">Wave Generator</a>
+    <div class="btn-group">
+      <button id="start_button" class="controls btn btn-default navbar-btn btn-primar" type="button">start</button>
+      <button id="next_cycle_button" class="controls btn btn-default navbar-btn" type="button">next</button>
+      <button id="export_button" class="state btn btn-default navbar-btn" type="button">export</button>
     </div>
-    <canvas id="c" class="main">
-    </canvas>
+    </ul>
+  </div>
+  <div class="collapse navbar-collapse"></div>
 </div>
-<form>
-<button id="reset_button" class="controls" type="button">reset</button>
-<button id="start_button" class="controls" type="button">start</button>
-<button id="next_cycle_button" class="controls" type="button">next</button>
-<button id="save_button" class="state" type="button">save</button>
-<button id="load_button" class="state" type="button">load</button>
-<button id="export_button" class="state" type="button">export</button>
-<button id="toimage_button" type="button" style="display:none">2image</button>
-<select id="detail_select" class="controls" type="list" list="detail_list"></select>
-<label id="detail_label" class="controls" for="detail_select">level of detail</label>
-<select id="algo_select" class="controls" type="list" list="algo_list"></select>
-<label id="algo_label" class="controls" for="algo_select">algorithm</label>
-<select id="nb_select" class="controls" type="list" list="neighborhood_list"></select>
-<label id="nb_label" class="controls" for="nb_select">neighborhood</label>
-<select id="nb_r_select" class="controls" type="list" list="neighborhood_r_list"></select>
-<label id="nb_r_label" class="controls" for="nb_r_select">radius</label>
-<select id="state_select" class="controls" type="list" list="state"></select>
-<label id="state_label" class="controls" for="state_select">state</label>
-</form>
+</nav>
+<div class="main container-fluid">
+  <div class="row">
+    <div id='debug_info'>
+      <table border="1">
+      <tr><th>info:</th></tr>
+      <tr><td>cycle</td><td><span id='cycle'>&nbsp;</span></td></tr>
+      <tr><td>speed</td><td><span id='speed'>&nbsp;</span></td></tr>
+      <tr><td>mouse</td><td><span id='mouse_pos'>&nbsp;</span></td></tr>
+      <tr><td>grid</td><td><span id='grid_pos'>&nbsp;</span></td></tr>
+      </table>
+    </div>
+    <div class="col-xs-12 col-md-3">
+      <div class="panel panel-default">
+        <ul class="list-inline list-group panel-body">
+          <li class="list-group-item">
+            <div class="form-group form-group-sm">
+              <label id="detail_label" class="controls label label-default" for="detail_select">level of detail</label>
+              <select id="detail_select" class="btn btn-default" type="list" list="detail_list"></select>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="form-group form-group-sm">
+              <label id="algo_label" class="controls label label-default" for="algo_select">algorithm</label>
+              <select id="algo_select" class="btn btn-default" type="list" list="algo_list"></select>
+            </div>
+          </li><li class="list-group-item">
+            <div class="form-group form-group-lg">
+              <label id="nb_label" class="controls label label-default" for="nb_select">neighborhood</label>
+              <select id="nb_select" class="btn btn-default" type="list" list="neighborhood_list"></select>
+            </div>
+          </li><li class="list-group-item">
+            <div class="form-group form-group-sm">
+              <label id="nb_r_label" class="controls label label-default" for="nb_r_select">radius</label>
+              <select id="nb_r_select" class="btn btn-default" type="list" list="neighborhood_r_list"></select>
+            </div>
+          </li><li class="list-group-item">
+            <div class="form-group form-group-sm">
+            <label id="state_label" class="controls label label-default" for="state_select">states</label>
+            <select id="state_select" class="btn btn-default" type="list" list="state"></select>
+            </div>
+          </li>
+            <!--
+            <div class="form-group-sm">
+              <button id="toimage_button" type="button" class="btn btn-default" style="display:none">2image</button>
+            </div>
+          -->
+
+          <li class="list-group-item btn-group"><button id="save_button" class="state btn btn-default" type="button">save</button>
+            <button id="load_button" class="state btn btn-default" type="button">load</button></li>
+      </ul>
+      </div>
+    </div>
+    <div id="canvas_container" class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+        <canvas id="c" class="main" style="border:1px; border-style:dashed;"></canvas>
+    </div>
+  </div>
 </div>
-<div id='debug_info'>
-    <table border="1">
-    <tr><th>info:</th></tr>
-    <tr><td>cycle</td><td><span id='cycle'>&nbsp;</span></td></tr>
-    <tr><td>speed</td><td><span id='speed'>&nbsp;</span></td></tr>
-    <tr><td>mouse</td><td><span id='mouse_pos'>&nbsp;</span></td></tr>
-    <tr><td>grid</td><td><span id='grid_pos'>&nbsp;</span></td></tr>
-    </table>  
-</div>
-<div id='footer' class='main'>
-  <a href="http://en.wikipedia.org/wiki/Greenberg-Hastings_cellular_automaton">
-  Description</a>, <a href="http://www.wolframscience.com/nksonline/page-1013">Example (see excitable media)</a>, author:
-  <a href="http://dev.fet.li">Tobi Turing</a>
+<!-- <footer class='footer'>
+      <a href="http://en.wikipedia.org/wiki/Greenberg-Hastings_cellular_automaton">
+      Description</a>, <a href="http://www.wolframscience.com/nksonline/page-1013">Example (see excitable media)</a>, author:
+      <a href="http://dev.fet.li">Tobi Turing</a>
+</footer>
+-->
 </div>
 <script src='algo.js'></script>
 <script src='grid.js'></script>

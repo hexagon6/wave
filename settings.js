@@ -7,8 +7,8 @@ var js = {
 };
 
 var settings = {
-    version: '0.4',
-    date: '2015-02-23',
+    version: '0.5',
+    date: '2016-07-11',
     algorithms: {
         'GH': {
             neighborhood: {
@@ -23,7 +23,7 @@ var settings = {
             }
         }
     },
-    algorithm: 'TT',
+    algorithm: 'GH',
     algorithm_state: 0,
     canvas: {
         size: 640
@@ -44,9 +44,8 @@ var settings = {
     touched: false,
     ready: false,
     save: false,
-    speed: 125,
+    speed: 75,
     steps: 4,
     verbose: false,
 	state: 'original'
 }
-

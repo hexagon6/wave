@@ -210,8 +210,11 @@ $('canvas').click(function (e) {
         set_touched_state();
         $('canvas').css({"border-width": "1px"});
     }
-    var x = e.pageX - this.offsetLeft;
-    var y = e.pageY - this.offsetTop;
+    console.log('click');
+    var left = $('canvas').offset().left;
+    var top = $('canvas').offset().top;
+    var x = e.pageX - left;
+    var y = e.pageY - top;
     $('#mouse_pos').html(x + ', ' + y);
     var g_x = Math.floor(x / grid.pixel);
     var g_y = Math.floor(y / grid.pixel);
@@ -241,7 +244,8 @@ function main() {
     }
     append_options('detail_select', settings.detail.max, settings.detail.initial);
     append_options_nb('nb_select', algorithms[settings.algorithm], settings.algorithm);
-    append_options_nb_r('nb_r_select', 'random', settings.algorithms[settings.algorithm].neighborhood.r);
+    //append_options_nb_r('nb_r_select', 'random', settings.algorithms[settings.algorithm].neighborhood.r);
+    append_options_nb_r('nb_r_select', 'neumann', settings.algorithms[settings.algorithm].neighborhood.r);
     append_options_algo('algo_select', _.keys(settings.algorithms), settings.algorithm);
     append_options_state('state_select', state, settings.state);
     grid_main();
