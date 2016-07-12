@@ -229,6 +229,7 @@ function show_interaction_text() {
 
 function set_ready() {
     settings.ready = true;
+    $('#ribbon').hide();
 }
 
 function main() {
