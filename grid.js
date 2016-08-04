@@ -75,7 +75,8 @@ var state = { colors: {
 		'#FFFFFF',
 		$('#style').css('color'),
 		$('#style').css('border-left-color')
-	]
+	],
+  six: ["#4CC3D9","#93648D","#404040","#F16745","#FFC65D","#7BC8A4"]
 	}
 };
 
