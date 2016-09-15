@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "name": "Wave Generator",
+  "short_name": "Waves",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "wave.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ]
+}
