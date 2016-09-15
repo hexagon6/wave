@@ -7,8 +7,8 @@ var js = {
 };
 
 var settings = {
-    version: '0.5',
-    date: '2016-07-11',
+    version: '0.6',
+    date: '2016-09-15',
     algorithms: {
         'GH': {
             neighborhood: {
