@@ -77,6 +77,12 @@ var state = { colors: {
 		$('#style').css('color'),
 		$('#style').css('border-left-color')
 	],
+  four: [
+    $('#style').css('background-color'),
+    "#FF6688",
+    "#88FF66",
+    "#6688FF"
+  ],
   // 0: resting, 1: excited, 2+: refractoring
   six: [
     "#4CC3D9",
