@@ -58,6 +58,13 @@ var algorithms = {
         neighborhood: {
             random: { 'radius' : [1, 2, 3, 4] },
         }
+    },
+    'GoL': {
+        name: 'Game of Life',
+        method: game_of_life,
+        neighborhood: {
+            moore: { 'radius' : [1] }
+        }
     }
 }
 
@@ -273,6 +280,45 @@ function random_algorithm(nb,last_matrix,x,y,r){
         }
 }
 
+function game_of_life(nb,last_matrix,x,y,r){
+        var cell_state = last_matrix[x][y];
+
+        // count neighbors
+        var sum = 0;
+        for (var n in nb) {
+            sum = sum + nb[n];
+        }
+
+        //dead cell
+        if (cell_state == 0){
+            console.log('dead cell at', x, y);
+            // rule 4: "reproduction"
+            if ( sum == 3) {
+                console.log('new cell born')
+                pixel(x, y);
+            }
+        } //alive cell
+        else {
+            console.log('alive cell at', x, y);
+            // rule 1 (less than 2nb)
+            if ( sum < 2) {
+                //die
+                pixel(x,y);
+                console.log('die: < 2n');
+            }
+            // rule 2 (2 or 3 nb)
+            else if ( sum == 2 || sum == 3 ) {
+                //stay alive
+                console.log('stay alive');
+            }
+            // rule 3 ( > 3 nb)
+            else {
+                console.log('die: > 3n');
+                pixel(x,y);
+            }
+        }
+}
+
 function get_neighbors(m, x, y, def) {
     var nb = {};
     //console.log(def);
@@ -351,6 +397,13 @@ function run_algorithm(size, last_matrix) {
             for (x = 0; x < size; x++) {
                 var nb = neighborhood[type](last_matrix,x,y,r);
                 random_algorithm(nb,last_matrix,x,y,r);
+            }
+        }
+    } else if(settings.algorithm === 'GoL') {
+        for (y = 0; y < size; y++) {
+            for (x = 0; x < size; x++) {
+                var nb = neighborhood[type](last_matrix,x,y,r);
+                game_of_life(nb,last_matrix,x,y,r);
             }
         }
     }

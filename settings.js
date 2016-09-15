@@ -21,9 +21,15 @@ var settings = {
                 type: 'random',
                 r: 2
             }
+        },
+        'GoL' : {
+            neighborhood: {
+                type: 'moore',
+                r: 1
+            }
         }
     },
-    algorithm: 'GH',
+    algorithm: 'GH', // default algorithm
     algorithm_state: 0,
     canvas: {
         size: 640
@@ -47,5 +53,5 @@ var settings = {
     speed: 75,
     steps: 4,
     verbose: false,
-	state: 'original'
+    state: 'wave'
 }

@@ -66,8 +66,13 @@ var grid;
 var matrix;
 var cycle = 0;
 var state = { colors: {
+	// 0: dead, 1: alive
+	two: [
+		$('#style').css('background-color'),
+		$('#style').css('color')
+	],
 	// 0: resting, 1: excited, 2: refractoring
-    original: [
+    wave: [
 		$('#style').css('background-color'),
 		$('#style').css('color'),
 		$('#style').css('border-left-color')
