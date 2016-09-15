@@ -73,16 +73,11 @@ function append_options_nb_r(id, neighborhood, default_value) {
 }
 
 function append_options_state(id, state, default_value){
-	console.log('append_options_state');
-	console.log(settings.state);
-	console.log(state);
     var select = document.getElementById(id);
     $('#' + id).children().remove();
     var options = [];
 	var n = _.keys(state.colors);
-	console.log(n);
     _.each(n, function(num, key) {
-		console.log(num)
         options[num] = document.createElement('option');
         if (num === default_value) {
             options[num].setAttribute('selected', true);
@@ -137,17 +132,13 @@ $('#nb_r_select').change(function () {
 });
 
 $('#algo_select').change(function (){
-	console.log("THIS:");
-	console.log($(this));
-    settings.algorithm = $(this).val();
-    append_options_nb('nb_select', algorithms[settings.algorithm]);
+  settings.algorithm = $(this).val();
+  append_options_nb('nb_select', algorithms[settings.algorithm]);
 });
 
 $('#state_select').change(function (){
 	settings.state = $(this).val();
-	console.log('settings.state');
-	console.log(settings.state);
-	append_options_state('state_select', state);
+  append_options_state('state_select', state, settings.state);
 	update_steps()
 });
 

@@ -51,7 +51,7 @@ var settings = {
     ready: false,
     save: false,
     speed: 75,
-    steps: 4,
+    steps: 3,
     verbose: false,
     state: 'wave'
 }

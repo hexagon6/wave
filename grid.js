@@ -77,7 +77,17 @@ var state = { colors: {
 		$('#style').css('color'),
 		$('#style').css('border-left-color')
 	],
-	eighteen: [
+  // 0: resting, 1: excited, 2+: refractoring
+  six: [
+    "#4CC3D9",
+    "#93648D",
+    "#404040",
+    "#F16745",
+    "#FFC65D",
+    "#7BC8A4"
+  ],
+  // 0: resting, 1: excited, 2+: refractoring
+	sixteen: [
 		$('#style').css('background-color'),
 		'#000000',
 		'#770000',
@@ -94,14 +104,13 @@ var state = { colors: {
 		'#FFFFFF',
 		$('#style').css('color'),
 		$('#style').css('border-left-color')
-	],
-  six: ["#4CC3D9","#93648D","#404040","#F16745","#FFC65D","#7BC8A4"]
+	]
 	}
 };
 
 function get_steps() { return state.colors[settings.state].length; }
 function update_steps() { settings.steps = get_steps(); }
-update_steps();
+//update_steps();
 
 function parse_url() {
     var query_string = {};

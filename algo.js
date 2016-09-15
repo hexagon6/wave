@@ -291,29 +291,29 @@ function game_of_life(nb,last_matrix,x,y,r){
 
         //dead cell
         if (cell_state == 0){
-            console.log('dead cell at', x, y);
+            //console.log('dead cell at', x, y);
             // rule 4: "reproduction"
             if ( sum == 3) {
-                console.log('new cell born')
+                //console.log('new cell born')
                 pixel(x, y);
             }
         } //alive cell
         else {
-            console.log('alive cell at', x, y);
+            //console.log('alive cell at', x, y);
             // rule 1 (less than 2nb)
             if ( sum < 2) {
                 //die
                 pixel(x,y);
-                console.log('die: < 2n');
+                //console.log('die: < 2n');
             }
             // rule 2 (2 or 3 nb)
             else if ( sum == 2 || sum == 3 ) {
                 //stay alive
-                console.log('stay alive');
+                //console.log('stay alive');
             }
             // rule 3 ( > 3 nb)
             else {
-                console.log('die: > 3n');
+                //console.log('die: > 3n');
                 pixel(x,y);
             }
         }
