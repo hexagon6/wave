@@ -32,11 +32,11 @@ var settings = {
     grid: {
         lines: false
     },
-    intro: false,
+    intro: true,
     touched: false,
     ready: true,
     save: false,
-    speed: 150,
+    speed: 50,
     steps: 2, //corresponds to 'two' colorset
     verbose: false,
     state: 'two'

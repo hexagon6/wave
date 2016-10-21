@@ -1,7 +1,7 @@
 /***
 *   Author: Tobi Turing <webdev@fet.li>
-*   Version: 0.2.2
-*   Date: 2013-09-17
+*   Version: GoLv1
+*   Date: 2016-10-21
 *   License: 
 *   The MIT License (MIT)
 
@@ -57,78 +57,27 @@ var pattern = {
       pixel(14+x,4+y);
     },
     
-    
-    heart:function (){
-      pixel(3,0);
-      pixel(4,0);
-      pixel(5,0);
-      pixel(6,0);
-      pixel(9,0);
-      pixel(10,0);
-      pixel(11,0);
-      pixel(12,0);
-      pixel(2,1);
-      pixel(7,1);
-      pixel(8,1);
-      pixel(13,1);
-      pixel(1,2);
-      pixel(14,2);
-      pixel(0,3);
-      pixel(15,3);
-      pixel(0,4);
-      pixel(15,4);
-      pixel(0,5);
-      pixel(15,5);
-      pixel(0,6);
-      pixel(15,6);
-      pixel(0,7);
-      pixel(15,7);
-      pixel(0,8);
-      pixel(15,8);
-      pixel(1,9);
-      pixel(14,9);
-      pixel(2,10);
-      pixel(13,10);
-      pixel(3,11);
-      pixel(12,11);
-      pixel(4,12);
-      pixel(11,12);
-      pixel(5,13);
-      pixel(10,13);
-      pixel(6,14);
-      pixel(9,14);
-      pixel(7,15);
-      pixel(8,15);
-    },
-    
-    t_k:function (){
-      // t
-        pixel(3,4);
-        pixel(4,4);
-        pixel(5,4);
-        pixel(4,5);
-        pixel(4,6);
-        pixel(4,7);
-        pixel(4,8);
-      // +
-        pixel(6,6);
-        pixel(7,5);
-        pixel(7,6);
-        pixel(7,7);
-        pixel(8,6);
-      // k
-        pixel(10,4);
-        pixel(10,5);
-        pixel(10,6);
-        pixel(10,7);
-        pixel(10,8);
-        pixel(11,6);
-        pixel(12,4);
-        pixel(12,5);
-        pixel(12,7);
-        pixel(12,8);
-        
-    },
+	pentos:function (x,y) {
+        if (x === undefined || y === undefined) {
+			var x = 0; var y = 0;
+		}
+		pixel(0+x,0+y);
+		pixel(1+x,0+y);
+		pixel(1+x,1+y);
+		pixel(1+x,2+y);
+		pixel(2+x,1+y);
+	},
+
+	glider:function (x,y) {
+        if (x === undefined || y === undefined) {
+			var x = 0; var y = 0;
+		}
+		pixel(0+x,0+y);
+		pixel(1+x,1+y);
+		pixel(1+x,2+y);
+		pixel(2+x,0+y);
+		pixel(2+x,1+y);
+	},
     
     line:function (){
 	for(var j=0; j<2; j++){

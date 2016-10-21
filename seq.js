@@ -37,11 +37,7 @@ show_interaction_text, set_untouched_state;
 
 var seq = {
     intro: function () {
-        if (karel) {
-            this.karel();
-        } else {
-            this.wav();
-        }
+            this.gol();
     },
     wav: function () {
         var r = Math.floor(Math.random() * 100);
@@ -67,25 +63,22 @@ var seq = {
             window.setTimeout(set_ready, 5004);
         } else { //short intro
             window.setTimeout(start_clock, 3000, 75);
-            window.setTimeout(stop_clock, 3500);
-            window.setTimeout(reset_canvas, 3501);
-            window.setTimeout(show_interaction_text, 3502);
-            window.setTimeout(set_untouched_state, 3503);
-            window.setTimeout(set_ready, 3504);
+			var offset = 3500;
+            window.setTimeout(stop_clock, offset);
+            window.setTimeout(reset_canvas, offset + 1);
+            window.setTimeout(show_interaction_text, offset + 2);
+            window.setTimeout(set_untouched_state, offset + 3);
+            window.setTimeout(set_ready, offset + 4);
         }
         
         console.log(r);
     },
-    karel: function () {
-        window.setTimeout(pattern.heart, 10);
-        window.setTimeout(pattern.heart, 2000);
-        window.setTimeout(pattern.heart, 2100);
-        window.setTimeout(pattern.heart, 2150);
-        window.setTimeout(pattern.t_k, 2050);
-        window.setTimeout(pattern.t_k, 2150);
-        window.setTimeout(start_clock, 2300);
-        window.setTimeout(stop_clock, 2499);
-        window.setTimeout(reset_canvas, 2500);
-        window.setTimeout(set_ready, 2501);
+	gol: function() {
+		window.setTimeout(pattern.pentos, 250, 30, 40);
+		window.setTimeout(pattern.glider, 1, 12, 0);
+        window.setTimeout(start_clock, 1000, 75);
+        window.setTimeout(stop_clock, 5000);
+        window.setTimeout(reset_canvas, 5001);
+        window.setTimeout(set_ready, 5004);
     }
 }
