@@ -95,9 +95,15 @@ var seq = {
 		window.setTimeout(this.statechange, 3000, 4);
 		window.setTimeout(this.statechange, 4000, 6);
 		window.setTimeout(this.statechange, 5000, 16);
-		window.setTimeout(this.statechange, 5500, 2);
-        window.setTimeout(stop_clock, 6000);
-        window.setTimeout(reset_canvas, 6001);
-        window.setTimeout(set_ready, 6004);
+        window.setTimeout(stop_clock, 5997);
+        window.setTimeout(reset_canvas, 5998);
+        window.setTimeout(pixel, 5999, 30, 30);
+        window.setTimeout(start_clock, 6000, 35);
+        window.setTimeout(stop_clock, 8000);
+		window.setTimeout(this.statechange, 8005, 2);
+        window.setTimeout(start_clock, 8250, 15);
+        window.setTimeout(stop_clock, 9000);
+        window.setTimeout(set_ready, 9004);
+        window.setTimeout(reset_canvas, 9005);
     }
 }
