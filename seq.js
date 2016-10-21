@@ -73,12 +73,31 @@ var seq = {
         
         console.log(r);
     },
+	statechange: function(n) {
+		if (n === 2) {
+			settings.state='two';
+		} else if (n === 3) {
+			settings.state='wave';
+		} else if (n === 4) {
+			settings.state='four';
+		} else if (n === 6) {
+			settings.state='six';
+		} else if (n === 16) {
+			settings.state='sixteen';
+		}
+		settings.steps=n;
+	},
 	gol: function() {
 		window.setTimeout(pattern.pentos, 250, 30, 40);
-		window.setTimeout(pattern.glider, 1, 12, 0);
+		window.setTimeout(pattern.glider, 1, 12, 24);
         window.setTimeout(start_clock, 1000, 75);
-        window.setTimeout(stop_clock, 5000);
-        window.setTimeout(reset_canvas, 5001);
-        window.setTimeout(set_ready, 5004);
+		window.setTimeout(this.statechange, 2000, 3);
+		window.setTimeout(this.statechange, 3000, 4);
+		window.setTimeout(this.statechange, 4000, 6);
+		window.setTimeout(this.statechange, 5000, 16);
+		window.setTimeout(this.statechange, 5500, 2);
+        window.setTimeout(stop_clock, 6000);
+        window.setTimeout(reset_canvas, 6001);
+        window.setTimeout(set_ready, 6004);
     }
 }
