@@ -2,11 +2,11 @@
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8">
 <meta name="author" content="Tobi Turing">
-<meta id="vers" name="version" content="0.6">
-<meta id="date" name="date" content="2016-09-15">
+<meta id="vers" name="version" content="GoLv1">
+<meta id="date" name="date" content="2016-10-21">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="keywords" content="Cellular, Automata, Wave, Generator, Greenberg-Hastings Cellular Automaton">
-<title class="item">Wave Generator</title>
+<meta name="keywords" content="Cellular, Automata, GameofLife, Generator">
+<title class="item">Game of Life</title>
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link rel="manifest" href="manifest.json">
@@ -29,7 +29,7 @@
 <nav id="navigation" class="navbar navbar-default navbar-fixed-top">
 <div class="container-fluid">
   <div class="navbar-header">
-    <a id="reset_button" class="navbar-brand" href="#">Wave Generator</a>
+    <a id="reset_button" class="navbar-brand" href="#">Game of Life</a>
     <div class="btn-group">
       <button id="start_button" class="controls btn btn-default navbar-btn btn-primar" type="button">start</button>
       <button id="next_cycle_button" class="controls btn btn-default navbar-btn" type="button">next</button>
@@ -61,20 +61,6 @@
             </div>
           </li>
           <li class="list-group-item">
-            <div class="form-group form-group-sm">
-              <label id="algo_label" class="controls label label-default" for="algo_select">algorithm</label>
-              <select id="algo_select" class="btn btn-default" type="list" list="algo_list"></select>
-            </div>
-          </li><li class="list-group-item">
-            <div class="form-group form-group-lg">
-              <label id="nb_label" class="controls label label-default" for="nb_select">neighborhood</label>
-              <select id="nb_select" class="btn btn-default" type="list" list="neighborhood_list"></select>
-            </div>
-          </li><li class="list-group-item">
-            <div class="form-group form-group-sm">
-              <label id="nb_r_label" class="controls label label-default" for="nb_r_select">radius</label>
-              <select id="nb_r_select" class="btn btn-default" type="list" list="neighborhood_r_list"></select>
-            </div>
           </li><li class="list-group-item">
             <div class="form-group form-group-sm">
             <label id="state_label" class="controls label label-default" for="state_select">states</label>

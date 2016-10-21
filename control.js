@@ -58,20 +58,6 @@ function append_options_nb(id, algorithms, default_value) {
     });
 }
 
-function append_options_nb_r(id, neighborhood, default_value) {
-    var select = document.getElementById(id);
-    $('#' + id).children().remove();
-    var options = [];
-    for (var n = 1; n <= algorithms[settings.algorithm].neighborhood[neighborhood].radius.length; n++) {
-        options[n] = document.createElement('option');
-        if (n === default_value) {
-            options[n].setAttribute('selected', true);
-        }
-        options[n].innerHTML = n;
-        select.appendChild(options[n]);
-    }
-}
-
 function append_options_state(id, state, default_value){
     var select = document.getElementById(id);
     $('#' + id).children().remove();
@@ -120,20 +106,6 @@ function enable_control_buttons() {
 $('#detail_select').change(function () {
     reset_canvas();
     $('#load_button').attr("disabled", true);
-});
-
-$('#nb_select').change(function () {
-    settings.algorithms[settings.algorithm].neighborhood.type = $(this).val();
-    append_options_nb_r('nb_r_select', $(this).val(), 1);
-});
-
-$('#nb_r_select').change(function () {
-    settings.algorithms[settings.algorithm].neighborhood.r = parseInt($(this).val(), 10);
-});
-
-$('#algo_select').change(function (){
-  settings.algorithm = $(this).val();
-  append_options_nb('nb_select', algorithms[settings.algorithm]);
 });
 
 $('#state_select').change(function (){
@@ -238,10 +210,6 @@ function main() {
 	//set default settings of controls
 	//TODO: This should be done differently, initialization of dropdowns from available options: ['detail', 'algorithm', 'neighborhood', 'radius', 'states']
     append_options('detail_select', settings.detail.max, settings.detail.initial);
-    append_options_nb('nb_select', algorithms[settings.algorithm], settings.algorithm);
-    //append_options_nb_r('nb_r_select', 'random', settings.algorithms[settings.algorithm].neighborhood.r);
-    append_options_nb_r('nb_r_select', settings.algorithms[settings.algorithm].neighborhood.type, settings.algorithms[settings.algorithm].neighborhood.r);
-    append_options_algo('algo_select', _.keys(settings.algorithms), settings.algorithm);
     append_options_state('state_select', state, settings.state);
     grid_main();
     $('.unselectable').on('selectstart dragstart',

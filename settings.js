@@ -7,30 +7,16 @@ var js = {
 };
 
 var settings = {
-    version: '0.6',
-    date: '2016-09-15',
+    version: 'GoLv1',
+    date: '2016-10-21',
     algorithms: {
-        'GH': {
-            neighborhood: {
-                type: 'neumann', //neumann or moore
-                r: 1 //distance
-            },
-        },
-        'TT' : {
-            neighborhood: {
-                type: 'random',
-                r: 2
-            }
-        },
         'GoL' : {
             neighborhood: {
-                type: 'moore',
-                r: 1
+                type: 'moore'
             }
         }
     },
     algorithm: 'GoL', // default algorithm
-    algorithm_state: 0,
     canvas: {
         size: 640
     },
@@ -51,7 +37,7 @@ var settings = {
     ready: true,
     save: false,
     speed: 150,
-    steps: 3,
+    steps: 2, //corresponds to 'two' colorset
     verbose: false,
     state: 'two'
 }
