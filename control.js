@@ -234,10 +234,13 @@ function main() {
     if (settings.debug === true) {
         $('#debug_info').show();
     }
+
+	//set default settings of controls
+	//TODO: This should be done differently, initialization of dropdowns from available options: ['detail', 'algorithm', 'neighborhood', 'radius', 'states']
     append_options('detail_select', settings.detail.max, settings.detail.initial);
     append_options_nb('nb_select', algorithms[settings.algorithm], settings.algorithm);
     //append_options_nb_r('nb_r_select', 'random', settings.algorithms[settings.algorithm].neighborhood.r);
-    append_options_nb_r('nb_r_select', 'neumann', settings.algorithms[settings.algorithm].neighborhood.r);
+    append_options_nb_r('nb_r_select', settings.algorithms[settings.algorithm].neighborhood.type, settings.algorithms[settings.algorithm].neighborhood.r);
     append_options_algo('algo_select', _.keys(settings.algorithms), settings.algorithm);
     append_options_state('state_select', state, settings.state);
     grid_main();
@@ -255,5 +258,4 @@ function main() {
 
 $(document).ready(function () {
     main();
-
 });

@@ -29,7 +29,7 @@ var settings = {
             }
         }
     },
-    algorithm: 'GH', // default algorithm
+    algorithm: 'GoL', // default algorithm
     algorithm_state: 0,
     canvas: {
         size: 640
@@ -40,18 +40,18 @@ var settings = {
     cycle: 0,
     debug: false,
     detail: {
-        initial: 4,
+        initial: 6,
         max: 9
     },
     grid: {
         lines: false
     },
-    intro: true,
+    intro: false,
     touched: false,
-    ready: false,
+    ready: true,
     save: false,
-    speed: 75,
+    speed: 150,
     steps: 3,
     verbose: false,
-    state: 'wave'
+    state: 'two'
 }
