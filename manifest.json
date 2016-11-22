@@ -1,12 +1,12 @@
 {
   "background_color": "#ffffff",
-  "name": "Wave Generator",
-  "short_name": "Waves",
+  "name": "Game of Life",
+  "short_name": "GameOfLife",
   "display": "fullscreen",
   "icons": [
     {
-      "src": "wave.png",
-      "sizes": "144x144",
+      "src": "gol-big.png",
+      "sizes": "288x288",
       "type": "image/png"
     }
   ]
