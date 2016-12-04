@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8">
+<meta name="author" content="Tobi Turing">
+<meta id="vers" name="version" content="0.6">
+<meta id="date" name="date" content="2016-09-15">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="Cellular, Automata, Wave, Generator, Greenberg-Hastings Cellular Automaton">
+<title class="item">Wave Generator</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="manifest" href="manifest.json">
+<link href="css/bootstrap.min-cyborg.css" rel="stylesheet">
+<link href="css/wave.css" title="wave" rel="stylesheet" type="text/css">
+<link href="css/bootstrap-wave.css" rel="stylesheet" type="text/css">
+<script src='ext/jquery-2.0.3.js'></script>
+<script src='ext/underscore.js'></script>
+<script src='ext/bootstrap.min.js'></script>
+
+<script src='settings.js'></script>
+</head>
+<body>
+  <span id="ribbon">
+  <a href="https://github.com/hexagon6/wave"><img style="position: absolute; top: 38px; right: 0; border: 0; z-index: 100;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+</span>
+<span id="style" class="main"></span>
+<nav id="navigation" class="navbar navbar-default navbar-fixed-top">
+<div class="container-fluid">
+  <div class="navbar-header">
+    <a id="reset_button" class="navbar-brand" href="#">Wave Generator</a>
+    <div class="btn-group">
+      <button id="start_button" class="controls btn btn-default navbar-btn btn-primar" type="button">start</button>
+      <button id="next_cycle_button" class="controls btn btn-default navbar-btn" type="button">next</button>
+      <button id="export_button" class="state btn btn-default navbar-btn" type="button">export</button>
+    </div>
+    </ul>
+  </div>
+  <div class="collapse navbar-collapse"></div>
+</div>
+</nav>
+<div class="main container-fluid">
+  <div class="row">
+    <div id='debug_info'>
+      <table border="1">
+      <tr><th>info:</th></tr>
+      <tr><td>cycle</td><td><span id='cycle'>&nbsp;</span></td></tr>
+      <tr><td>speed</td><td><span id='speed'>&nbsp;</span></td></tr>
+      <tr><td>mouse</td><td><span id='mouse_pos'>&nbsp;</span></td></tr>
+      <tr><td>grid</td><td><span id='grid_pos'>&nbsp;</span></td></tr>
+      </table>
+    </div>
+    <div class="col-xs-12 col-md-3">
+      <div class="panel panel-default">
+        <ul class="list-inline list-group panel-body">
+          <li class="list-group-item">
+            <div class="form-group form-group-sm">
+              <label id="detail_label" class="controls label label-default" for="detail_select">level of detail</label>
+              <select id="detail_select" class="btn btn-default" type="list" list="detail_list"></select>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="form-group form-group-sm">
+              <label id="algo_label" class="controls label label-default" for="algo_select">algorithm</label>
+              <select id="algo_select" class="btn btn-default" type="list" list="algo_list"></select>
+            </div>
+          </li><li class="list-group-item">
+            <div class="form-group form-group-lg">
+              <label id="nb_label" class="controls label label-default" for="nb_select">neighborhood</label>
+              <select id="nb_select" class="btn btn-default" type="list" list="neighborhood_list"></select>
+            </div>
+          </li><li class="list-group-item">
+            <div class="form-group form-group-sm">
+              <label id="nb_r_label" class="controls label label-default" for="nb_r_select">radius</label>
+              <select id="nb_r_select" class="btn btn-default" type="list" list="neighborhood_r_list"></select>
+            </div>
+          </li><li class="list-group-item">
+            <div class="form-group form-group-sm">
+            <label id="state_label" class="controls label label-default" for="state_select">states</label>
+            <select id="state_select" class="btn btn-default" type="list" list="state"></select>
+            </div>
+          </li>
+            <!--
+            <div class="form-group-sm">
+              <button id="toimage_button" type="button" class="btn btn-default" style="display:none">2image</button>
+            </div>
+          -->
+
+          <li class="list-group-item btn-group"><button id="save_button" class="state btn btn-default" type="button">save</button>
+            <button id="load_button" class="state btn btn-default" type="button">load</button></li>
+      </ul>
+      </div>
+    </div>
+    <div id="canvas_container" class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+        <canvas id="c" class="main" style="border:1px; border-style:dashed;"></canvas>
+    </div>
+  </div>
+</div>
+<!-- <footer class='footer'>
+      <a href="http://en.wikipedia.org/wiki/Greenberg-Hastings_cellular_automaton">
+      Description</a>, <a href="http://www.wolframscience.com/nksonline/page-1013">Example (see excitable media)</a>, author:
+      <a href="http://dev.fet.li">Tobi Turing</a>
+</footer>
+-->
+</div>
+<script src='algo.js'></script>
+<script src='grid.js'></script>
+<script src='view.js'></script>
+<script src='pattern.js'></script>
+<script src='seq.js'></script>
+<script src='tick.js'></script>
+<script src='control.js'></script>
+</body></html>

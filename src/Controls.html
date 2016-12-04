@@ -1,0 +1,117 @@
+<div>controls {{name}}</div>
+
+
+<div class="form-group form-group-sm">
+    <label id="detail_label" 
+        class="controls label label-default"
+        for="detail_select">level of detail</label>
+    <select id="detail_select" 
+        class="btn btn-default" 
+        type="list" 
+        list="detail_list">
+    {{#each detail as n}}
+    <option>{{n}}</option>
+    {{/each}}
+    </select>
+</div>
+
+
+<div class="form-group form-group-sm">
+    <label id="algo_label" 
+        class="controls label label-default"
+        for="algo_select">algorithm</label>
+    <select id="algo_select" 
+        class="btn btn-default" 
+        type="list" 
+        list="detail_list"
+        bind:value='selected_algo'
+        ref:algorithm
+    >
+    {{#each algorithms as algo}}
+    <option>{{algo.key}}</option>
+    {{/each}}
+    </select>
+</div>
+
+{{#if selected_algo}}
+<div class="form-group form-group-sm">
+    <label id="state_label"
+        class="controls label label-default"
+        for="nb_select">neighborhood</label>
+    <select id="nb_select"
+        class="btn btn-default"
+        type="list"
+        list="nb"
+        bind:value='selected_nb'
+    >
+    {{#each algorithms as algo}}
+        {{#if algo.key == selected_algo}}
+        {{#each algo.neighborhood as nb}}
+        <option>{{nb.type}}</option>
+        {{/each}}
+        {{/if}}
+    {{/each}}
+    </select>
+</div>
+{{/if}}
+
+{{#if selected_nb}}
+<div class="form-group form-group-sm">
+    <label id="nb_r_label"
+        class="controls label label-default"
+        for="nb_r_select">radius</label>
+    <select
+        id="nb_r_select"
+        class="btn btn-default"
+        type="list"
+        list="neighborhood_r_list"
+    >
+    {{#each algorithms as algo}}
+        {{#if algo.key == selected_algo}}
+        {{#each algo.neighborhood as nb}}
+            {{#if nb.type == selected_nb}}
+            {{#each nb.radius as radius}}
+            <option>{{radius}}</option>
+            {{/each}}
+            {{/if}}
+        {{/each}}
+        {{/if}}
+    {{/each}}
+    </select>
+</div>
+{{/if}}
+
+{{#if algorithms}}
+<div class="form-group form-group-sm">
+    <label
+        id="state_label"
+        class="controls label label-default"
+        for="state_select"
+    >states</label>
+    <select
+        id="state_select"
+        class="btn btn-default"
+        type="list"
+        list="state"
+    >
+    {{#each algorithms as algo}}
+    <option>{{settings.state}}</option>
+    {{/each}}
+    </select>
+</div>
+{{/if}}
+
+<script>
+  export default {
+    onrender() {
+        const options = this.refs.algorithm.children;
+        let algorithm = 0;
+        for (var option in options) {
+            if(options[option].selected){
+                algorithm = options[option].value;
+            }
+        }
+        this.set({ algorithm: algorithm });
+    }
+  };
+</script>

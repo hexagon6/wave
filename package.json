@@ -1,0 +1,20 @@
+{
+  "scripts": {
+    "copyfiles": "mkdir dist; cp index.html dist/index.html",
+    "build": "npm run copyfiles && rollup -c",
+    "build:min": "npm run copyfiles && rollup -c --environment production",
+    "dev": "npm run copyfiles && rollup -c -w",
+    "start": "http-server dist & npm run dev"
+  },
+  "files": [
+    "index.html",
+    "dist"
+  ],
+  "devDependencies": {
+    "http-server": "^0.9.0",
+    "rollup-plugin-eslint": "^3.0.0",
+    "rollup-plugin-svelte": "^1.0.0",
+    "rollup-watch": "^2.5.0",
+    "svelte-cli": "^1.0.2"
+  }
+}
