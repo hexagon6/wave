@@ -33,7 +33,6 @@
     </select>
 </div>
 
-{{#if selected_algo}}
 <div class="form-group form-group-sm">
     <label id="state_label"
         class="controls label label-default"
@@ -44,6 +43,7 @@
         list="nb"
         bind:value='selected_nb'
     >
+{{#if selected_algo}}
     {{#each algorithms as algo}}
         {{#if algo.key == selected_algo}}
         {{#each algo.neighborhood as nb}}
@@ -51,11 +51,10 @@
         {{/each}}
         {{/if}}
     {{/each}}
+{{/if}}
     </select>
 </div>
-{{/if}}
 
-{{#if selected_nb}}
 <div class="form-group form-group-sm">
     <label id="nb_r_label"
         class="controls label label-default"
@@ -66,6 +65,7 @@
         type="list"
         list="neighborhood_r_list"
     >
+{{#if selected_nb}}
     {{#each algorithms as algo}}
         {{#if algo.key == selected_algo}}
         {{#each algo.neighborhood as nb}}
@@ -77,11 +77,10 @@
         {{/each}}
         {{/if}}
     {{/each}}
+{{/if}}
     </select>
 </div>
-{{/if}}
 
-{{#if algorithms}}
 <div class="form-group form-group-sm">
     <label
         id="state_label"
@@ -94,12 +93,13 @@
         type="list"
         list="state"
     >
+{{#if algorithms}}
     {{#each algorithms as algo}}
     <option>{{settings.state}}</option>
     {{/each}}
+{{/if}}
     </select>
 </div>
-{{/if}}
 
 <script>
   export default {
