@@ -1,17 +1,10 @@
 // Main program
+import settings from './settings.js';
 import Controls from './Controls.html';
 
 var greenberg_hastings;
 var random_algorithm;
 var game_of_life;
-
-function returnDetailArr() {
-    var details = [];
-    for (var i = 1; i <= settings.detail.max; i++){
-        details.push(i);
-    }
-    return details;
-}
 
 function getSelectedAlgorithm() {
     var ops = app.refs.algorithm.children;
@@ -22,40 +15,10 @@ function getSelectedAlgorithm() {
     }
 }
 
-var settings = {
-    version: '0.7',
-    date: '2016-12-04',
-    algorithm_state: 0,
-    canvas: {
-        size: 640
-    },
-    clock: {
-        state: false
-    },
-    cycle: 0,
-    debug: false,
-    detail: {
-        initial: 4,
-        max: 9
-    },
-    grid: {
-        lines: false
-    },
-    intro: true,
-    touched: false,
-    ready: false,
-    save: false,
-    speed: 75,
-    steps: 3,
-    verbose: false,
-    state: 'wave'
-};
-
 var app = new Controls({
-    target: document.querySelector('main'),
+    target: document.querySelector('controls'),
     data: {
         name: 'world',
-        detail: returnDetailArr(),
         settings: settings,
         algorithms: [
             {

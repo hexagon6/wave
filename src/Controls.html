@@ -1,20 +1,4 @@
-<div>controls {{name}}</div>
-
-
-<div class="form-group form-group-sm">
-    <label id="detail_label" 
-        class="controls label label-default"
-        for="detail_select">level of detail</label>
-    <select id="detail_select" 
-        class="btn btn-default" 
-        type="list" 
-        list="detail_list">
-    {{#each detail as n}}
-    <option>{{n}}</option>
-    {{/each}}
-    </select>
-</div>
-
+<Detail scaling="{{ scaling }}"/>
 
 <div class="form-group form-group-sm">
     <label id="algo_label" 
@@ -102,16 +86,34 @@
 </div>
 
 <script>
-  export default {
-    onrender() {
-        const options = this.refs.algorithm.children;
-        let algorithm = 0;
-        for (var option in options) {
-            if(options[option].selected){
-                algorithm = options[option].value;
-            }
-        }
-        this.set({ algorithm: algorithm });
+    import settings from './settings.js';
+    import Detail from './Detail.html';
+
+    var details = [];
+    for (var i = 1; i <= settings.detail.max; i++){
+        details.push(i);
     }
-  };
+
+    export default {
+        data () {
+            return {
+                scaling: details
+            }
+        },
+
+        onrender() {
+            const options = this.refs.algorithm.children;
+            let algorithm = 0;
+            for (var option in options) {
+                if(options[option].selected){
+                    algorithm = options[option].value;
+                }
+            }
+            this.set({ algorithm: algorithm });
+        },
+
+        components: {
+            Detail
+        }
+    };
 </script>
