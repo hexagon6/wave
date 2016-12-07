@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "copyfiles": "mkdir dist; cp index.html dist/index.html;  cp -a css dist/",
+    "copyfiles": "mkdir -p dist; cp index.html dist/index.html;  cp -a css dist/",
     "build": "npm run copyfiles && rollup -c",
     "build:min": "npm run copyfiles && rollup -c --environment production",
     "dev": "npm run copyfiles && rollup -c -w",
