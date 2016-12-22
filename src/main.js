@@ -1,4 +1,7 @@
 // Main program
+
+import * as _ from 'lodash';
+
 import settings from './settings.js';
 import Controls from './Controls.html';
 
