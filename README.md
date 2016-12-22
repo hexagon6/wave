@@ -1,6 +1,9 @@
 wave: A multi-state two dimensional cellular automaton to simulate excitable medium (and more)
 ==============================================================================================
 
+SVELTE: Currently code is being moved in `svelte`-branch from . to src/ and converted to svelte components and es6-modules.
+Used together with rollup this is awesome! As long this message is here you can ignore files other than in src.
+
 Author: Tobi Turing <dev@fet.li>
 
 This repo contains a web-based editor to play around with cellular automatons.
