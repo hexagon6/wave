@@ -4,6 +4,7 @@
     "build": "npm run copyfiles && rollup -c",
     "build:min": "npm run copyfiles && rollup -c --environment production",
     "dev": "npm run copyfiles && rollup -c -w",
+    "test": "standard",
     "start": "http-server dist & npm run dev"
   },
   "files": [
