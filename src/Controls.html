@@ -77,9 +77,9 @@
         type="list"
         list="state"
     >
-{{#if algorithms}}
-    {{#each algorithms as algo}}
-    <option>{{settings.state}}</option>
+{{#if state}}
+    {{#each state as s}}
+    <option>{{s.name}}</option>
     {{/each}}
 {{/if}}
     </select>

@@ -3,6 +3,7 @@
 import * as _ from 'lodash'
 
 import settings from './settings.js'
+import state from './state.js'
 import Controls from './Controls.html'
 
 var greenbergHastings
@@ -23,6 +24,7 @@ var app = new Controls({
   data: {
     name: 'world',
     settings: settings,
+    state: state,
     algorithms: [
       {
         key: 'GH',
@@ -71,6 +73,5 @@ var app = new Controls({
         ]
       }
     ]
-  },
-  state: state
+  }
 })
