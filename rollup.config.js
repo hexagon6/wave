@@ -6,8 +6,7 @@ import eslint from 'rollup-plugin-eslint'
 const plugins = [
   eslint({
     exclude: [
-      'src/styles/**',
-      'src/*.html'
+      'src/styles/**'
     ]
   }),
   svelte(),

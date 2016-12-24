@@ -16,5 +16,8 @@
             "error",
             "single"
         ]
-    }
+    },
+    "plugins": [
+		"html"
+    ]
 }
