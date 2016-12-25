@@ -1,119 +1,85 @@
-<Detail scaling="{{ scaling }}"/>
+<Detail
+  ref:detail
+  scaling="{{ scaling }}"/>
 
-<div class="form-group form-group-sm">
-    <label id="algo_label" 
-        class="controls label label-default"
-        for="algo_select">algorithm</label>
-    <select id="algo_select" 
-        class="btn btn-default" 
-        type="list" 
-        list="detail_list"
-        bind:value='selected_algo'
-        ref:algorithm
-    >
-    {{#each algorithms as algo}}
-    <option>{{algo.key}}</option>
-    {{/each}}
-    </select>
-</div>
+<Algorithm
+  ref:algorithm
+  algorithms="{{ algorithms }}"/>
 
-<div class="form-group form-group-sm">
-    <label id="state_label"
-        class="controls label label-default"
-        for="nb_select">neighborhood</label>
-    <select id="nb_select"
-        class="btn btn-default"
-        type="list"
-        list="nb"
-        bind:value='selected_nb'
-    >
-{{#if selected_algo}}
-    {{#each algorithms as algo}}
-        {{#if algo.key == selected_algo}}
-        {{#each algo.neighborhood as nb}}
-        <option>{{nb.type}}</option>
-        {{/each}}
-        {{/if}}
-    {{/each}}
-{{/if}}
-    </select>
-</div>
+<Neighbor
+  ref:neighborhood
+  neighbors="{{ neighbors }}"/>
 
-<div class="form-group form-group-sm">
-    <label id="nb_r_label"
-        class="controls label label-default"
-        for="nb_r_select">radius</label>
-    <select
-        id="nb_r_select"
-        class="btn btn-default"
-        type="list"
-        list="neighborhood_r_list"
-    >
-{{#if selected_nb}}
-    {{#each algorithms as algo}}
-        {{#if algo.key == selected_algo}}
-        {{#each algo.neighborhood as nb}}
-            {{#if nb.type == selected_nb}}
-            {{#each nb.radius as radius}}
-            <option>{{radius}}</option>
-            {{/each}}
-            {{/if}}
-        {{/each}}
-        {{/if}}
-    {{/each}}
-{{/if}}
-    </select>
-</div>
+<Radius
+  ref:radius
+  radii="{{ radii }}"/>
 
-<div class="form-group form-group-sm">
-    <label
-        id="state_label"
-        class="controls label label-default"
-        for="state_select"
-    >states</label>
-    <select
-        id="state_select"
-        class="btn btn-default"
-        type="list"
-        list="state"
-    >
-{{#if state}}
-    {{#each state as s}}
-    <option>{{s.name}}</option>
-    {{/each}}
-{{/if}}
-    </select>
-</div>
+<State
+  ref:state
+  states="{{ states }}"/>
+
+<button on:click="selected()">selections</button>
 
 <script>
-    import settings from './settings.js';
-    import Detail from './Detail.html';
+import settings from './settings.js'
+import states from './states.js'
 
-    var details = [];
-    for (var i = 1; i <= settings.detail.max; i++){
-        details.push(i);
+import Detail from './Detail.html'
+import Algorithm from './Algorithm.html'
+import Neighbor from './Neighbor.html'
+import Radius from './Radius.html'
+import State from './State.html'
+
+var details = []
+for (var i = 1; i <= settings.detail.max; i++) {
+  details.push(i)
+}
+
+var getSelected = function (select) {
+  var selected = ''
+  if (select) {
+    selected = Array.from(select).find((s) => s.selected).value
+    console.log(selected)
+  }
+  return selected
+}
+
+export default {
+  data () {
+    return {
+      scaling: details,
+      neighbors: ['moore', 'neumann'],
+      radii: [ 1, 2, 3 ],
+      states: states
     }
+  },
 
-    export default {
-        data () {
-            return {
-                scaling: details
-            }
-        },
+  components: {
+    Detail,
+    Algorithm,
+    Neighbor,
+    Radius,
+    State
+  },
 
-        onrender() {
-            const options = this.refs.algorithm.children;
-            let algorithm = 0;
-            for (var option in options) {
-                if(options[option].selected){
-                    algorithm = options[option].value;
-                }
-            }
-            this.set({ algorithm: algorithm });
-        },
-
-        components: {
-            Detail
-        }
-    };
+  methods: {
+    selected () {
+      console.log(this.refs)
+      var detail = getSelected(this.refs.detail.refs.detail)
+      var algo = getSelected(this.refs.algorithm.refs.algorithm)
+      var nb = getSelected(this.refs.neighborhood.refs.neighborhood)
+      var radius = getSelected(this.refs.radius.refs.radius)
+      var state = getSelected(this.refs.state.refs.state)
+      var a = {
+        detail,
+        algo,
+        nb,
+        radius,
+        state
+      }
+      console.log(a)
+      return a
+    }
+  }
+}
 </script>

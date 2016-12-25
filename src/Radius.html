@@ -1,0 +1,24 @@
+<div class="form-group form-group-sm">
+    <label id="nb_r_label"
+        class="controls label label-default"
+        for="nb_r_select">radius</label>
+    <select
+        id="nb_r_select"
+        class="btn btn-default"
+        type="list"
+        list="neighborhood_r_list"
+        bind:value='radius'
+        ref:radius
+    >
+        {{#each radii as r}}
+        <option>{{r}}</option>
+        {{/each}}
+    </select>
+</div>
+<script>
+export default {
+  onrender () {
+    this.set({ radius: '1' })
+  }
+}
+</script>

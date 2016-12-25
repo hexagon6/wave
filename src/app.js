@@ -1,7 +1,6 @@
 
-import * as _ from 'lodash'
+// import * as _ from 'lodash'
 import settings from './settings.js'
-import state from './state.js'
 import Controls from './Controls.html'
 
 export default class App {
@@ -12,9 +11,7 @@ export default class App {
     this.app = new Controls({
       target: document.querySelector('controls'),
       data: {
-        name: 'world',
         settings: settings,
-        state: state,
         algorithms: [
           {
             key: 'GH',
@@ -36,7 +33,7 @@ export default class App {
               },
               {
                 type: 'schmirdn',
-                radius: [1, 2, 4]
+                radius: [1, 2, 3]
               }
             ]
           },
@@ -65,18 +62,5 @@ export default class App {
         ]
       }
     })
-  }
-
-  getSelectedAlgorithm () {
-    var ops = this.app.refs.algorithm.children
-    for (var o in ops) {
-      if (ops[o].selected) {
-        return ops[o].value
-      }
-    }
-  }
-
-  count2Three () {
-    console.log(_.range(1, 3))
   }
 }

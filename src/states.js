@@ -2,7 +2,7 @@ var backgroundColor = '#673AB7'
 var color = '#58FAF4'
 var borderColor = '#2ECCFA'
 
-var state = [
+var states = [
   {
     // 0: dead, 1: alive
     name: 'two',
@@ -66,4 +66,4 @@ var state = [
   }
 ]
 
-export default state
+export default states

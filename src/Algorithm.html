@@ -1,0 +1,23 @@
+<div class="form-group form-group-sm">
+    <label id="algo_label"
+        class="controls label label-default"
+        for="algo_select">algorithm</label>
+    <select id="algo_select"
+        class="btn btn-default"
+        type="list"
+        list="detail_list"
+        bind:value='algorithm'
+        ref:algorithm
+    >
+    {{#each algorithms as al}}
+    <option value={{al.key}}>{{al.key}}</option>
+    {{/each}}
+    </select>
+</div>
+<script>
+export default {
+  onrender () {
+    this.set({ algorithm: 'GH' })
+  }
+}
+</script>
