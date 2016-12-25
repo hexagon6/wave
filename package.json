@@ -3,9 +3,7 @@
     "copyfiles": "mkdir -p dist; cp index.html dist/index.html;  cp -a css dist/",
     "build": "npm run copyfiles && rollup -c",
     "build:min": "npm run copyfiles && rollup -c --environment production",
-    "dev": "npm run copyfiles && npm run test && rollup -c -w",
-    "test": "standard src/",
-    "fix-lint": "standard --fix src/",
+    "dev": "npm run copyfiles && rollup -c -w",
     "start": "http-server dist & npm run dev"
   },
   "files": [
