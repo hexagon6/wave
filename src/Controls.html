@@ -35,15 +35,6 @@ for (var i = 1; i <= settings.detail.max; i++) {
   details.push(i)
 }
 
-var getSelected = function (select) {
-  var selected = ''
-  if (select) {
-    selected = Array.from(select).find((s) => s.selected).value
-    console.log(selected)
-  }
-  return selected
-}
-
 export default {
   data () {
     return {
@@ -64,21 +55,15 @@ export default {
 
   methods: {
     selected () {
-      console.log(this.refs)
-      var detail = getSelected(this.refs.detail.refs.detail)
-      var algo = getSelected(this.refs.algorithm.refs.algorithm)
-      var nb = getSelected(this.refs.neighborhood.refs.neighborhood)
-      var radius = getSelected(this.refs.radius.refs.radius)
-      var state = getSelected(this.refs.state.refs.state)
-      var a = {
-        detail,
-        algo,
-        nb,
-        radius,
-        state
-      }
-      console.log(a)
-      return a
+      var s = {}
+      Array
+      .from([ 'detail', 'algorithm', 'neighborhood', 'radius', 'state' ])
+      .map((name) => {
+        s[name] = (this.refs[name].refs[name])
+          ? Array.from(this.refs[name].refs[name]).find((s) => s.selected).value
+          : ''
+      })
+      console.log(s)
     }
   }
 }
