@@ -9,6 +9,7 @@
         list="neighborhood_r_list"
         bind:value='radius'
         ref:radius
+        on:click='fire( "select" )'
     >
         {{#each radii as r}}
         <option>{{r}}</option>

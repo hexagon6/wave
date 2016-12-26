@@ -11,6 +11,7 @@
   list="state"
   bind:state
   ref:state
+  on:click='fire( "select" )'
 >
 {{#if states}}
 {{#each states as s}}

@@ -8,6 +8,7 @@
         list="detail_list"
         bind:detail
         ref:detail
+        on:click='fire( "select" )'
     >
     {{#each scaling as n}}
     <option value="{{n}}">{{n}}</option>

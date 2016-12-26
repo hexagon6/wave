@@ -8,6 +8,7 @@
         list="detail_list"
         bind:value='algorithm'
         ref:algorithm
+        on:click='fire( "select" )'
     >
     {{#each algorithms as al}}
     <option value={{al.key}}>{{al.key}}</option>

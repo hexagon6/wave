@@ -8,6 +8,7 @@
         list="nb"
         bind:value='neighborhood'
         ref:neighborhood
+        on:click='fire( "select" )'
     >
     {{#each neighbors as nb}}
     <option>{{nb}}</option>
