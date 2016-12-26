@@ -69,11 +69,12 @@ export default {
       Array
       .from([ 'detail', 'algorithm', 'neighborhood', 'radius', 'state' ])
       .map((name) => {
-        s[name] = (this.refs[name].refs[name])
-          ? Array.from(this.refs[name].refs[name]).find((s) => s.selected).value
-          : ''
+        if (this.refs[name].refs[name]) {
+          var selected = Array.from(this.refs[name].refs[name]).find((s) => s.selected)
+          s[name] = (selected) ? selected.value : ''
+        }
       })
-      console.log(s)
+      return s
     }
   }
 }
