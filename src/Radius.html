@@ -11,9 +11,11 @@
         ref:radius
         on:click='fire( "select" )'
     >
+        {{#if radii}}
         {{#each radii as r}}
         <option>{{r}}</option>
         {{/each}}
+        {{/if}}
     </select>
 </div>
 <script>

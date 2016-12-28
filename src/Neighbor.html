@@ -10,9 +10,11 @@
         ref:neighborhood
         on:click='fire( "select" )'
     >
+    {{#if neighbors}}
     {{#each neighbors as nb}}
     <option>{{nb}}</option>
     {{/each}}
+    {{/if}}
     </select>
 </div>
 <script>
