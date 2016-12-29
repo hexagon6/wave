@@ -8,7 +8,7 @@ export default class App {
     var greenbergHastings
     var randomAlgorithm
     var gameOfLife
-    this.app = new Controls({
+    this.controls = new Controls({
       target: document.querySelector('controls'),
       data: {
         settings: settings,
