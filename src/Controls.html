@@ -14,27 +14,15 @@ li {
 
 <ul>
   <li>
-    <Detail
+    <DetailControl
       ref:detail
       scaling="{{ scaling }}"
       on:select="selections()"/>
   </li>
   <li>
-    <Algorithm
+    <AlgorithmControls
       ref:algorithm
       algorithms="{{ algorithms }}"
-      on:select="selections()"/>
-  </li>
-  <li>
-    <Neighbor
-      ref:neighborhood
-      neighbors="{{ neighbors }}"
-      on:select="selections()"/>
-  </li>
-  <li>
-    <Radius
-      ref:radius
-      radii="{{ radii }}"
       on:select="selections()"/>
   </li>
   <li>
@@ -57,10 +45,8 @@ li {
 import settings from './settings.js'
 import states from './states.js'
 
-import Detail from './Detail.html'
-import Algorithm from './Algorithm.html'
-import Neighbor from './Neighbor.html'
-import Radius from './Radius.html'
+import DetailControl from './DetailControl.html'
+import AlgorithmControls from './AlgorithmControls.html'
 import State from './State.html'
 
 var details = []
@@ -101,18 +87,14 @@ export default {
         let nb = Array
         .from(rd).find((o) => o.type === selected.neighborhood)
         if (nb) { r = nb.radius }
-      } else {
-        selected.radius = ''
       }
       return r
     }
   },
 
   components: {
-    Detail,
-    Algorithm,
-    Neighbor,
-    Radius,
+    DetailControl,
+    AlgorithmControls,
     State
   },
 

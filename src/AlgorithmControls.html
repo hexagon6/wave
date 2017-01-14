@@ -1,0 +1,39 @@
+<script>
+import Algorithm from './Algorithm/Algorithm.html'
+import Neighbor from './Algorithm/Neighbor.html'
+import Radius from './Algorithm/Radius.html'
+
+export default {
+  components: {
+    Algorithm,
+    Neighbor,
+    Radius
+  },
+
+  onrender () {
+    let algorithms = this.get('algorithms')
+    if (algorithms && algorithms[0] && algorithms[0].key) {
+      this.set({ algorithm: algorithms[0].key })
+      this.fire('select', algorithms[0].key)
+    }
+  }
+}
+</script>
+  <li>
+    <Algorithm
+      ref:algorithm
+      algorithms="{{ algorithms }}"
+      on:select="selections()"/>
+  </li>
+  <li>
+    <Neighbor
+      ref:neighborhood
+      neighbors="{{ neighbors }}"
+      on:select="selections()"/>
+  </li>
+  <li>
+    <Radius
+      ref:radius
+      radii="{{ radii }}"
+      on:select="selections()"/>
+  </li>

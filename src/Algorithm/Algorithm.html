@@ -15,10 +15,15 @@
     {{/each}}
     </select>
 </div>
+algorithm: {{algorithm}}
 <script>
 export default {
   onrender () {
-    this.set({ algorithm: 'GH' })
+    let algorithms = this.get('algorithms')
+    if (algorithms && algorithms[0] && algorithms[0].key) {
+      this.set({ algorithm: algorithms[0].key })
+      this.fire('select', algorithms[0].key)
+    }
   }
 }
 </script>
