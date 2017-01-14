@@ -34,11 +34,12 @@ li {
 </ul>
 {{#if selected}}
 <ul>
-  <li>{{ selected.detail }}</li>
-  <li>{{ selected.algorithm }}</li>
-  <li>{{ selected.neighborhood }}</li>
-  <li>{{ selected.radius }}</li>
-  <li>{{ selected.state }}</li>
+  <li>selected:</li>
+  <li>detail: {{ selected.detail }}</li>
+  <li>algorithm: {{ selected.algorithm }}</li>
+  <li>neighborhood: {{ selected.neighborhood }}</li>
+  <li>radius: {{ selected.radius }}</li>
+  <li>state: {{ selected.state }}</li>
 </ul>
 {{/if}}
 <script>
@@ -73,8 +74,6 @@ export default {
           .from(algorithms)
           .find((a) => a.key === selected.algorithm).neighborhood)
         .map((o) => o.type)
-      } else {
-        selected.radius = ''
       }
       return nb
     },
@@ -111,9 +110,14 @@ export default {
       .map((name) => {
         if (this.refs[name].refs[name]) {
           var selected = Array.from(this.refs[name].refs[name]).find((s) => s.selected)
-          s[name] = (selected) ? selected.value : ''
+          s[name] = (selected) ? selected.value : undefined
+          if (selected) {
+            console.log(selected.value)
+          }
         }
       })
+      console.log('selections()')
+      console.log(s)
       this.set(
         {
           selected: s
