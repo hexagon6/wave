@@ -22,8 +22,14 @@
 </li>
 <script>
 export default {
-  onrender () {
-    this.set({ radius: '1' })
+onrender () {
+    this.set({ radius: this.get('radii')[0] })
+    this.observe('radius', (v) => {
+      console.log(`radius: [${v}] selected`)
+    }, { init: false, defer: true })
+    this.on('select', () => {
+        console.log('radius: select event happened')
+    })
   }
 }
 </script>

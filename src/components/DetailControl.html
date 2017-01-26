@@ -1,21 +1,21 @@
 <li>
-    <div class="form-group form-group-sm">
-        <label id="detail_label"
-            class="controls label label-default"
-            for="detail_select">level of detail</label>
-        <select id="detail_select"
-            class="btn btn-default"
-            type="list"
-            list="detail_list"
-            bind:detail
-            ref:detail
-            on:click='fire( "select" )'
-        >
-        {{#each scaling as n}}
-        <option value="{{n}}">{{n}}</option>
-        {{/each}}
-        </select>
-    </div>
+  <div class="form-group form-group-sm">
+    <label id="detail_label"
+      class="controls label label-default"
+      for="detail_select">level of detail</label>
+      <select id="detail_select"
+      class="btn btn-default"
+      type="list"
+      list="detail_list"
+      bind:detail
+      ref:detail
+      on:click='fire( "select" )'
+      >
+      {{#each scaling as n}}
+      <option value="{{n}}">{{n}}</option>
+      {{/each}}
+    </select>
+  </div>
 </li>
 <script>
 export default {

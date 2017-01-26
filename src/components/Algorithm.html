@@ -6,6 +6,7 @@
     <select id="algo_select"
         class="btn btn-default"
         bind:value="algorithm"
+        on:click='fire( "select" )'
     >
       {{#if algorithms}}
       {{#each algorithms as al}}
@@ -13,36 +14,28 @@
       {{/each}}
       {{/if}}
       </select>
-  </div>{{algorithm}}
+  </div>
 </li>
 <li>
 {{#if algorithms}}
   {{#each algorithms as al}}
     {{#if al.key === algorithm}}
-      <Neighbor neighbors="{{ al.neighborhood }}" />
+      <Neighbor neighbors="{{ al.neighborhood }}" n="{{ al.neighborhood[0].type}}" />
     {{/if}}
   {{/each}}
 {{/if}}
 </li>
 <script>
-import { findKey } from 'lodash-es'
-
 import Neighbor from './Neighbor.html'
 
-function selectedAlgorithm (algorithms) {
-  return findKey(algorithms, (algorithm) => { return { key: algorithm } })
-}
-
 export default {
-  data () {
-    return {
-      algorithms: this.algorithms
-    }
-  },
   onrender () {
-  },
-  computed: {
-    neighbors: algorithms => selectedAlgorithm(algorithms)
+    this.observe('algorithm', (v) => {
+      console.log(`algorithm: [${v}] selected`)
+    }, { init: false, defer: true })
+    this.on('select', () => {
+        console.log('algorithm: select event happened')
+    })
   },
   components: {
     Neighbor

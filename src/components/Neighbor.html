@@ -1,27 +1,26 @@
+{{#if neighbors}}
 <li>
   <div class="form-group form-group-sm">
     <label id="state_label"
         class="controls label label-default"
-        for="nb_select">neighborhood</label>
+        for="nb_select">neighbors</label>
     <select id="nb_select"
         class="btn btn-default"
         type="list"
         bind:value="neighbor"
+        on:click='fire( "select" )'
     >
-    {{#if neighbors}}
     {{#each neighbors as nb, i}}
-        {{#if i === 0}}
-        <option selected>{{nb.type}}</option>
-        {{else}}
-        <option>{{nb.type}}</option>
-        {{/if}}
+      {{#if i === 0}}
+      <option selected>{{nb.type}}</option>
+      {{else}}
+      <option>{{nb.type}}</option>
+      {{/if}}
     {{/each}}
-    {{/if}}
     </select>
   </div>
-  {{neighbor}}
+  <span>{{neighbor}} of {{neighbors.length}}</span>
 </li>
-{{#if neighbors}}
 {{#each neighbors as nb}}
   {{#if nb.type === neighbor}}
   <li>
@@ -31,9 +30,22 @@
 {{/each}}
 {{/if}}
 <script>
+import { has } from 'lodash-es'
+
 import Radius from './Radius.html'
 
 export default {
+  onrender () {
+    this.observe('neighbor', (v) => {
+      console.log(`neighbor: [${v}] selected`)
+    }, { init: false, defer: true })
+    console.log(this.get('neighbors'))
+    this.set({ neighbor: this.get('neighbors')[0].type})
+    this.on('select', event => {
+      console.log(event)
+      console.log(`neighbor: select event ${event} happened`)
+    })
+  },
   components: {
     Radius
   }
