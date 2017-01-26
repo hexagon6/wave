@@ -1,4 +1,4 @@
-<div>
+<li>
   <div class="form-group form-group-sm">
     <label id="state_label"
         class="controls label label-default"
@@ -6,30 +6,30 @@
     <select id="nb_select"
         class="btn btn-default"
         type="list"
+        bind:value="neighbor"
     >
     {{#if neighbors}}
     {{#each neighbors as nb, i}}
         {{#if i === 0}}
-        <option selected>{{nb}}</option>
+        <option selected>{{nb.type}}</option>
         {{else}}
-        <option>{{nb}}</option>
+        <option>{{nb.type}}</option>
         {{/if}}
     {{/each}}
     {{/if}}
     </select>
   </div>
-  <!-- 
-    <Radius
-      ref:radius
-      radii="{{ radii }}"
-      on:click='fire( "select" )'/>
-      -->
-  <div>
-  neighborhood: (
-  {{ neighborhood }}
-  )
-  </div>
-</div>
+  {{neighbor}}
+</li>
+{{#if neighbors}}
+{{#each neighbors as nb}}
+  {{#if nb.type === neighbor}}
+  <li>
+    <Radius radii="{{nb.radius}}"/>
+  </li>
+  {{/if}}
+{{/each}}
+{{/if}}
 <script>
 import Radius from './Radius.html'
 

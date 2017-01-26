@@ -1,4 +1,4 @@
-<div>
+<li>
   <div class="form-group form-group-sm">
     <label id="algo_label"
         class="controls label label-default"
@@ -13,23 +13,17 @@
       {{/each}}
       {{/if}}
       </select>
-  </div>
-  {{#if algorithms}}
-    {{#each algorithms as al}}
-      {{#if al}}
-      {{ al }}
-      {{/if}}
-    {{/each}}
-  {{/if}}
-  {{#if neighbors}}
-  <li>
-    <Neighbor
-      ref:neighborhood
-      neighbors="{{ neighbors }}"
-      on:click='fire( "select" )'/>
-  </li>
-  {{/if}}
-</div>
+  </div>{{algorithm}}
+</li>
+<li>
+{{#if algorithms}}
+  {{#each algorithms as al}}
+    {{#if al.key === algorithm}}
+      <Neighbor neighbors="{{ al.neighborhood }}" />
+    {{/if}}
+  {{/each}}
+{{/if}}
+</li>
 <script>
 import { findKey } from 'lodash-es'
 

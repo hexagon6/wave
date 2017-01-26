@@ -1,24 +1,26 @@
-<div class="form-group form-group-sm">
-<label
-  id="state_label"
-  class="controls label label-default"
-  for="state_select"
->states</label>
-<select
-  id="state_select"
-  class="btn btn-default"
-  type="list"
-  list="state"
-  bind:state
-  ref:state
-  on:click='fire( "select" )'
->
-{{#if states}}
-{{#each states as s}}
-<option>{{s.name}}</option>
-{{/each}}
-{{/if}}
-</select>
+<li>
+  <div class="form-group form-group-sm">
+    <label
+      id="state_label"
+      class="controls label label-default"
+      for="state_select"
+    >states</label>
+    <select
+      id="state_select"
+      class="btn btn-default"
+      type="list"
+      list="state"
+      bind:state
+      ref:state
+      on:click='fire( "select" )'
+    >
+    {{#if states}}
+    {{#each states as s}}
+    <option>{{s.name}}</option>
+    {{/each}}
+    {{/if}}
+    </select>
+  </li>
 </div>
 <script>
 export default {

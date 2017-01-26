@@ -13,34 +13,10 @@ li {
 </style>
 
 <ul>
-  <li>
-    <DetailControl
-      ref:detail
-      scaling="{{ scaling }}"
-      on:select="selections()"/>
-  </li>
-  <li>
-  <AlgorithmControls
-      algorithms="{{ algorithms }}"
-      bind:value='algo_settings' />
-  </li>
-  <li>
-    <State
-      ref:state
-      states="{{ states }}"
-      on:select="selections()"/>
-  </li>
+  <DetailControl scaling="{{ scaling }}" />
+  <AlgorithmControls algorithms="{{ algorithms }}" />
+  <State states="{{ states }}"/>
 </ul>
-{{#if selected}}
-<ul>
-  <li>selected:</li>
-  <li>detail: {{ selected.detail }}</li>
-  <li>algorithm: {{ selected.algorithm }}</li>
-  <li>neighborhood: {{ selected.neighborhood }}</li>
-  <li>radius: {{ selected.radius }}</li>
-  <li>state: {{ selected.state }}</li>
-</ul>
-{{/if}}
 <script>
 import settings from '../js/settings.js'
 import states from '../js/states.js'
@@ -59,70 +35,13 @@ export default {
     return {
       scaling: details,
       states: states,
-      settings: settings,
-      selected: []
+      settings: settings
     }
   },
-
-  computed: {
-    neighbors: (selected, algorithms) => {
-      var nb = []
-      if (selected && selected.algorithm) {
-        nb = Array
-        .from(Array
-          .from(algorithms)
-          .find((a) => a.key === selected.algorithm).neighborhood)
-        .map((o) => o.type)
-      }
-      return nb
-    },
-    radii: (selected, neighbors, algorithms) => {
-      var r = []
-      if (selected && selected.algorithm && selected.neighborhood) {
-        let rd = Array
-          .from(algorithms)
-          .find((a) => a.key === selected.algorithm).neighborhood
-        let nb = Array
-        .from(rd).find((o) => o.type === selected.neighborhood)
-        if (nb) { r = nb.radius }
-      }
-      return r
-    }
-  },
-
   components: {
     DetailControl,
     AlgorithmControls,
     State
-  },
-
-  helpers: {
-
-  },
-
-  methods: {
-    selections () {
-      let selections = [ 'detail', 'algorithm', 'neighborhood', 'radius', 'state' ]
-      var s = {}
-      Array
-      .from(selections)
-      .map((name) => {
-        if (this.refs[name].refs[name]) {
-          var selected = Array.from(this.refs[name].refs[name]).find((s) => s.selected)
-          s[name] = (selected) ? selected.value : undefined
-          if (selected) {
-            console.log(selected.value)
-          }
-        }
-      })
-      console.log('selections()')
-      console.log(s)
-      this.set(
-        {
-          selected: s
-        }
-      )
-    }
   }
 }
 </script>

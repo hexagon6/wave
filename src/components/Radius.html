@@ -1,23 +1,25 @@
-<div class="form-group form-group-sm">
-    <label id="nb_r_label"
-        class="controls label label-default"
-        for="nb_r_select">radius</label>
-    <select
-        id="nb_r_select"
-        class="btn btn-default"
-        type="list"
-        list="neighborhood_r_list"
-        bind:value='radius'
-        ref:radius
-        on:click='fire( "select" )'
-    >
-        {{#if radii}}
-        {{#each radii as r}}
-        <option>{{r}}</option>
-        {{/each}}
-        {{/if}}
-    </select>
-</div>
+<li>
+    <div class="form-group form-group-sm">
+        <label id="nb_r_label"
+            class="controls label label-default"
+            for="nb_r_select">radius</label>
+        <select
+            id="nb_r_select"
+            class="btn btn-default"
+            type="list"
+            list="neighborhood_r_list"
+            bind:value='radius'
+            ref:radius
+            on:click='fire( "select" )'
+        >
+            {{#if radii}}
+            {{#each radii as r}}
+            <option>{{r}}</option>
+            {{/each}}
+            {{/if}}
+        </select>
+    </div>
+</li>
 <script>
 export default {
   onrender () {
