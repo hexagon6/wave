@@ -1,0 +1,41 @@
+<div>
+  <div class="form-group form-group-sm">
+    <label id="state_label"
+        class="controls label label-default"
+        for="nb_select">neighborhood</label>
+    <select id="nb_select"
+        class="btn btn-default"
+        type="list"
+    >
+    {{#if neighbors}}
+    {{#each neighbors as nb, i}}
+        {{#if i === 0}}
+        <option selected>{{nb}}</option>
+        {{else}}
+        <option>{{nb}}</option>
+        {{/if}}
+    {{/each}}
+    {{/if}}
+    </select>
+  </div>
+  <!-- 
+    <Radius
+      ref:radius
+      radii="{{ radii }}"
+      on:click='fire( "select" )'/>
+      -->
+  <div>
+  neighborhood: (
+  {{ neighborhood }}
+  )
+  </div>
+</div>
+<script>
+import Radius from './Radius.html'
+
+export default {
+  components: {
+    Radius
+  }
+}
+</script>

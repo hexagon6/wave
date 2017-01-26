@@ -1,6 +1,6 @@
 <style>
 ul {
-  max-width: 220px;
+  max-width: 240px;
   list-style: none;
   float: left;
 }
@@ -20,10 +20,9 @@ li {
       on:select="selections()"/>
   </li>
   <li>
-    <AlgorithmControls
-      ref:algorithm
+  <AlgorithmControls
       algorithms="{{ algorithms }}"
-      on:select="selections()"/>
+      bind:value='algo_settings' />
   </li>
   <li>
     <State
@@ -43,8 +42,8 @@ li {
 </ul>
 {{/if}}
 <script>
-import settings from './settings.js'
-import states from './states.js'
+import settings from '../js/settings.js'
+import states from '../js/states.js'
 
 import DetailControl from './DetailControl.html'
 import AlgorithmControls from './AlgorithmControls.html'
