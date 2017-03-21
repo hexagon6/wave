@@ -35,7 +35,7 @@ import { has } from 'lodash-es'
 import Radius from './Radius.html'
 
 export default {
-  onrender () {
+  oncreate () {
     this.observe('neighbor', (v) => {
       console.log(`neighbor: [${v}] selected`)
     }, { init: false, defer: true })
