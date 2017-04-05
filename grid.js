@@ -262,7 +262,7 @@ function init_matrix(detail) {
     return m;
 }
 
-function init_grid() {
+function init_grid(m) {
     var cycles = 0;
     var detail = document.getElementById('detail_select').value;
     //console.log($('#detail').filter(':first')[0].selectedIndex);
@@ -275,7 +275,11 @@ function init_grid() {
     c.fillStyle = state.colors[settings.state][0];
     c.fillRect(0, 0, grid.x, grid.y);
     drawGridLines();
-    matrix = init_matrix(detail);
+    if (typeof m === 'undefined') {
+        matrix = init_matrix(detail);
+    } else {
+        matrix = m
+    }
 }
 
 
