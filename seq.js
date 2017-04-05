@@ -33,11 +33,15 @@ THE SOFTWARE.
 
 //global definitions
 var karel, pixel, start_clock, stop_clock, pattern, reset_canvas, 
-show_interaction_text, set_untouched_state;
+show_interaction_text, set_untouched_state, initial_matrix;
 
 var seq = {
     intro: function () {
-            this.gol();
+        if (Math.random() > 0.3) {
+            this.gliders();
+        } else {
+            this.gol_multistate();
+        }
     },
     wav: function () {
         var r = Math.floor(Math.random() * 100);
@@ -87,7 +91,7 @@ var seq = {
 		}
 		settings.steps=n;
 	},
-	gol: function() {
+	gol_multistate: function() {
 		window.setTimeout(pattern.pentos, 250, 30, 40);
 		window.setTimeout(pattern.glider, 1, 12, 24);
         window.setTimeout(start_clock, 1000, 75);
@@ -105,5 +109,9 @@ var seq = {
         window.setTimeout(stop_clock, 9000);
         window.setTimeout(set_ready, 9004);
         window.setTimeout(reset_canvas, 9005);
+    },
+    gliders: function () {
+        window.setTimeout(init_grid, 250, initial_matrix)
+        window.setTimeout(start_clock, 1000, 75);
     }
 }
