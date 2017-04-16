@@ -9,8 +9,6 @@
             type="list"
             list="neighborhood_r_list"
             bind:value='radius'
-            ref:radius
-            on:click='fire( "select" )'
         >
             {{#if radii}}
             {{#each radii as r}}
@@ -23,12 +21,10 @@
 <script>
 export default {
 oncreate () {
-    this.set({ radius: this.get('radii')[0] })
+    const initial = this.get('radii')[0]
+    this.set({ radius: initial })
     this.observe('radius', (v) => {
       console.log(`radius: [${v}] selected`)
-    }, { init: false, defer: true })
-    this.on('select', () => {
-        console.log('radius: select event happened')
     })
   }
 }

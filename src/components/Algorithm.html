@@ -6,26 +6,28 @@
     <select id="algo_select"
         class="btn btn-default"
         bind:value="algorithm"
-        on:click='fire( "select" )'
     >
       {{#if algorithms}}
-      {{#each algorithms as al}}
-      <option value={{al.key}}>{{al.key}}</option>
-      {{/each}}
+        {{#each algorithms as al}}
+        <option value={{al.key}}>{{al.key}}</option>
+        {{/each}}
       {{/if}}
       </select>
   </div>
 </li>
 <li>
+{{#if neighbors}}
 {{#if algorithms}}
   {{#each algorithms as al}}
     {{#if al.key === algorithm}}
-      <Neighbor neighbors="{{ al.neighborhood }}" n="{{ al.neighborhood[0].type}}" />
+      <Neighbor neighbors={{ neighbors }} />
     {{/if}}
   {{/each}}
 {{/if}}
+{{/if}}
 </li>
 <script>
+import { filter } from 'lodash-es'
 import Neighbor from './Neighbor.html'
 
 export default {
@@ -35,9 +37,9 @@ export default {
 
     this.observe('algorithm', (v) => {
       console.log(`algorithm: [${v}] selected`)
-    }, { init: false, defer: true })
-    this.on('select', () => {
-        console.log('algorithm: select event happened')
+      const a = this.get('algorithms')
+      const selected = filter(a, {key: v})[0]
+      this.set({ neighbors: selected.neighborhood })
     })
   },
 

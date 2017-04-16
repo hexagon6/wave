@@ -8,18 +8,12 @@
         class="btn btn-default"
         type="list"
         bind:value="neighbor"
-        on:click='fire( "select" )'
     >
-    {{#each neighbors as nb, i}}
-      {{#if i === 0}}
-      <option selected>{{nb.type}}</option>
-      {{else}}
+    {{#each neighbors as nb}}
       <option>{{nb.type}}</option>
-      {{/if}}
     {{/each}}
     </select>
   </div>
-  <span>{{neighbor}} of {{neighbors.length}}</span>
 </li>
 {{#each neighbors as nb}}
   {{#if nb.type === neighbor}}
@@ -30,22 +24,21 @@
 {{/each}}
 {{/if}}
 <script>
-import { has } from 'lodash-es'
-
+import { filter } from 'lodash-es'
 import Radius from './Radius.html'
 
 export default {
   oncreate () {
+    const initial = this.get('neighbors')[0].type
+    this.set({ neighbor: initial })
     this.observe('neighbor', (v) => {
       console.log(`neighbor: [${v}] selected`)
-    }, { init: false, defer: true })
-    console.log(this.get('neighbors'))
-    this.set({ neighbor: this.get('neighbors')[0].type})
-    this.on('select', event => {
-      console.log(event)
-      console.log(`neighbor: select event ${event} happened`)
+      const a = this.get('neighbors')
+      const selected = filter(a, {key: v})
+      this.set({ radii: selected.radius })
     })
   },
+
   components: {
     Radius
   }
