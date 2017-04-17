@@ -33,7 +33,7 @@ THE SOFTWARE.
 
 //global definitions
 var karel, pixel, start_clock, stop_clock, pattern, reset_canvas, 
-show_interaction_text, set_untouched_state, initial_matrix, tph_thuering;
+show_interaction_text, set_untouched_state, initial_matrix, tph_thuering, init_grid, set_grid;
 
 var seq = {
     intro: function () {
@@ -126,7 +126,8 @@ var seq = {
         window.setTimeout(start_clock, 1000, 75);
     },
 	tph_thuering: function () {
-		window.setTimeout(init_grid, 20, tph_thuering)
+		window.setTimeout(init_grid, 10, tph_thuering);
+		window.setTimeout(set_grid, 10, tph_thuering);
 		window.setTimeout(start_clock, 1000, 100);
 	}
 }
