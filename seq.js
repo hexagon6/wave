@@ -33,10 +33,21 @@ THE SOFTWARE.
 
 //global definitions
 var karel, pixel, start_clock, stop_clock, pattern, reset_canvas, 
-show_interaction_text, set_untouched_state, initial_matrix;
+show_interaction_text, set_untouched_state, initial_matrix, tph_thuering;
 
 var seq = {
     intro: function () {
+		// FIXME make search parsing simpler
+		var search = window.location.search.split('?')
+		if (search.length > 0) {
+			var p = search[1]
+			var params = (p) ? p.split('='): [null, null]
+		}
+		if (params && params[0] === 'user' && params[1] === 'tph-thuering') {
+			console.log('welcome tph-thuering');
+			this.tph_thuering();
+			return;
+		}
         if (Math.random() > 0.3) {
             this.gliders();
         } else {
@@ -113,5 +124,9 @@ var seq = {
     gliders: function () {
         window.setTimeout(init_grid, 250, initial_matrix)
         window.setTimeout(start_clock, 1000, 75);
-    }
+    },
+	tph_thuering: function () {
+		window.setTimeout(init_grid, 20, tph_thuering)
+		window.setTimeout(start_clock, 1000, 100);
+	}
 }
