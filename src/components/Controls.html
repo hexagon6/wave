@@ -13,11 +13,12 @@ li {
 </style>
 
 <ul>
-  <DetailControl scaling="{{ scaling }}" />
-  <AlgorithmControls algorithms="{{ algorithms }}" />
-  <State states="{{ states }}"/>
+  <DetailControl scaling={{ scaling }} />
+  <AlgorithmControls algorithms={{ algorithms }} settings={{settings}}/>
+  <State states={{ states }} />
 </ul>
 <script>
+import algorithms from '../js/algorithms'
 import settings from '../js/settings.js'
 import states from '../js/states.js'
 
@@ -29,6 +30,8 @@ var details = []
 for (var i = 1; i <= settings.detail.max; i++) {
   details.push(i)
 }
+
+console.log(algorithms.all)
 
 export default {
   data () {
@@ -43,5 +46,6 @@ export default {
     AlgorithmControls,
     State
   }
+  // TODO: how to get out the settings for viewport? detail, algorithm, neighborhood, radius, states
 }
 </script>

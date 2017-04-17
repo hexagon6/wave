@@ -1,0 +1,19 @@
+<Controls algorithms={{algorithms}} />
+<script>
+import algorithms from '../js/algorithms'
+import Controls from './Controls.html'
+
+export default {
+  oncreate () {
+    console.log('Main.html')
+  },
+  data () {
+    return {
+      algorithms: algorithms.all
+    }
+  },
+  components: {
+    Controls
+  }
+}
+</script>
