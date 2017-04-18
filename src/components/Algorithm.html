@@ -20,7 +20,7 @@
 {{#if algorithms}}
   {{#each algorithms as al}}
     {{#if al.key === algorithm}}
-      <Neighbor neighbors={{ neighbors }} />
+      <Neighbor ref:neighbor neighbors={{ neighbors }} />
     {{/if}}
   {{/each}}
 {{/if}}

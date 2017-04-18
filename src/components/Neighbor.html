@@ -18,7 +18,7 @@
 {{#each neighbors as nb}}
   {{#if nb.type === neighbor}}
   <li>
-    <Radius radii="{{nb.radius}}"/>
+    <Radius ref:radius radii="{{nb.radius}}"/>
   </li>
   {{/if}}
 {{/each}}
