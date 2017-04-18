@@ -1,15 +1,29 @@
-<Controls algorithms={{algorithms}} />
+<Controls
+  algorithms={{algorithms}}
+  settings={{settings}}
+  scaling={{scaling}}
+  states={{states}}
+/>
 <script>
 import algorithms from '../js/algorithms'
+import settings from '../js/settings.js'
+import states from '../js/states.js'
+
 import Controls from './Controls.html'
 
+
+var scaling = []
+for (var i = 1; i <= settings.detail.max; i++) {
+  scaling.push(i)
+}
+
 export default {
-  oncreate () {
-    console.log('Main.html')
-  },
   data () {
     return {
-      algorithms: algorithms.all
+      algorithms: algorithms.all,
+      scaling,
+      settings,
+      states
     }
   },
   components: {
