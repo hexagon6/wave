@@ -4,13 +4,17 @@
   scaling={{scaling}}
   states={{states}}
 />
+<Canvas
+  width={{canvas.width}}
+  height={{canvas.height}}
+/>
 <script>
 import algorithms from '../js/algorithms'
 import settings from '../js/settings.js'
 import states from '../js/states.js'
 
+import Canvas from './Canvas.html'
 import Controls from './Controls.html'
-
 
 var scaling = []
 for (var i = 1; i <= settings.detail.max; i++) {
@@ -23,11 +27,16 @@ export default {
       algorithms: algorithms.all,
       scaling,
       settings,
-      states
+      states,
+      canvas: {
+        height: 200,
+        width: 200
+      }
     }
   },
   components: {
-    Controls
+    Controls,
+    Canvas
   }
 }
 </script>
