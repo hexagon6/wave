@@ -11,16 +11,11 @@
       ref:detail
       on:click='fire( "select" )'
       >
+      {{#if scaling}}
       {{#each scaling as n}}
       <option value="{{n}}">{{n}}</option>
       {{/each}}
+      {{/if}}
     </select>
   </div>
 </li>
-<script>
-export default {
-  oncreate () {
-    // this.set({ detail: 3 })
-  }
-}
-</script>
