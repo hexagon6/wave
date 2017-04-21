@@ -1,3 +1,11 @@
+import {
+  moore,
+  neumann,
+  neumannMoore,
+  random,
+  schmirdn
+} from './neighborhood.js'
+
 export default {
   get all () {
     return [
@@ -12,24 +20,11 @@ export default {
       key: 'GH',
       name: 'Greenberg-Hastings',
       method: null,
-      neighborhood: [ // uses per default 'von neumann neighboorhood' with r = 1
-        {
-          type: 'neumann',
-          radius: [1, 2, 3]
-        },
-        {
-          type: 'moore',
-          radius: [1, 2]
-        },
-        {
-          type: 'neumann_moore',
-          radius: [1],
-          states: 2
-        },
-        {
-          type: 'schmirdn',
-          radius: [1, 2, 3]
-        }
+      neighborhood: [
+        neumann,
+        moore,
+        neumannMoore,
+        schmirdn
       ]
     }
   },
@@ -40,10 +35,7 @@ export default {
       name: 'Random',
       method: null,
       neighborhood: [
-        {
-          type: 'random',
-          radius: [1, 2, 3, 4]
-        }
+        random
       ]
     }
   },
@@ -54,10 +46,7 @@ export default {
       name: 'Game of Life',
       method: null,
       neighborhood: [
-        {
-          type: 'moore',
-          radius: [1]
-        }
+        moore
       ]
     }
   }
