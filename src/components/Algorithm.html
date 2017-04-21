@@ -15,43 +15,11 @@
       </select>
   </div>
 </li>
-<li>
-{{#if neighbors}}
-{{#if algorithms}}
-  {{#each algorithms as al}}
-    {{#if al.key === algorithm}}
-      <Neighbor ref:neighbor neighbors={{ neighbors }} />
-    {{/if}}
-  {{/each}}
-{{/if}}
-{{/if}}
-</li>
 <script>
-import { filter } from 'lodash-es'
-import Neighbor from './Neighbor.html'
-
 export default {
   oncreate () {
-    console.log(this.get('settings'))
     const initial = this.get('algorithms')[0].key
     this.set({ algorithm: initial })
-
-    this.observe('algorithm', (algorithm) => {
-      console.log(`algorithm: [${algorithm}] selected`)
-      const a = this.get('algorithms')
-      const selected = filter(a, {key: algorithm})[0]
-
-      const settings = this.get('settings')
-      settings['algorithm'] = algorithm
-      this.set({
-        neighbors: selected.neighborhood,
-        settings
-      })
-    })
-  },
-
-  components: {
-    Neighbor
   }
 }
 </script>

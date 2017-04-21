@@ -14,20 +14,114 @@ li {
 
 <ul>
   <DetailControl ref:detail scaling={{ scaling }} />
-  <AlgorithmControls algorithms={{ algorithms }} settings={{ settings }}/>
+  <Algorithm
+    ref:algorithm
+    algorithms={{ algorithms }}
+    settings={{ settings }}
+  />
+  <Neighbor ref:neighbor neighbors={{ neighbors }} />
+  <Radius ref:radius radii={{ radii }} />
   <State ref:state states={{ states }} />
 </ul>
+{{#if debug}}
+<ul>
+<li>settings:</li>
+<li>detail: {{detail}}</li>
+<li>algorithm:  {{algorithm}}</li>
+<li>neighbor:  {{neighbor}}</li>
+<li>radius:  {{radius}}</li>
+<li>state:  {{state}}</li>
+</ul>
+{{/if}}
 <script>
+import { filter } from 'lodash-es'
 import DetailControl from './DetailControl.html'
-import AlgorithmControls from './AlgorithmControls.html'
+import Algorithm from './Algorithm.html'
+import Neighbor from './Neighbor.html'
+import Radius from './Radius.html'
 import State from './State.html'
 
+const observer = {}
+
 export default {
+  oncreate() {
+    const settings = this.get('settings')
+    const algorithms = this.get('algorithms')
+    const algorithm = algorithms[0]
+    const neighbors = algorithm.neighborhood.map(({type}) => type)
+    const radii = algorithm.neighborhood[0].radius
+    const radius = radii[0]
+    this.set({
+      algorithm,
+      neighbors,
+      radii,
+      radius
+    })
+
+    const observers = [
+      'detail',
+      'algorithm',
+      'neighbor',
+      'radius',
+      'state'
+    ]
+    for (name of observers) {
+      this.addObserver(name)
+    }
+    this.observe('algorithm', (algorithm) => {
+      if (algorithm) {
+        const a = this.get('algorithms')
+        const selected = filter(a, {key: algorithm})[0]
+        if (selected) {
+          const settings = this.get('settings')
+          settings['algorithm'] = algorithm
+          this.set({
+            neighbors: selected.neighborhood,
+            settings
+          })
+        }
+      }
+    })
+    this.observe('neighbor', (v) => {
+      if (v) {
+        const a = this.get('neighbors')
+        const selected = filter(a, {type: v})
+        if (selected && selected.length > 0) {
+          this.set({ radii: selected[0].radius })
+        }
+      }
+    })
+  },
+  ondestroy() {
+    Object.keys(observer).map((name) => {
+      observer[name].cancel()
+      delete observer[name]
+    })
+  },
+  data () {
+    return {
+      neighbors: [],
+      radii: [],
+      debug: false
+    }
+  },
   components: {
     DetailControl,
-    AlgorithmControls,
+    Algorithm,
+    Neighbor,
+    Radius,
     State
   },
+  methods: {
+    addObserver: function (name) {
+      const ref = this.refs[name]
+      observer[name] = ref.observe(name, value => {
+        if (value && name) {
+          this.set({ [name]: value })
+        }
+      })
+    }
+},
   // TODO: how to get out the settings for viewport? detail, algorithm, neighborhood, radius, states
 }
 </script>

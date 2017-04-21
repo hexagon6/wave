@@ -4,12 +4,11 @@
       class="controls label label-default"
       for="detail_select">level of detail</label>
       <select id="detail_select"
-      class="btn btn-default"
-      type="list"
-      list="detail_list"
-      bind:detail
-      ref:detail
-      on:click='fire( "select" )'
+        class="btn btn-default"
+        type="list"
+        list="detail_list"
+        bind:value="detail"
+        on:click='fire( "select" )'
       >
       {{#if scaling}}
       {{#each scaling as n}}
@@ -19,3 +18,14 @@
     </select>
   </div>
 </li>
+<script>
+export default {
+  oncreate () {
+    const scaling = this.get('scaling')
+    if (scaling && scaling.length > 0) {
+      const detail = scaling[0]
+      this.set({ detail })
+    }
+  }
+}
+</script>

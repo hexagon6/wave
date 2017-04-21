@@ -15,32 +15,15 @@
     </select>
   </div>
 </li>
-{{#each neighbors as nb}}
-  {{#if nb.type === neighbor}}
-  <li>
-    <Radius ref:radius radii="{{nb.radius}}"/>
-  </li>
-  {{/if}}
-{{/each}}
 {{/if}}
 <script>
-import { filter } from 'lodash-es'
-import Radius from './Radius.html'
-
 export default {
   oncreate () {
-    const initial = this.get('neighbors')[0].type
-    this.set({ neighbor: initial })
-    this.observe('neighbor', (v) => {
-      console.log(`neighbor: [${v}] selected`)
-      const a = this.get('neighbors')
-      const selected = filter(a, {key: v})
-      this.set({ radii: selected.radius })
-    })
-  },
-
-  components: {
-    Radius
+    const neighbors = this.get('neighbors')
+    if (neighbors && neighbors.length > 0) {
+      const neighbor = neighbors[0]
+      this.set({ neighbor })
+    }
   }
 }
 </script>

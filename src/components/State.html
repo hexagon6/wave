@@ -10,7 +10,7 @@
       class="btn btn-default"
       type="list"
       list="state"
-      bind:state
+      bind:value="state"
       ref:state
       on:click='fire( "select" )'
     >
@@ -25,7 +25,11 @@
 <script>
 export default {
   oncreate () {
-    this.set({ state: 'two' })
+    const states = this.get('states')
+    if (states && states.length > 0) {
+      const state = states[0] && states[0].name
+      this.set({ state })
+    }
   }
 }
 </script>
