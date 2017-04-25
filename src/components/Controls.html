@@ -17,7 +17,6 @@ li {
   <Algorithm
     ref:algorithm
     algorithms={{ algorithms }}
-    settings={{ settings }}
   />
   <Neighbor ref:neighbor neighbors={{ neighbors }} />
   <Radius ref:radius radii={{ radii }} />
@@ -25,6 +24,7 @@ li {
 </ul>
 <script>
 import { filter } from 'lodash-es'
+import settings from '../js/settings.js'
 import DetailControl from './DetailControl.html'
 import Algorithm from './Algorithm.html'
 import Neighbor from './Neighbor.html'

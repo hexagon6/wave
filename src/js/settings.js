@@ -14,7 +14,7 @@ let settings = {
   debug: false,
   detail: {
     initial: 4,
-    max: 8
+    max: 9
   },
   grid: {
     lines: false

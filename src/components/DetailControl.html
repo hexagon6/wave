@@ -19,11 +19,14 @@
   </div>
 </li>
 <script>
+import settings from '../js/settings.js'
+const { detail: { initial } } = settings
+
 export default {
   oncreate () {
     const scaling = this.get('scaling')
     if (scaling && scaling.length > 0) {
-      const detail = scaling[0]
+      const detail = (initial-1 in scaling) ? initial: scaling[0]
       this.set({ detail })
     }
   }
