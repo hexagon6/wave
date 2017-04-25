@@ -1,10 +1,22 @@
+{{#if debug}}
+{{debug}}
+<ul>
+<li>settings:</li>
+<li>detail: {{detail}}</li>
+<li>algorithm:  {{algorithm}}</li>
+<li>neighbor:  {{neighbor}}</li>
+<li>radius:  {{radius}}</li>
+<li>state:  {{state}}</li>
+</ul>
+{{/if}}
 <Controls
+  ref:controls
   algorithms={{algorithms}}
-  settings={{settings}}
   scaling={{scaling}}
   states={{states}}
 />
 <Canvas
+  ref:canvas
   width={{canvas.width}}
   height={{canvas.height}}
 />
@@ -16,22 +28,43 @@ import states from '../js/states.js'
 import Canvas from './Canvas.html'
 import Controls from './Controls.html'
 
+
+
 var scaling = []
 for (var i = 1; i <= settings.detail.max; i++) {
   scaling.push(i)
 }
 
 export default {
+  oncreate () {
+    const controls = this.refs.controls
+    const components = [
+      'detail',
+      'algorithm',
+      'neighbor',
+      'radius',
+      'state'
+    ]
+    components.map((component) => {
+      controls.refs[component]
+        .observe(component, (value) => {
+          settings[component] = value
+          this.set({[component]: value})
+        })
+    })
+  },
   data () {
+    const { size } = settings.canvas
     return {
       algorithms: algorithms.all,
       scaling,
       settings,
       states,
       canvas: {
-        height: 200,
-        width: 200
-      }
+        height: size,
+        width: size
+      },
+      debug: false 
     }
   },
   components: {

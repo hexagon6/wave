@@ -1,7 +1,7 @@
 // settings.js
 
 let settings = {
-  version: '0.7',
+  version: '0.svelte-alpha',
   date: '2016-12-07',
   algorithm_state: 0,
   canvas: {

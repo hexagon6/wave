@@ -23,16 +23,6 @@ li {
   <Radius ref:radius radii={{ radii }} />
   <State ref:state states={{ states }} />
 </ul>
-{{#if debug}}
-<ul>
-<li>settings:</li>
-<li>detail: {{detail}}</li>
-<li>algorithm:  {{algorithm}}</li>
-<li>neighbor:  {{neighbor}}</li>
-<li>radius:  {{radius}}</li>
-<li>state:  {{state}}</li>
-</ul>
-{{/if}}
 <script>
 import { filter } from 'lodash-es'
 import DetailControl from './DetailControl.html'
@@ -45,7 +35,6 @@ const observer = {}
 
 export default {
   oncreate() {
-    const settings = this.get('settings')
     const algorithms = this.get('algorithms')
     const algorithm = algorithms[0]
     const neighbors = algorithm.neighborhood.map(({type}) => type)
@@ -73,11 +62,8 @@ export default {
         const a = this.get('algorithms')
         const selected = filter(a, {key: algorithm})[0]
         if (selected) {
-          const settings = this.get('settings')
-          settings['algorithm'] = algorithm
           this.set({
-            neighbors: selected.neighborhood,
-            settings
+            neighbors: selected.neighborhood
           })
         }
       }
@@ -101,8 +87,7 @@ export default {
   data () {
     return {
       neighbors: [],
-      radii: [],
-      debug: false
+      radii: []
     }
   },
   components: {
