@@ -8,7 +8,7 @@ let settings = {
     size: 640
   },
   clock: {
-    state: false
+    running: false
   },
   cycle: 0,
   debug: false,
