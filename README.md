@@ -1,6 +1,8 @@
 wave: A multi-state two dimensional cellular automaton to simulate excitable medium (and more)
 ==============================================================================================
 
+[![Wave](wave.png)](https://waves.fet.li)
+
 Author: Tobi Turing <dev@fet.li>
 
 This repo contains a web-based editor to play around with cellular automatons.
