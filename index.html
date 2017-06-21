@@ -5,7 +5,7 @@
 <meta id="vers" name="version" content="GoLv1">
 <meta id="date" name="date" content="2017-06-21">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="keywords" content="Cellular, Automata, GameofLife, Generator">
+<meta name="keywords" content="Cellular, Automata, GameofLinguala, Generator">
 <title class="item">Game of Linguala</title>
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,8 +16,6 @@
 <script src='ext/jquery-2.0.3.js'></script>
 <script src='ext/underscore.js'></script>
 <script src='ext/bootstrap.min.js'></script>
-<script src='ext/backbone-min.js'></script>
-<script src='ext/two.min.js'></script>
 
 <script src='settings.js'></script>
 </head>
@@ -29,7 +27,7 @@
 <nav id="navigation" class="navbar navbar-default navbar-fixed-top">
 <div class="container-fluid">
   <div class="navbar-header">
-    <a id="reset_button" class="navbar-brand" href="#">Game of Life</a>
+    <a id="reset_button" class="navbar-brand" href="#">Game of Linguala</a>
     <div class="btn-group">
       <button id="start_button" class="controls btn btn-default navbar-btn btn-primar" type="button">start</button>
       <button id="next_cycle_button" class="controls btn btn-default navbar-btn" type="button">next</button>
@@ -60,19 +58,6 @@
               <select id="detail_select" class="btn btn-default" type="list" list="detail_list"></select>
             </div>
           </li>
-          <li class="list-group-item">
-          </li><li class="list-group-item">
-            <div class="form-group form-group-sm">
-            <label id="state_label" class="controls label label-default" for="state_select">states</label>
-            <select id="state_select" class="btn btn-default" type="list" list="state"></select>
-            </div>
-          </li>
-            <!--
-            <div class="form-group-sm">
-              <button id="toimage_button" type="button" class="btn btn-default" style="display:none">2image</button>
-            </div>
-          -->
-
           <li class="list-group-item btn-group"><button id="save_button" class="state btn btn-default" type="button">save</button>
             <button id="load_button" class="state btn btn-default" type="button">load</button></li>
       </ul>

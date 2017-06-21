@@ -58,21 +58,6 @@ function append_options_nb(id, algorithms, default_value) {
     });
 }
 
-function append_options_state(id, state, default_value){
-    var select = document.getElementById(id);
-    $('#' + id).children().remove();
-    var options = [];
-	var n = _.keys(state.colors);
-    _.each(n, function(num, key) {
-        options[num] = document.createElement('option');
-        if (num === default_value) {
-            options[num].setAttribute('selected', true);
-        }
-        options[num].innerHTML = num;
-        select.appendChild(options[num]);
-    });
-}
-
 function press_start_stop_button(b, speed) {
     if (!clock_state) {
         b.innerHTML = 'stop';
@@ -106,12 +91,6 @@ function enable_control_buttons() {
 $('#detail_select').change(function () {
     reset_canvas();
     $('#load_button').attr("disabled", true);
-});
-
-$('#state_select').change(function (){
-	settings.state = $(this).val();
-  append_options_state('state_select', state, settings.state);
-	update_steps()
 });
 
 $('#save_button').click(function (e) {
@@ -210,7 +189,6 @@ function main() {
 	//set default settings of controls
 	//TODO: This should be done differently, initialization of dropdowns from available options: ['detail', 'algorithm', 'neighborhood', 'radius', 'states']
     append_options('detail_select', settings.detail.max, settings.detail.initial);
-    append_options_state('state_select', state, settings.state);
     grid_main();
     $('.unselectable').on('selectstart dragstart',
     function (evt) {

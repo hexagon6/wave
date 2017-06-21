@@ -39,5 +39,5 @@ var settings = {
     speed: 50,
     steps: 2, //corresponds to 'two' colorset
     verbose: false,
-    state: 'two'
+    state: 'wave'
 }
