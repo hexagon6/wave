@@ -78,3 +78,11 @@ div#footer {
     left:0px;
     float:left;
 }
+
+.btn {
+    width: 120px;
+}
+
+.form-group {
+    float: right;
+}

@@ -151,7 +151,8 @@ function draw_pixel(canvas_context, rel_pos) {
         'x': rel_pos.x * grid.pixel,
         'y': rel_pos.y * grid.pixel
     };
-    canvas_context.fillRect(pos.x, pos.y, grid.pixel, grid.pixel);
+    var gap = 1
+    canvas_context.fillRect(pos.x+gap, pos.y+gap, grid.pixel-gap, grid.pixel-gap);
 }
 
 function next_value(x, y) {
@@ -273,7 +274,7 @@ function init_grid(m) {
         'pixel': Math.pow(2, grid_bit_resolution)
     };
     c.fillStyle = state.colors[settings.state][0];
-    c.fillRect(0, 0, grid.x, grid.y);
+    c.fillRect(0+1, 0+1, grid.x-1, grid.y-1);
     drawGridLines();
     if (typeof m === 'undefined') {
         matrix = init_matrix(detail);
