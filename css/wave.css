@@ -13,9 +13,9 @@ body,div{
 }
 
 .main {
-    background-color: #673AB7;
-    color: #58FAF4;
-    border-color: #2ECCFA;
+    background-color: white;
+    color: #1cb569;
+    border-color: #3c8aff;
 }
 
 #hover_text {

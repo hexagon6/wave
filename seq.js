@@ -33,7 +33,7 @@ THE SOFTWARE.
 
 //global definitions
 var karel, pixel, start_clock, stop_clock, pattern, reset_canvas, 
-show_interaction_text, set_untouched_state, initial_matrix, tph_thuering, init_grid, set_grid;
+show_interaction_text, set_untouched_state, initial_matrix, tph_thuering, linguala, init_grid, set_grid;
 
 var seq = {
     intro: function () {
@@ -46,6 +46,11 @@ var seq = {
 		if (params && params[0] === 'user' && params[1] === 'tph-thuering') {
 			console.log('welcome tph-thuering');
 			this.tph_thuering();
+			return;
+		}
+		if (params && params[0] === 'user' && params[1] === 'linguala') {
+			console.log('yay linguala');
+			this.linguala();
 			return;
 		}
         if (Math.random() > 0.3) {
@@ -129,5 +134,11 @@ var seq = {
 		window.setTimeout(init_grid, 10, tph_thuering);
 		window.setTimeout(set_grid, 10, tph_thuering);
 		window.setTimeout(start_clock, 1000, 100);
+	},
+	linguala: function () {
+		window.setTimeout(this.statechange, 0, 3);
+		window.setTimeout(init_grid, 10, linguala);
+		window.setTimeout(set_grid, 10, linguala);
+		window.setTimeout(start_clock, 4000, 100);
 	}
 }
