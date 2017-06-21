@@ -16,19 +16,6 @@ if (typeof(url_string.karel) !== 'undefined') {
     karel = (url_string.karel === 'true');
 }
 
-function append_options(id, num, default_value) {
-    var select = document.getElementById(id);
-    var options = [];
-    for (var n = 1; n <= num; n++) {
-        options[n] = document.createElement('option');
-        if (n === default_value) {
-            options[n].setAttribute('selected', true);
-        }
-        options[n].innerHTML = n;
-        select.appendChild(options[n]);
-    }
-}
-
 function append_options_algo(id, algorithms, default_value) {
     var select = document.getElementById(id);
     var options = [];
@@ -188,7 +175,6 @@ function main() {
 
 	//set default settings of controls
 	//TODO: This should be done differently, initialization of dropdowns from available options: ['detail', 'algorithm', 'neighborhood', 'radius', 'states']
-    append_options('detail_select', settings.detail.max, settings.detail.initial);
     grid_main();
     $('.unselectable').on('selectstart dragstart',
     function (evt) {

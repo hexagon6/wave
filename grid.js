@@ -265,8 +265,7 @@ function init_matrix(detail) {
 
 function init_grid(m) {
     var cycles = 0;
-    var detail = document.getElementById('detail_select').value;
-    //console.log($('#detail').filter(':first')[0].selectedIndex);
+    var detail = settings.detail.initial || 6;
     var grid_bit_resolution = Math.log(c.canvas.width) / Math.log(2) - detail;
     grid = { 
         'x': c.canvas.width,  
