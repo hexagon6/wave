@@ -12,7 +12,7 @@
     "dist"
   ],
   "devDependencies": {
-    "ava": "0.18.2",
+    "ava": "^0.19.1",
     "babel-cli": "6.18.0",
     "babel-plugin-external-helpers": "6.18.0",
     "babel-preset-env": "1.2.2",
@@ -45,6 +45,12 @@
   "author": "Tobi Turing <dev@fet.li>",
   "license": "MIT",
   "ava": {
+    "files": [
+      "src/tests/*.js"
+    ],
+    "source": [
+      "src"
+    ],
     "require": "babel-register",
     "babel": "inherit"
   }
