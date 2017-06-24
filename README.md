@@ -1,4 +1,4 @@
-wave: A multi-state two dimensional cellular automaton to simulate excitable medium (and more)
+wave: A multi-state two dimensional cellular automata editor to simulate excitable medium (and more)
 ==============================================================================================
 
 
@@ -10,7 +10,7 @@ Used together with rollup this is awesome! As long this message is here you can 
 Author: Tobi Turing <dev@fet.li>
 
 This repo contains a web-based editor to play around with cellular automatons.
-Originally born from the idea to implement a tristate cellular automaton using the Greenberg-Hastings algorithm.
+Originally born from the idea to implement a tristate cellular automata using the Greenberg-Hastings algorithm.
 This CA can be used to simulate excitable medium (aka "waves").
 
 Over time I have added different algorithms such as Game of Life and my own based on random neighborhood.
@@ -39,5 +39,13 @@ There are multiple parameters which can be tweaked, such as:
 		* 9 -> 262144 cells might be to much for most CPUs, so by default we use 4 -> 256 fields, this works well even with portable phones
 
 The matrix canvas is always initiated to have a multiple of 2^2n cells so minimal visual smoothing happens.
+
+TODO:
+
+* [ ] Make this whole thing embeddable in webpages (e.g. in this README)
+* [ ] Move algorithms to separate files and provide a plugin structure
+* [ ] Make colors editable in browser
+* [ ] Improve interface for mobile
+* [ ] Make controls component generate a settings object which can be shared somehow
 
 Enjoy!
