@@ -1,11 +1,14 @@
-// .babelrc
 {
   "presets": [
     [
       "env",
       {
+        "targets": {
+          "browsers": "> 5%"
+        },
         "modules": false
       }
+
     ]
   ],
   "plugins": [
