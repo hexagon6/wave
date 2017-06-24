@@ -1,4 +1,4 @@
-wave: A multi-state two dimensional cellular automaton to simulate excitable medium (and more) [![Build Status](https://travis-ci.org/hexagon6/wave.svg?branch=master)](https://travis-ci.org/hexagon6/wave)
+wave: A multi-state two dimensional cellular automaton to simulate excitable medium (and more) [![Build Status](https://travis-ci.org/hexagon6/wave.svg?branch=svelte)](https://travis-ci.org/hexagon6/wave)
 ==============================================================================================
 
 
