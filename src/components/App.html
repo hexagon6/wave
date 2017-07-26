@@ -1,0 +1,42 @@
+<ul>
+	<li>
+	<label>
+		algorithm
+	<select bind:value="algorithm">
+		{{#if algorithms}}
+		{{#each algorithms as al}}
+		<option value={{al.key}}>{{al.key}}</option>
+		{{/each}}
+		{{/if}}
+		</select>
+</label>
+</li>
+	<li><input bind:value="argument" value="{{argument}}" /></li>
+</ul>
+	
+<p>algorithm: {{algorithm}} ({{argument}}) -> {{out}}</p>
+
+<script>
+const algos = [
+	{ key: "addOne", method: (a) => 1 + parseInt(a,10)  },
+	{ key: "addTwo", method: (a) => 2 + parseInt(a,10) }
+]
+
+const algomethod = (algorithm) => 
+	algos.filter(
+		({key}) => key === algorithm)
+[0].method
+
+export default {
+	data () {
+		return {
+			algorithms: algos,
+			algorithm: 'addOne',
+			argument: 42
+		}
+	},
+	computed: {
+		out: (algorithm, argument) => algomethod(algorithm)(argument)
+	}
+}
+</script>

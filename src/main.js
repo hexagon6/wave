@@ -1,5 +1,8 @@
-// Main program
+import App from './components/App.html'
 
-import App from './js/app.js'
+var app = new App({
+  target: document.body,
+  data: {}
+})
 
-var app = new App() // eslint-disable-line no-unused-vars
+export default app
