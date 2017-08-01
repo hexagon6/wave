@@ -3,7 +3,7 @@
     <rect
       width="{{canvas.width}}" height="{{canvas.height}}"
       x="{{canvas.x}}" y="{{canvas.y}}"
-      id="background" style="fill:{{canvas.color}}"
+      class="background"
     />
   {{#each matrix as row}}
     {{#each row as cell}}
@@ -16,6 +16,11 @@
   {{/each}}
   </g>
 </svg>
+<style>
+  .background {
+    fill: #00fe00
+  }
+</style>
 <script type="buble">
 import { createField, fillMatrix, randomFieldGenerator } from '../js/matrix'
 
@@ -43,8 +48,7 @@ export default {
         width: field.cellsize*field.x+field.gap,
         height: field.cellsize*field.y+field.gap,
         x: 0,
-        y: 0,
-        color: '#00fe00'
+        y: 0
       },
       gap: field.gap
     }
