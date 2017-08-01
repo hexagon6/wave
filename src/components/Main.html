@@ -9,6 +9,7 @@
 <li>state:  {{state}}</li>
 </ul>
 {{/if}}
+<Field />
 <Controls
   ref:controls
   algorithms={{algorithms}}
@@ -27,8 +28,7 @@ import states from '../js/states.js'
 
 import Canvas from './Canvas.html'
 import Controls from './Controls.html'
-
-
+import Field from './Field.html'
 
 var scaling = []
 for (var i = 1; i <= settings.detail.max; i++) {
@@ -68,7 +68,8 @@ export default {
   },
   components: {
     Controls,
-    Canvas
+    Canvas,
+    Field
   }
 }
 </script>

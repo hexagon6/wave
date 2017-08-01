@@ -1,3 +1,4 @@
+<Field />
 <ul>
 	<li>
 	<label>
@@ -17,6 +18,8 @@
 <p>algorithm: {{algorithm}} ({{argument}}) -> {{out}}</p>
 
 <script>
+import Field from './Field.html'
+
 const algos = [
 	{ key: "addOne", method: (a) => 1 + parseInt(a,10)  },
 	{ key: "addTwo", method: (a) => 2 + parseInt(a,10) }
@@ -37,6 +40,9 @@ export default {
 	},
 	computed: {
 		out: (algorithm, argument) => algomethod(algorithm)(argument)
+	},
+	components: {
+		Field
 	}
 }
 </script>

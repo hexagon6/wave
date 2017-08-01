@@ -1,0 +1,53 @@
+<svg height=600 width=600>
+  <g>
+    <rect
+      width="{{canvas.width}}" height="{{canvas.height}}"
+      x="{{canvas.x}}" y="{{canvas.y}}"
+      id="background" style="fill:{{canvas.color}}"
+    />
+  {{#each matrix as row}}
+    {{#each row as cell}}
+      <rect
+        width="{{width}}" height="{{height}}"
+        x="{{cell.x+gap}}" y="{{cell.y+gap}}"
+        id="cell{{cell.x}}x{{cell.y}}" style="fill:{{cell.color}}"
+      />
+    {{/each}}
+  {{/each}}
+  </g>
+</svg>
+<script type="buble">
+import { createField, fillMatrix, randomFieldGenerator } from '../js/matrix'
+
+const size = 9
+
+const matrix = fillMatrix(randomFieldGenerator, [0,4], size, size)
+
+const field = {
+  matrix,
+  cellsize: 64,
+  x: size,
+  y: size,
+  gap: 6 
+}
+
+export default {
+  oncreate () {
+  },
+  data () {
+    return {
+      matrix: createField(field.cellsize, field.matrix, field.x, field.y),
+      width: field.cellsize-field.gap,
+      height: field.cellsize-field.gap,
+      canvas: {
+        width: field.cellsize*field.x+field.gap,
+        height: field.cellsize*field.y+field.gap,
+        x: 0,
+        y: 0,
+        color: '#00fe00'
+      },
+      gap: field.gap
+    }
+  }
+}
+</script>
