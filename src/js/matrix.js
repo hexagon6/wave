@@ -2,7 +2,9 @@ const colormap = [
   '#ffffff',
   '#ff0000',
   '#ffff00',
-  '#000000'
+  '#000000',
+  '#3abe00',
+  '#afeefb'
 ]
 
 const generateCell = (size) => {
