@@ -20,7 +20,7 @@ const generateCell = (size) => {
 }
 
 const createRow = (createCell, cells, y) => {
-  return cells.map((cell, i) => createCell(i, y, cell))
+  return cells.map((cell, i) => createCell(y, i, cell))
 }
 
 const sliceCellstoRows = (cells, numRows) => {

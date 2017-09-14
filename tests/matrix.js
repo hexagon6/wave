@@ -25,11 +25,11 @@ test('valid row', t => {
   const createCell = generateCell(10)
   const expRes = [
     { x: 0, y: 0, color: '#ffffff' },
-    { x: 10, y: 0, color: '#ff0000' }
+    { x: 0, y: 10, color: '#ff0000' }
   ]
   t.deepEqual(createRow(createCell, [0, 1], 0), expRes)
   const expRes2 = [
-    { x: 0, y: 10, color: '#ffffff' },
+    { x: 10, y: 0, color: '#ffffff' },
     { x: 10, y: 10, color: '#ff0000' }
   ]
   t.deepEqual(createRow(createCell, [0, 1], 1), expRes2)
@@ -47,9 +47,9 @@ test('valid field', t => {
   const expRes = [
     [
       { x: 0, y: 0, color: '#ffffff' },
-      { x: 10, y: 0, color: '#ff0000' }
+      { x: 0, y: 10, color: '#ff0000' }
     ], [
-      { x: 0, y: 10, color: '#ffff00' },
+      { x: 10, y: 0, color: '#ffff00' },
       { x: 10, y: 10, color: '#000000' }
     ]
   ]
