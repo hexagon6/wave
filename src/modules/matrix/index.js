@@ -1,12 +1,12 @@
 import colormap from './colormap'
 
-const { states, background } = colormap.dark
+const { states, background } = colormap.bright
 
-const generateCell = (size = 1, gap = 0) => {
+const generateCell = (size = 1) => {
   return (x, y, state) => {
     return {
-      x: gap + x * size,
-      y: gap + y * size,
+      x: x * size,
+      y: y * size,
       color: states[state]
     }
   }
@@ -29,8 +29,8 @@ const sliceCellstoRows = (cells, numRows) => {
 }
 
 // FIXME: check that matrix dimensions match input parameters x & y
-const createField = (cells, numRows, numCols, cellsize, gap) => {
-  const createCell = generateCell(cellsize, gap)
+const createField = (cells, numRows, numCols, cellsize) => {
+  const createCell = generateCell(cellsize)
   const rows = sliceCellstoRows(cells, numRows)
   return rows.map((row, i) => {
     return createRow(createCell, row, i)

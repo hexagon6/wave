@@ -11,7 +11,7 @@
     {{#each row as cell, j}}
       <rect
         width="{{width}}" height="{{height}}"
-        x="{{cell.x}}" y="{{cell.y}}"
+        x="{{cell.x + gap}}" y="{{cell.y + gap}}"
         id="cell{{i}}x{{j}}" style="fill:{{cell.color}}"
       />
     {{/each}}
@@ -123,20 +123,17 @@ export default {
   },
   data () {
     const {x, y, cellsize, gap} = field.config
-    const matrix = createField(_matrix, x, y, cellsize, gap)
+    const matrix = []
 
     return {
-      x, y, gap, cellsize, matrix,
-      width: (cellsize, gap) => spacing(cellsize, gap),
-      height: (cellsize, gap) => spacing(cellsize, gap),
-      canvas: canvasParams(cellsize, x, y, gap)
+      x, y, gap, cellsize, matrix
     }
   },
   computed: {
     gap: (gap) => parse(gap),
     matrix: (x, y) => {
       const {gap, cellsize} = field.config
-      return createField(_matrix, x, y, cellsize, gap)
+      return createField(_matrix, x, y, cellsize)
     },
     field: (matrix, cellsize, x, y, gap) => {
       return {
