@@ -50,3 +50,8 @@ export {
   randomField,
   sliceCellstoRows
 }
+
+export {
+  randomFieldGenerator,
+  fillMatrix
+} from './generate'
