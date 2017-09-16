@@ -79,12 +79,15 @@ import {
   parseUnsignedInt as parse,
 } from '../modules/utils'
 
+const frames = 12 // Hz
+
 const field = {
   config: {
-    x: 15,
-    y: 15,
-    cellsize: 32,
-    gap: 10
+    x: 42,
+    y: 42,
+    cellsize: 16,
+    gap: 2,
+    interval: 1 / frames * 1000,
   }
 }
 
@@ -105,10 +108,15 @@ const spacing = (n, gap) => {
   return (spacing > 0) ? spacing : 0
 }
 
-const _matrix = randomField(field.config.x, field.config.y)
-
 export default {
   oncreate () {
+    const {interval} = field.config
+    const freq = 1000 / interval
+    console.log(`Running simulation at ~${freq} Hz`)
+    this.interval = setInterval( () => {
+      const _matrix = randomField(field.config.x, field.config.y)
+      this.set({ _matrix });
+    }, interval );
   },
   data () {
     const {x, y, cellsize, gap} = field.config
@@ -120,8 +128,9 @@ export default {
   },
   computed: {
     gap: (gap) => parse(gap),
-    matrix: (x, y, cellsize, gap) => {
-      return createField(colors, _matrix, x, y, cellsize, gap)
+    matrix: (x, y, cellsize, gap, _matrix) => {
+      const matrix = (_matrix) ? _matrix : []
+      return createField(colors, matrix, x, y, cellsize, gap)
     },
     field: (matrix, cellsize, x, y, gap) => {
       return {
@@ -133,9 +142,9 @@ export default {
       }
     },
     width: (cellsize, gap) =>
-      spacing(parseInt(cellsize), parseInt(gap, 10)),
+      spacing(parse(cellsize), parse(gap, 10)),
     height: (cellsize, gap) =>
-      spacing(parseInt(cellsize), parseInt(gap, 10)),
+      spacing(parse(cellsize), parse(gap, 10)),
     canvas: (cellsize, x, y, gap) =>
       canvasParams(parse(cellsize), parse(x), parse(y), parse(gap))
   },
