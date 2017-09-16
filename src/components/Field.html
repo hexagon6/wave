@@ -120,9 +120,8 @@ export default {
   },
   computed: {
     gap: (gap) => parse(gap),
-    matrix: (x, y) => {
-      const {gap, cellsize} = field.config
-      return createField(colors, _matrix, x, y, cellsize)
+    matrix: (x, y, cellsize, gap) => {
+      return createField(colors, _matrix, x, y, cellsize, gap)
     },
     field: (matrix, cellsize, x, y, gap) => {
       return {
