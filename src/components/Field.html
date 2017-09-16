@@ -77,6 +77,7 @@ import {
   add,
   substract,
   parseUnsignedInt as parse,
+  spacing,
 } from '../modules/utils'
 
 const frames = 12 // Hz
@@ -142,9 +143,9 @@ export default {
       }
     },
     width: (cellsize, gap) =>
-      spacing(parse(cellsize), parse(gap, 10)),
+      spacing(parse(cellsize), parse(gap)),
     height: (cellsize, gap) =>
-      spacing(parse(cellsize), parse(gap, 10)),
+      spacing(parse(cellsize), parse(gap)),
     canvas: (cellsize, x, y, gap) =>
       canvasParams(parse(cellsize), parse(x), parse(y), parse(gap))
   },
