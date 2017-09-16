@@ -1,6 +1,6 @@
 import colormap from './colormap'
 
-const states = colormap.bright
+const { states, background } = colormap.dark
 
 const generateCell = (size = 1, gap = 0) => {
   return (x, y, state) => {
@@ -53,6 +53,7 @@ const randomFieldGenerator = function (range) {
 }
 
 export {
+  background,
   generateCell,
   createField,
   createRow,

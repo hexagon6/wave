@@ -5,7 +5,7 @@
       height="{{canvas.height}}"
       x="{{canvas.x}}"
       y="{{canvas.y}}"
-      class="background"
+      style="fill:{{canvas.background}}"
     />
   {{#each matrix as row, i}}
     {{#each row as cell, j}}
@@ -50,9 +50,6 @@
   </div>
 </div>
 <style>
-  .background {
-    fill: #33feaf
-  }
   .overflow-visible {
     overflow: visible;
   }
@@ -69,7 +66,12 @@
   }
 </style>
 <script type="buble">
-import { createField, fillMatrix, randomFieldGenerator } from '../modules/matrix'
+import {
+  background,
+  createField,
+  fillMatrix,
+  randomFieldGenerator
+} from '../modules/matrix'
 
 const field = {
   config: {
@@ -94,10 +96,11 @@ const canvasParams = (cellsize, x, y, gap) => {
   const Y = parse(y)
   const _g = parse(gap)
   return {
-        width: s * X + _g,
-        height: s * Y + _g,
-        x: 0,
-        y: 0
+    background,
+    width: s * X + _g,
+    height: s * Y + _g,
+    x: 0,
+    y: 0
   }
 }
 
