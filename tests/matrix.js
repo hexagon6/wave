@@ -7,7 +7,7 @@ import {
   sliceCellstoRows,
   fillMatrix,
   randomFieldGenerator
-} from '../src/js/matrix.js'
+} from '../src/modules/matrix'
 
 test('valid transform output', t => {
   const createCell = generateCell(10)

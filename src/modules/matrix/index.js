@@ -1,18 +1,13 @@
-const colormap = [
-  '#ffffff',
-  '#ff0000',
-  '#ffff00',
-  '#000000',
-  '#3abe00',
-  '#afeefb'
-]
+import colormap from './colormap'
+
+const states = colormap.bright
 
 const generateCell = (size = 1, gap = 0) => {
   return (x, y, state) => {
     return {
       x: gap + x * size,
       y: gap + y * size,
-      color: colormap[state]
+      color: states[state]
     }
   }
 }
