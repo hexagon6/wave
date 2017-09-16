@@ -102,13 +102,6 @@ const canvasParams = (cellsize, x, y, gap) => {
   }
 }
 
-const spacing = (n, gap) => {
-  const _n = parse(n)
-  const _gap = parse(gap)
-  const spacing = (_gap) ? _n - _gap : _n
-  return (spacing > 0) ? spacing : 0
-}
-
 export default {
   oncreate () {
     const {interval} = field.config
