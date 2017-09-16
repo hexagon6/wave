@@ -6,11 +6,12 @@ import {
   createRow,
   sliceCellstoRows,
   fillMatrix,
-  randomFieldGenerator
+  randomFieldGenerator,
+  colors
 } from '../src/modules/matrix'
 
 test('valid transform output', t => {
-  const createCell = generateCell(10)
+  const createCell = generateCell(10, colors)
   t.deepEqual(createCell(0, 0, 0),
     {x: 0, y: 0, color: '#ffffff'})
   t.deepEqual(createCell(1, 0, 0),
@@ -22,7 +23,7 @@ test('valid transform output', t => {
 })
 
 test('valid row', t => {
-  const createCell = generateCell(10, 0)
+  const createCell = generateCell(10, colors)
   const expRes = [
     { x: 0, y: 0, color: '#ffffff' },
     { x: 0, y: 10, color: '#ff0000' }
@@ -53,7 +54,7 @@ test('valid field', t => {
       { x: 10, y: 10, color: '#000000' }
     ]
   ]
-  t.deepEqual(createField([0, 1, 2, 3], 2, 2, 10, 0), expRes)
+  t.deepEqual(createField(colors, [0, 1, 2, 3], 2, 2, 10, 0), expRes)
 })
 
 test('fill matrix', t => {

@@ -70,6 +70,7 @@ import {
   background,
   createField,
   randomField,
+  colors
 } from '../modules/matrix'
 
 import {
@@ -121,7 +122,7 @@ export default {
     gap: (gap) => parse(gap),
     matrix: (x, y) => {
       const {gap, cellsize} = field.config
-      return createField(_matrix, x, y, cellsize)
+      return createField(colors, _matrix, x, y, cellsize)
     },
     field: (matrix, cellsize, x, y, gap) => {
       return {
