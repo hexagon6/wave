@@ -89,14 +89,10 @@ const field = {
 }
 
 const canvasParams = (cellsize, x, y, gap) => {
-  const s = parse(cellsize)
-  const X = parse(x)
-  const Y = parse(y)
-  const _g = parse(gap)
   return {
     background,
-    width: s * X + _g,
-    height: s * Y + _g,
+    width: cellsize * x + gap,
+    height: cellsize * y + gap,
     x: 0,
     y: 0
   }
@@ -147,7 +143,7 @@ export default {
     height: (cellsize, gap) =>
       spacing(parseInt(cellsize), parseInt(gap, 10)),
     canvas: (cellsize, x, y, gap) =>
-      canvasParams(parseInt(cellsize, 10), x, y, parseInt(gap))
+      canvasParams(parse(cellsize), parse(x), parse(y), parse(gap))
   },
   methods: {
     plus: function (variable) {
