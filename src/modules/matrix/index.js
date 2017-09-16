@@ -1,6 +1,11 @@
 import colormap from './colormap'
+import {
+  _randomField
+} from './generate'
 
 const { states, background } = colormap.bright
+
+const randomField = _randomField(states.length)
 
 const generateCell = (size = 1) => {
   return (x, y, state) => {
@@ -37,27 +42,11 @@ const createField = (cells, numRows, numCols, cellsize) => {
   })
 }
 
-const fillMatrix = (func, params, x, y) => {
-  let i = 0
-  let matrix = []
-  while (i < x * y) {
-    matrix.push(func(params))
-    i = i + 1
-  }
-  return matrix
-}
-
-const randomFieldGenerator = function (range) {
-  const rand = Math.random()
-  return Math.floor(rand * (range[1] - range[0]) + range[0])
-}
-
 export {
   background,
   generateCell,
   createField,
   createRow,
-  sliceCellstoRows,
-  fillMatrix,
-  randomFieldGenerator
+  randomField,
+  sliceCellstoRows
 }

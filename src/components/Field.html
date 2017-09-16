@@ -69,8 +69,7 @@
 import {
   background,
   createField,
-  fillMatrix,
-  randomFieldGenerator
+  randomField,
 } from '../modules/matrix'
 
 import {
@@ -105,12 +104,7 @@ const spacing = (n, gap) => {
   return (spacing > 0) ? spacing : 0
 }
 
-const _matrix = fillMatrix(
-  randomFieldGenerator,
-  [0,6],
-  field.config.x,
-  field.config.y,
-)
+const _matrix = randomField(field.config.x, field.config.y)
 
 export default {
   oncreate () {
