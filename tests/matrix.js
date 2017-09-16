@@ -22,7 +22,7 @@ test('valid transform output', t => {
 })
 
 test('valid row', t => {
-  const createCell = generateCell(10)
+  const createCell = generateCell(10, 0)
   const expRes = [
     { x: 0, y: 0, color: '#ffffff' },
     { x: 0, y: 10, color: '#ff0000' }
@@ -53,7 +53,7 @@ test('valid field', t => {
       { x: 10, y: 10, color: '#000000' }
     ]
   ]
-  t.deepEqual(createField(10, [0, 1, 2, 3], 2, 2), expRes)
+  t.deepEqual(createField([0, 1, 2, 3], 2, 2, 10, 0), expRes)
 })
 
 test('fill matrix', t => {

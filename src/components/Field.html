@@ -1,56 +1,166 @@
-<svg height=600 width=600>
+<svg class="overflow-visible">
   <g>
     <rect
-      width="{{canvas.width}}" height="{{canvas.height}}"
-      x="{{canvas.x}}" y="{{canvas.y}}"
+      width="{{canvas.width}}"
+      height="{{canvas.height}}"
+      x="{{canvas.x}}"
+      y="{{canvas.y}}"
       class="background"
     />
-  {{#each matrix as row}}
-    {{#each row as cell}}
+  {{#each matrix as row, i}}
+    {{#each row as cell, j}}
       <rect
         width="{{width}}" height="{{height}}"
-        x="{{cell.x+gap}}" y="{{cell.y+gap}}"
-        id="cell{{cell.x}}x{{cell.y}}" style="fill:{{cell.color}}"
+        x="{{cell.x}}" y="{{cell.y}}"
+        id="cell{{i}}x{{j}}" style="fill:{{cell.color}}"
       />
     {{/each}}
   {{/each}}
   </g>
 </svg>
+<div class="debug">
+  <div>
+    <label>cellsize<input bind:value="cellsize" value="{{cellsize}}" maxlength="3" /></label>
+    <button on:click="plus('cellsize')" value="+" >+</button>
+    <button on:click="minus('cellsize')" value="-" >-</button>
+  </div>
+  <div>
+    <label>gap<input bind:value="gap" value="{{gap}}" maxlength="3"/></label>
+    <button on:click="plus('gap')" value="+" >+</button>
+    <button on:click="minus('gap')" value="-" >-</button>
+  </div>
+  <div class="coordinate-inputs">
+    <input bind:value="x" value="{{x}}" maxlength="2" />
+    <div>x</div>
+    <input bind:value="y" value="{{y}}" maxlength="2" />
+  </div>
+  <div>
+    <ul>
+      <li><b>computed values of field</b></li>
+      <li>cellsize: [{{field.cellsize}}]</li>
+      <li>x: {{field.x}}</li>
+      <li>y: {{field.y}}</li>
+      <li>gap: {{field.gap}}</li>
+    </ul>
+    <ul>
+      <li><b>other computed values</b></li>
+      <li>width: {{width}}</li>
+      <li>width: {{height}}</li>
+    </ul>
+  </div>
+</div>
 <style>
   .background {
-    fill: #00fe00
+    fill: #33feaf
+  }
+  .overflow-visible {
+    overflow: visible;
+  }
+  .coordinate-inputs {
+    display: flex;
+  }
+  .coordinate-inputs input {
+    max-width: 30px;
+    position: relative;
+    top: -7px;
+  }
+  .debug {
+    display: block;
   }
 </style>
 <script type="buble">
 import { createField, fillMatrix, randomFieldGenerator } from '../js/matrix'
 
-const size = 9
-
-const matrix = fillMatrix(randomFieldGenerator, [0,4], size, size)
-
 const field = {
-  matrix,
-  cellsize: 64,
-  x: size,
-  y: size,
-  gap: 6 
+  config: {
+    x: 15,
+    y: 15,
+    cellsize: 32,
+    gap: 10
+  }
 }
+
+const parse = (n) => {
+  const _n = parseInt(n, 10)
+  return (isNaN(_n)) ? 0 : _n
+}
+
+const add = (a, b) => a + b
+const substract = (a, b) => a - b
+
+const canvasParams = (cellsize, x, y, gap) => {
+  const s = parse(cellsize)
+  const X = parse(x)
+  const Y = parse(y)
+  const _g = parse(gap)
+  return {
+        width: s * X + _g,
+        height: s * Y + _g,
+        x: 0,
+        y: 0
+  }
+}
+
+const spacing = (n, gap) => {
+  const _n = parse(n)
+  const _gap = parse(gap)
+  const spacing = (_gap) ? _n - _gap : _n
+  return (spacing > 0) ? spacing : 0
+}
+
+const _matrix = fillMatrix(
+  randomFieldGenerator,
+  [0,6],
+  field.config.x,
+  field.config.y,
+)
 
 export default {
   oncreate () {
   },
   data () {
+    const {x, y, cellsize, gap} = field.config
+    const matrix = createField(_matrix, x, y, cellsize, gap)
+
     return {
-      matrix: createField(field.cellsize, field.matrix, field.x, field.y),
-      width: field.cellsize-field.gap,
-      height: field.cellsize-field.gap,
-      canvas: {
-        width: field.cellsize*field.x+field.gap,
-        height: field.cellsize*field.y+field.gap,
-        x: 0,
-        y: 0
-      },
-      gap: field.gap
+      x, y, gap, cellsize, matrix,
+      width: (cellsize, gap) => spacing(cellsize, gap),
+      height: (cellsize, gap) => spacing(cellsize, gap),
+      canvas: canvasParams(cellsize, x, y, gap)
+    }
+  },
+  computed: {
+    gap: (gap) => parse(gap),
+    matrix: (x, y) => {
+      const {gap, cellsize} = field.config
+      return createField(_matrix, x, y, cellsize, gap)
+    },
+    field: (matrix, cellsize, x, y, gap) => {
+      return {
+        matrix,
+        cellsize,
+        x,
+        y,
+        gap
+      }
+    },
+    width: (cellsize, gap) =>
+      spacing(parseInt(cellsize), parseInt(gap, 10)),
+    height: (cellsize, gap) =>
+      spacing(parseInt(cellsize), parseInt(gap, 10)),
+    canvas: (cellsize, x, y, gap) =>
+      canvasParams(parseInt(cellsize, 10), x, y, parseInt(gap))
+  },
+  methods: {
+    plus: function (variable) {
+      const _v = parse(this.get(variable))
+      const res = add(_v, 1)
+      this.set({ [variable]: res })
+    },
+    minus: function (variable) {
+      const _v = parse(this.get(variable))
+      const res = substract(_v, 1)
+      this.set({ [variable]: res })
     }
   }
 }

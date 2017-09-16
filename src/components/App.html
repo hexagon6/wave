@@ -1,5 +1,7 @@
-<Field />
-<ul>
+<Field
+ class="full"
+ size={{size}}/>
+<ul style="display: none;">
 	<li>
 	<label>
 		algorithm
@@ -10,12 +12,12 @@
 		{{/each}}
 		{{/if}}
 		</select>
-</label>
-</li>
+	</label>
+	</li>
 	<li><input bind:value="argument" value="{{argument}}" /></li>
+	<li>algorithm: {{algorithm}} ({{argument}}) -> {{out}}</li>
 </ul>
-	
-<p>algorithm: {{algorithm}} ({{argument}}) -> {{out}}</p>
+
 
 <script>
 import Field from './Field.html'
@@ -46,3 +48,9 @@ export default {
 	}
 }
 </script>
+
+<style>
+	.full {
+		width: 100%;
+	}
+</style>

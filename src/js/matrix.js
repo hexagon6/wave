@@ -7,13 +7,11 @@ const colormap = [
   '#afeefb'
 ]
 
-const generateCell = (size) => {
+const generateCell = (size = 1, gap = 0) => {
   return (x, y, state) => {
-    const cellsize = size
-
     return {
-      x: x * cellsize,
-      y: y * cellsize,
+      x: gap + x * size,
+      y: gap + y * size,
       color: colormap[state]
     }
   }
@@ -35,8 +33,9 @@ const sliceCellstoRows = (cells, numRows) => {
   return nArr.map(v => cells.slice(v, v + n))
 }
 
-const createField = (size, cells, numRows, numCols) => {
-  const createCell = generateCell(size)
+// FIXME: check that matrix dimensions match input parameters x & y
+const createField = (cells, numRows, numCols, cellsize, gap) => {
+  const createCell = generateCell(cellsize, gap)
   const rows = sliceCellstoRows(cells, numRows)
   return rows.map((row, i) => {
     return createRow(createCell, row, i)
