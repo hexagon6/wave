@@ -73,6 +73,12 @@ import {
   randomFieldGenerator
 } from '../modules/matrix'
 
+import {
+  add,
+  substract,
+  parseUnsignedInt as parse,
+} from '../modules/utils'
+
 const field = {
   config: {
     x: 15,
@@ -81,14 +87,6 @@ const field = {
     gap: 10
   }
 }
-
-const parse = (n) => {
-  const _n = parseInt(n, 10)
-  return (isNaN(_n)) ? 0 : _n
-}
-
-const add = (a, b) => a + b
-const substract = (a, b) => a - b
 
 const canvasParams = (cellsize, x, y, gap) => {
   const s = parse(cellsize)
