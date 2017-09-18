@@ -13,14 +13,14 @@ li {
 </style>
 
 <ul>
-  <DetailControl ref:detail scaling={{ scaling }} />
+  <DetailControl ref:detail :scaling />
   <Algorithm
     ref:algorithm
-    algorithms={{ algorithms }}
+    :algorithms
   />
-  <Neighbor ref:neighbor neighbors={{ neighbors }} />
-  <Radius ref:radius radii={{ radii }} />
-  <State ref:state states={{ states }} />
+  <Neighbor ref:neighbor :neighbors />
+  <Radius ref:radius :radii />
+  <State ref:state :states />
 </ul>
 <script type="buble">
 import { filter } from 'lodash-es'

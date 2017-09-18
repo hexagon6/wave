@@ -10,7 +10,7 @@
   {{#each field.matrix as row, i}}
     {{#each row as cell, j}}
       <rect
-        width="{{width}}" height="{{height}}"
+        :width :height
         x="{{cell.x + gap}}" y="{{cell.y + gap}}"
         id="cell{{i}}x{{j}}" style="fill:{{cell.color}}"
       />
