@@ -1,6 +1,6 @@
 import colormap from './colormap'
 import {
-  _randomField,
+  randomMatrix,
   createField
 } from './generate'
 
@@ -8,13 +8,13 @@ const { states, background } = colormap.bright
 
 const _createField = createField
 
-const randomField = _randomField(states.length)
+const _randomMatrix = randomMatrix(states.length)
 
 export {
   states as colors,
   background,
   _createField as createField,
-  randomField
+  _randomMatrix as randomMatrix
 }
 
 export {

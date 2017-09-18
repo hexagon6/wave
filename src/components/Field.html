@@ -7,7 +7,7 @@
       y="{{canvas.y}}"
       style="fill:{{canvas.background}}"
     />
-  {{#each matrix as row, i}}
+  {{#each field.matrix as row, i}}
     {{#each row as cell, j}}
       <rect
         width="{{width}}" height="{{height}}"
@@ -69,7 +69,7 @@
 import {
   background,
   createField,
-  randomField,
+  randomMatrix,
   colors
 } from '../modules/matrix'
 
@@ -80,16 +80,14 @@ import {
   spacing,
 } from '../modules/utils'
 
-const frames = 12 // Hz
+const frames = 1.2 // Hz
 
-const field = {
-  config: {
-    x: 42,
-    y: 42,
-    cellsize: 16,
-    gap: 2,
-    interval: 1 / frames * 1000,
-  }
+const config = {
+  x: 42,
+  y: 42,
+  cellsize: 16,
+  gap: 2,
+  interval: 1 / frames * 1000,
 }
 
 const canvasParams = (cellsize, x, y, gap) => {
@@ -104,31 +102,33 @@ const canvasParams = (cellsize, x, y, gap) => {
 
 export default {
   oncreate () {
-    const {interval} = field.config
+    const {interval} = config
     const freq = 1000 / interval
     console.log(`Running simulation at ~${freq} Hz`)
     this.interval = setInterval( () => {
-      const _matrix = randomField(field.config.x, field.config.y)
-      this.set({ _matrix });
+      console.log('calculating random matrix')
+      const matrix = randomMatrix(config.x, config.y)
+      this.set({ matrix });
     }, interval );
   },
+
+  ondestroy () {
+    clearInterval( this.interval );
+  },
+
   data () {
-    const {x, y, cellsize, gap} = field.config
-    const matrix = []
+    const {x, y, cellsize, gap} = config
+    const field = { matrix: [] }
 
     return {
-      x, y, gap, cellsize, matrix
+      x, y, gap, cellsize, field
     }
   },
   computed: {
     gap: (gap) => parse(gap),
-    matrix: (x, y, cellsize, gap, _matrix) => {
-      const matrix = (_matrix) ? _matrix : []
-      return createField(colors, matrix, x, y, cellsize, gap)
-    },
-    field: (matrix, cellsize, x, y, gap) => {
+    field: (x, y, cellsize, gap, matrix) => {
       return {
-        matrix,
+        matrix: createField(colors, matrix, x, y, cellsize, gap),
         cellsize,
         x,
         y,

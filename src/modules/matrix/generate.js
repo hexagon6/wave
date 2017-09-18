@@ -13,7 +13,7 @@ export const randomFieldGenerator = function (range) {
   return Math.floor(rand * (range[1] - range[0]) + range[0])
 }
 
-export const _randomField = (size = 2) => {
+export const randomMatrix = (size = 2) => {
   const range = [ 0, size ]
   return (x, y) => fillMatrix(
     randomFieldGenerator,
@@ -52,8 +52,11 @@ export const sliceCellstoRows = (cells, numRows) => {
 // FIXME: check that matrix dimensions match input parameters x & y
 export const createField = (colors, cells, numRows, numCols, cellsize, states) => {
   const createCell = generateCell(cellsize, colors)
-  const rows = sliceCellstoRows(cells, numRows)
-  return rows.map((row, i) => {
-    return createRow(createCell, row, i)
-  })
+  if (cells) {
+    const rows = sliceCellstoRows(cells, numRows)
+    return rows.map((row, i) => {
+      return createRow(createCell, row, i)
+    })
+  }
+  return []
 }
