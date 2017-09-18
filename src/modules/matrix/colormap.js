@@ -6,6 +6,7 @@ const borderColor = '#2ECCFA'
 const two = {
   // 0: dead, 1: alive
   name: 'two',
+  background: backgroundColor,
   states: [
     backgroundColor,
     color
@@ -15,6 +16,7 @@ const two = {
 const wave = {
   // 0: resting, 1: excited, 2: refractoring
   name: 'wave',
+  background: backgroundColor,
   states: [
     backgroundColor,
     color,
@@ -25,6 +27,7 @@ const wave = {
 const four = {
   // 0: resting, 1: excited, 2+: refractoring
   name: 'four',
+  background: backgroundColor,
   states: [
     backgroundColor,
     '#FF6688',
@@ -75,6 +78,7 @@ const six = {
 const sixteen = {
   // 0: resting, 1: excited, 2+: refractoring
   name: 'sixteen',
+  background: backgroundColor,
   states: [
     backgroundColor,
     '#000000',
