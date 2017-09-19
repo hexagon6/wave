@@ -18,54 +18,24 @@
   {{/each}}
   </g>
 </svg>
-<div class="debug">
-  <div>
-    <label>cellsize<input bind:value="cellsize" value="{{cellsize}}" maxlength="3" /></label>
-    <button on:click="plus('cellsize')" value="+" >+</button>
-    <button on:click="minus('cellsize')" value="-" >-</button>
-  </div>
-  <div>
-    <label>gap<input bind:value="gap" value="{{gap}}" maxlength="3"/></label>
-    <button on:click="plus('gap')" value="+" >+</button>
-    <button on:click="minus('gap')" value="-" >-</button>
-  </div>
-  <div class="coordinate-inputs">
-    <input bind:value="x" value="{{x}}" maxlength="2" />
-    <div>x</div>
-    <input bind:value="y" value="{{y}}" maxlength="2" />
-  </div>
-  <div>
-    <ul>
-      <li><b>computed values of field</b></li>
-      <li>cellsize: [{{field.cellsize}}]</li>
-      <li>x: {{field.x}}</li>
-      <li>y: {{field.y}}</li>
-      <li>gap: {{field.gap}}</li>
-    </ul>
-    <ul>
-      <li><b>other computed values</b></li>
-      <li>width: {{width}}</li>
-      <li>width: {{height}}</li>
-    </ul>
-  </div>
-</div>
+<FieldDebug
+  ref:debug
+  :x
+  :y
+  :cellsize
+  :field
+  :gap
+  :width
+  :height
+/>
 <style>
   .overflow-visible {
     overflow: visible;
   }
-  .coordinate-inputs {
-    display: flex;
-  }
-  .coordinate-inputs input {
-    max-width: 30px;
-    position: relative;
-    top: -7px;
-  }
-  .debug {
-    display: none;
-  }
 </style>
 <script type="buble">
+import FieldDebug from './FieldDebug.html'
+
 import {
   background,
   createField,
@@ -74,21 +44,11 @@ import {
 } from '../modules/matrix'
 
 import {
-  add,
-  substract,
   parseUnsignedInt as parse,
   spacing,
 } from '../modules/utils'
 
-const frames = 1.2 // Hz
-
-const config = {
-  x: 42,
-  y: 42,
-  cellsize: 16,
-  gap: 2,
-  interval: 1 / frames * 1000,
-}
+const frames = 0.12 // Hz
 
 const canvasParams = (cellsize, x, y, gap) => {
   return {
@@ -102,12 +62,19 @@ const canvasParams = (cellsize, x, y, gap) => {
 
 export default {
   oncreate () {
-    const {interval} = config
+    this.refs.debug.observe('x', (x) => this.set({ x }))
+    this.refs.debug.observe('y', (y) => this.set({ y }))
+    this.refs.debug.observe('height', (height) => this.set({ height }))
+    this.refs.debug.observe('width', (width) => this.set({ width }))
+    this.refs.debug.observe('cellsize', (cellsize) => this.set({ cellsize }))
+    this.refs.debug.observe('gap', (gap) => this.set({ gap }))
+
+    const interval = 1 / frames * 1000
     const freq = 1000 / interval
     console.log(`Running simulation at ~${freq} Hz`)
     this.interval = setInterval( () => {
       console.log('calculating random matrix')
-      const matrix = randomMatrix(config.x, config.y)
+      const matrix = randomMatrix(this.get('x'), this.get('y'))
       this.set({ matrix });
     }, interval );
   },
@@ -117,11 +84,14 @@ export default {
   },
 
   data () {
-    const {x, y, cellsize, gap} = config
     const field = { matrix: [] }
 
     return {
-      x, y, gap, cellsize, field
+      x: 3,
+      y: 3,
+      gap: 2,
+      cellsize: 16,
+      field
     }
   },
   computed: {
@@ -140,19 +110,12 @@ export default {
     height: (cellsize, gap) =>
       spacing(parse(cellsize), parse(gap)),
     canvas: (cellsize, x, y, gap) =>
-      canvasParams(parse(cellsize), parse(x), parse(y), parse(gap))
+      canvasParams(parse(cellsize), parse(x), parse(y), parse(gap)),
+    x: x => parse(x),
+    y: y => parse(y),
   },
-  methods: {
-    plus: function (variable) {
-      const _v = parse(this.get(variable))
-      const res = add(_v, 1)
-      this.set({ [variable]: res })
-    },
-    minus: function (variable) {
-      const _v = parse(this.get(variable))
-      const res = substract(_v, 1)
-      this.set({ [variable]: res })
-    }
+  components: {
+    FieldDebug
   }
 }
 </script>
