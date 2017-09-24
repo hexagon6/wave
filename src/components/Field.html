@@ -1,4 +1,4 @@
-<svg class="overflow-visible">
+<svg class="container overflow-visible">
   <g>
     <rect
       width="{{canvas.width}}"
@@ -23,7 +23,6 @@
   :x
   :y
   :cellsize
-  :field
   :gap
   :width
   :height
@@ -31,6 +30,10 @@
 <style>
   .overflow-visible {
     overflow: visible;
+  }
+
+  .container {
+    display: flex;
   }
 </style>
 <script type="buble">
@@ -48,7 +51,7 @@ import {
   spacing,
 } from '../modules/utils'
 
-const frames = 0.12 // Hz
+const frames = 0.5 // Hz
 
 const canvasParams = (cellsize, x, y, gap) => {
   return {
@@ -90,7 +93,7 @@ export default {
       x: 3,
       y: 3,
       gap: 2,
-      cellsize: 16,
+      cellsize: 128,
       field
     }
   },

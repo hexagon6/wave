@@ -1,67 +1,52 @@
 <div class="debug">
-  <div>
-    <label>cellsize<input bind:value="cellsize" value="{{cellsize}}" maxlength="3" /></label>
-    <button on:click="plus('cellsize')" value="+" >+</button>
-    <button on:click="minus('cellsize')" value="-" >-</button>
-  </div>
-  <div>
-    <label>gap<input bind:value="gap" value="{{gap}}" maxlength="3"/></label>
-    <button on:click="plus('gap')" value="+" >+</button>
-    <button on:click="minus('gap')" value="-" >-</button>
-  </div>
-  <div class="coordinate-inputs">
-    <input bind:value="x" value="{{x}}" maxlength="2" />
-    <div>x</div>
-    <input bind:value="y" value="{{y}}" maxlength="2" />
-  </div>
+  <InputManipulator
+    bind:value="cellsize"
+    value={{cellsize}}
+    label="Cellsize"
+  />
+  <InputManipulator
+    bind:value="gap"
+    value={{gap}}
+    label="Gap"
+  />
+  <InputManipulator
+    bind:value="x"
+    value={{x}}
+    label="Cells x"
+  />
+  <InputManipulator
+    bind:value="y"
+    value={{y}}
+    label="Cells y"
+  />
   <div>
     <ul>
-      <li><b>computed values of field</b></li>
-      <li>cellsize: [{{field.cellsize}}]</li>
-      <li>x: {{field.x}}</li>
-      <li>y: {{field.y}}</li>
-      <li>gap: {{field.gap}}</li>
-    </ul>
-    <ul>
-      <li><b>other computed values</b></li>
+      <li><b>computed values</b></li>
       <li>width: {{width}}</li>
-      <li>width: {{height}}</li>
+      <li>height: {{height}}</li>
     </ul>
   </div>
 </div>
 <style>
-  .coordinate-inputs {
-    display: flex;
-  }
-  .coordinate-inputs input {
-    max-width: 30px;
-    position: relative;
-    top: -7px;
-  }
   .debug {
     display: block;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 0;
+    border: 1em #851085 solid;
+    background: rgba(0, 168, 168, 0.8);
+  }
+
+  li {
+    list-style: none;
   }
 </style>
 <script type="buble">
-    import {
-      add,
-      substract,
-      parseUnsignedInt as parse,
-      spacing
-    } from '../modules/utils'
+  import InputManipulator from './InputManipulator.html'
 
   export default {
-    methods: {
-      plus: function (variable) {
-        const _v = parse(this.get(variable))
-        const res = add(_v, 1)
-        this.set({ [variable]: res })
-      },
-      minus: function (variable) {
-        const _v = parse(this.get(variable))
-        const res = substract(_v, 1)
-        this.set({ [variable]: res })
-      }
+    components: {
+      InputManipulator
     }
   }
 </script>
