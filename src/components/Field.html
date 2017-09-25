@@ -43,6 +43,7 @@ import {
   background,
   createField,
   randomMatrix,
+  step,
   colors
 } from '../modules/matrix'
 
@@ -72,12 +73,15 @@ export default {
     this.refs.debug.observe('cellsize', (cellsize) => this.set({ cellsize }))
     this.refs.debug.observe('gap', (gap) => this.set({ gap }))
 
+    const initialMatrix = randomMatrix(this.get('x'), this.get('y'))
+    this.set({ matrix: initialMatrix })
+
     const interval = 1 / frames * 1000
     const freq = 1000 / interval
     console.log(`Running simulation at ~${freq} Hz`)
     this.interval = setInterval( () => {
-      console.log('calculating random matrix')
-      const matrix = randomMatrix(this.get('x'), this.get('y'))
+      console.log('step for matrix')
+      const matrix = step(this.get('matrix'), { states: colors.length })
       this.set({ matrix });
     }, interval );
   },

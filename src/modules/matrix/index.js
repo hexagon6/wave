@@ -18,6 +18,10 @@ export {
 }
 
 export {
+  step
+} from './algorithm'
+
+export {
   sliceCellstoRows,
   generateCell,
   createRow,
