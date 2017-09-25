@@ -8,13 +8,11 @@ const { states, background } = colormap.bright
 
 const _createField = createField
 
-const _randomMatrix = randomMatrix(states.length)
-
 export {
   states as colors,
   background,
   _createField as createField,
-  _randomMatrix as randomMatrix
+  randomMatrix
 }
 
 export {
