@@ -1,18 +1,10 @@
 import colormap from './colormap'
-import {
-  randomMatrix,
-  createField
-} from './generate'
 
 const { states, background } = colormap.bright
 
-const _createField = createField
-
 export {
   states as colors,
-  background,
-  _createField as createField,
-  randomMatrix
+  background
 }
 
 export {
@@ -21,8 +13,10 @@ export {
 
 export {
   sliceCellstoRows,
+  createField,
   generateCell,
   createRow,
   randomFieldGenerator,
+  randomMatrix,
   fillMatrix
 } from './generate'
