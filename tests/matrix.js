@@ -7,6 +7,9 @@ import {
   sliceCellstoRows,
   fillMatrix,
   randomFieldGenerator,
+  splitMatrixToNb,
+  getNeighborIndex,
+  pos2Index,
   colors
 } from '../src/modules/matrix'
 
@@ -66,4 +69,99 @@ test('random fill', t => {
   const ret = randomFieldGenerator(range)
   t.true(ret >= range[0])
   t.true(ret <= range[1])
+})
+
+test('should get index from position coordinates', t => {
+  t.is(
+    pos2Index(
+      {
+        dimension: { X: 3, Y: 3 },
+        position: { x: 0, y: 0 }}
+    ), 0)
+  t.is(
+    pos2Index(
+      {
+        dimension: { X: 4, Y: 3 },
+        position: { x: 0, y: 1 }}
+    ), 4)
+  t.is(
+    pos2Index(
+      {
+        dimension: { X: 3, Y: 3 },
+        position: { x: 1, y: 2 }}
+    ), 7)
+  t.is(
+    pos2Index(
+      {
+        dimension: { X: 3, Y: 3 },
+        position: { x: 1, y: 1 }}
+    ), 4)
+})
+
+test('should fail with index out of bounds', t => {
+  t.throws(() => {
+    pos2Index(
+      {
+        dimension: { X: 3, Y: 3 },
+        position: { x: 3, y: 0 }}
+    )
+  })
+})
+
+test('get neighbor position', t => {
+  t.is(getNeighborIndex(
+    {
+      dimension: { X: 3, Y: 3 },
+      currentPos: { x: 0, y: 0 },
+      relNeighborPos: { dx: 1, dy: 0 }
+    }
+  ),
+  1
+  )
+  t.is(getNeighborIndex(
+    {
+      dimension: { X: 3, Y: 3 },
+      currentPos: { x: 0, y: 0 },
+      relNeighborPos: { dx: -1, dy: 0 }
+    }
+  ),
+  2
+  )
+  t.is(getNeighborIndex(
+    {
+      dimension: { X: 3, Y: 3 },
+      currentPos: { x: 1, y: 1 },
+      relNeighborPos: { dx: -1, dy: 0 }
+    }
+  ),
+  3
+  )
+})
+
+test('split matrix neighbor', t => {
+  const matrix = [0, 1, 2, 3]
+  t.deepEqual(
+    splitMatrixToNb(matrix,
+      {
+        dimension: { X: 2, Y: 2 },
+        neighborhood: [{ x: -1, y: 0 }]
+      }
+    ),
+    [[1], [0], [3], [2]])
+})
+
+test('split matrix neighbor', t => {
+  const matrix = [3, 2, 1, 0]
+  t.deepEqual(
+    splitMatrixToNb(matrix,
+      {
+        dimension: { X: 2, Y: 2 },
+        neighborhood: [{ x: -1, y: 0 }]
+      }
+    ),
+    [
+      [2], [3],
+      [0], [1]
+    ]
+  )
 })

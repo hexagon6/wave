@@ -8,7 +8,10 @@ export {
 }
 
 export {
-  step
+  step,
+  getNeighborIndex,
+  splitMatrixToNb,
+  pos2Index
 } from './algorithm'
 
 export {
