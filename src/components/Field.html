@@ -67,22 +67,33 @@ const canvasParams = (cellsize, x, y, gap) => {
 
 export default {
   oncreate () {
-    this.refs.debug.observe('x', (x) => this.set({ x }))
-    this.refs.debug.observe('y', (y) => this.set({ y }))
+    const updateMatrix = (x, y) =>
+      this.set({
+        matrix: randomMatrix(colors.length)(x, y)
+      })
+    this.refs.debug.observe('x', (x) => { this.set({ x }); updateMatrix(x, this.get('y'))})
+    this.refs.debug.observe('y', (y) => { this.set({ y }); updateMatrix(this.get('x'), y)})
     this.refs.debug.observe('height', (height) => this.set({ height }))
     this.refs.debug.observe('width', (width) => this.set({ width }))
     this.refs.debug.observe('cellsize', (cellsize) => this.set({ cellsize }))
     this.refs.debug.observe('gap', (gap) => this.set({ gap }))
 
-    const initialMatrix = randomMatrix(colors.length)(this.get('x'), this.get('y'))
-    this.set({ matrix: initialMatrix })
-
     const interval = 1 / frames * 1000
     const freq = 1000 / interval
     console.log(`Running simulation at ~${freq} Hz`)
+
     this.interval = setInterval( () => {
+      const dimension = { X: this.get('x'), Y: this.get('y') }
+      const neighborhood = [
+        { dx: -1, dy: 0},
+        { dx: 0, dy: -1},
+        { dx: 1, dy: 0},
+        { dx: 0, dy: 1 }
+      ]
       console.log('step for matrix')
-      const matrix = step(this.get('matrix'), { states: colors.length })
+      const matrix = step(this.get('matrix'), {
+        neighborhood, dimension, algorithm,
+        states: colors.length })
       this.set({ matrix });
     }, interval );
   },
