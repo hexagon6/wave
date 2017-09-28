@@ -12,10 +12,7 @@ export {
 }
 
 export {
-  step,
-  getNeighborIndex,
-  splitMatrixToNb,
-  pos2Index
+  step
 } from './algorithm'
 
 export {

@@ -1,17 +1,17 @@
-export const pos2Index = ({dimension: { X, Y }, position: { x, y }}) => {
+const pos2Index = ({dimension: { X, Y }, position: { x, y }}) => {
   if (x >= X || y >= Y || x < 0 || y < 0) {
     throw Error('index out of bounds, do you travel outside the universe??')
   }
   return y * X + x
 }
 
-export const index2Pos = ({dimension: { X, Y }, index}) => {
+const index2Pos = ({dimension: { X, Y }, index}) => {
   const x = index % X
   const y = Math.floor(index / X)
   return { x, y }
 }
 
-export const getNeighborIndex = (
+const getNeighborIndex = (
   {
     dimension, dimension: { X, Y },
     currentPos: { x, y },
@@ -23,7 +23,7 @@ export const getNeighborIndex = (
   return pos2Index({ dimension, position: { x: _x, y: _y } })
 }
 
-export const splitMatrixToNb = (matrix, { neighborhood, dimension }) => {
+const splitMatrixToNb = (matrix, { neighborhood, dimension }) => {
   return matrix.map((_, index) => {
     return neighborhood.map(({dx, dy}) => {
       const currentPos = index2Pos({dimension, index})
