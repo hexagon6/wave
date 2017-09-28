@@ -12,6 +12,7 @@
     },
     "rules": {
         "no-console": "off",
+        "comma-dangle": [0, 2],
         "quotes": [
             "error",
             "single"
