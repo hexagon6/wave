@@ -74,10 +74,11 @@ test('random fill', t => {
 })
 
 test('should get index from position coordinates', t => {
+  const dimension = { X: 3, Y: 3 }
   t.is(
     pos2Index(
       {
-        dimension: { X: 3, Y: 3 },
+        dimension,
         position: { x: 0, y: 0 }}
     ), 0)
   t.is(
@@ -89,15 +90,35 @@ test('should get index from position coordinates', t => {
   t.is(
     pos2Index(
       {
-        dimension: { X: 3, Y: 3 },
+        dimension,
         position: { x: 1, y: 2 }}
     ), 7)
   t.is(
     pos2Index(
       {
-        dimension: { X: 3, Y: 3 },
+        dimension,
         position: { x: 1, y: 1 }}
     ), 4)
+})
+
+test('should get pos from index', t => {
+  const dimension = { X: 2, Y: 2 }
+  t.deepEqual(
+    index2Pos({ dimension, index: 0 }),
+    { x: 0, y: 0 }
+  )
+  t.deepEqual(
+    index2Pos({ dimension, index: 1 }),
+    { x: 1, y: 0 }
+  )
+  t.deepEqual(
+    index2Pos({ dimension, index: 2 }),
+    { x: 0, y: 1 }
+  )
+  t.deepEqual(
+    index2Pos({ dimension, index: 3 }),
+    { x: 1, y: 1 }
+  )
 })
 
 test('should fail with index out of bounds', t => {
