@@ -7,13 +7,17 @@ import {
   sliceCellstoRows,
   fillMatrix,
   randomFieldGenerator,
-  splitMatrixToNb,
-  getNeighborIndex,
-  pos2Index,
   step,
   algorithm,
   colors
 } from '../src/modules/matrix'
+
+import {
+  splitMatrixToNb,
+  getNeighborIndex,
+  pos2Index,
+  index2Pos
+} from '../src/modules/matrix/neighbors'
 
 test('valid transform output', t => {
   const createCell = generateCell(10, colors)
