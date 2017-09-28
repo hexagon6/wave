@@ -16,7 +16,7 @@ export const getNeighborIndex = (
     dimension, dimension: { X, Y },
     currentPos: { x, y },
     relNeighborPos: { dx, dy }}) => {
-  // adding dimension should fix direct neighborhoods offset out of bounds
+  // adding dimension should fix direct neighborhoods offset out of bounds in negative ranges
   // and modulo will adjust it
   const _x = (X + (x + dx) % X) % X
   const _y = (Y + (y + dy) % Y) % Y
@@ -25,12 +25,12 @@ export const getNeighborIndex = (
 
 export const splitMatrixToNb = (matrix, { neighborhood, dimension }) => {
   return matrix.map((_, index) => {
-    return neighborhood.map(({x, y}) => {
+    return neighborhood.map(({dx, dy}) => {
       const currentPos = index2Pos({dimension, index})
       const nbId = getNeighborIndex({
         dimension,
         currentPos,
-        relNeighborPos: { dx: x, dy: y }
+        relNeighborPos: { dx, dy }
       })
       return matrix[nbId] // status
     })
@@ -38,10 +38,18 @@ export const splitMatrixToNb = (matrix, { neighborhood, dimension }) => {
 }
 
 export const step = (matrix, { states, algorithm, neighborhood, dimension }) => {
-  console.log(dimension)
-  console.log(matrix)
-  console.log(typeof algorithm)
-  console.log(neighborhood)
-
-  return matrix.map(n => (n + 1) % states)
+  return splitMatrixToNb(matrix, { neighborhood, dimension })
+    .map((nb) => {
+      return algorithm(nb, states)
+    })
 }
+
+export const algorithm = (neighbors, states) => {
+  const sum = neighbors.reduce((p, c) => p + c)
+  return sum % states
+}
+
+export const algorithms = [{
+  name: 'summer',
+  method: algorithm
+}]

@@ -10,6 +10,8 @@ import {
   splitMatrixToNb,
   getNeighborIndex,
   pos2Index,
+  step,
+  algorithm,
   colors
 } from '../src/modules/matrix'
 
@@ -144,7 +146,7 @@ test('split matrix neighbor', t => {
     splitMatrixToNb(matrix,
       {
         dimension: { X: 2, Y: 2 },
-        neighborhood: [{ x: -1, y: 0 }]
+        neighborhood: [{ dx: -1, dy: 0 }]
       }
     ),
     [[1], [0], [3], [2]])
@@ -156,7 +158,7 @@ test('split matrix neighbor', t => {
     splitMatrixToNb(matrix,
       {
         dimension: { X: 2, Y: 2 },
-        neighborhood: [{ x: -1, y: 0 }]
+        neighborhood: [{ dx: -1, dy: 0 }]
       }
     ),
     [
@@ -164,4 +166,24 @@ test('split matrix neighbor', t => {
       [0], [1]
     ]
   )
+})
+
+test('algorithm', t => {
+  t.is(algorithm([0, 0], 1), 0)
+  t.is(algorithm([0, 1], 2), 1)
+})
+
+test('step', t => {
+  const matrix = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+  const dimension = { X: 3, Y: 3 }
+  const neighborhood = [{ dx: 1, dy: 0 }] // right neighbor
+  const next = step(matrix,
+    {
+      states: 9,
+      algorithm,
+      dimension,
+      neighborhood
+    }
+  )
+  t.deepEqual(next, [1, 2, 0, 4, 5, 3, 7, 8, 6])
 })
