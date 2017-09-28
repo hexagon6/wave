@@ -2,7 +2,7 @@ import colormap from './colormap'
 import { algorithms } from './algorithm'
 
 // TODO: Refactor for switchable colors & algorithms
-const { states, background } = colormap.bright
+const { states, background } = colormap.two
 const algorithm = algorithms[0].method
 
 export {

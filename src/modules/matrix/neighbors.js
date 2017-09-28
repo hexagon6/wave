@@ -23,16 +23,18 @@ export const getNeighborIndex = (
   return pos2Index({ dimension, position: { x: _x, y: _y } })
 }
 
-export const splitMatrixToNb = (matrix, { neighborhood, dimension }) => {
-  return matrix.map((_, index) => {
-    return neighborhood.map(({dx, dy}) => {
-      const currentPos = index2Pos({dimension, index})
-      const nbId = getNeighborIndex({
-        dimension,
-        currentPos,
-        relNeighborPos: { dx, dy }
+export const splitMatrixToNb = (matrix, { neighborhood, dimension }) =>
+  matrix.map((cell, index) => {
+    return {
+      cell,
+      neighbors: neighborhood.map(({dx, dy}) => {
+        const currentPos = index2Pos({dimension, index})
+        const nbId = getNeighborIndex({
+          dimension,
+          currentPos,
+          relNeighborPos: { dx, dy }
+        })
+        return matrix[nbId] // status
       })
-      return matrix[nbId] // status
-    })
+    }
   })
-}

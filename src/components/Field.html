@@ -85,10 +85,14 @@ export default {
     this.interval = setInterval( () => {
       const dimension = { X: this.get('x'), Y: this.get('y') }
       const neighborhood = [
+        { dx: -1, dy: -1},
         { dx: -1, dy: 0},
+        { dx: -1, dy: 1},
         { dx: 0, dy: -1},
+        { dx: 0, dy: 1},
+        { dx: 1, dy: -1},
         { dx: 1, dy: 0},
-        { dx: 0, dy: 1 }
+        { dx: 1, dy: 1},
       ]
       console.log('step for matrix')
       const matrix = step(this.get('matrix'), {
