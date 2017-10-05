@@ -7,6 +7,7 @@ import {
   sliceCellstoRows,
   fillMatrix,
   randomFieldGenerator,
+  cellstate,
   step,
   algorithm,
   colors
@@ -211,4 +212,17 @@ test('step', t => {
     }
   )
   t.deepEqual(next, [1, 2, 0, 4, 5, 3, 7, 8, 6])
+})
+
+test('state increases', t => {
+  const matrix = [0, 0, 0, 0]
+  t.is(
+    cellstate(
+      matrix,
+      {X: 2, Y: 2},
+      {x: 0, y: 0},
+      state => state + 1
+    )[0],
+    1
+  )
 })

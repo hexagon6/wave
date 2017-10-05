@@ -10,6 +10,7 @@
   {{#each field.matrix as row, i}}
     {{#each row as cell, j}}
       <rect
+        on:click="click({x: i, y: j})"
         :width :height
         x="{{cell.x + gap}}" y="{{cell.y + gap}}"
         id="cell{{i}}x{{j}}" style="fill:{{cell.color}}"
@@ -45,6 +46,7 @@ import {
   createField,
   randomMatrix,
   step,
+  cellstate,
   colors
 } from '../modules/matrix'
 
@@ -139,6 +141,23 @@ export default {
   },
   components: {
     FieldDebug
+  },
+  methods: {
+    click: function ({x, y}) {
+      console.log(`increase state of ${x}x${y} by 1`)
+      const matrix = this.get('matrix')
+      const dimension = { X: this.get('x'), Y: this.get('y') }
+      console.log(colors.length)
+      this.set(
+        'matrix',
+        cellstate(
+          matrix,
+          dimension,
+          { x, y },
+          state => (state + 1) % colors.length
+        )
+      )
+    }
   }
 }
 </script>
