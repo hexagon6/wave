@@ -20,28 +20,32 @@ import {
   index2Pos
 } from '../src/modules/matrix/neighbors'
 
+import {
+  moore
+} from '../src/modules/matrix/neighborhood'
+
 test('valid transform output', t => {
   const createCell = generateCell(10, colors)
   t.deepEqual(createCell(0, 0, 0),
-    {x: 0, y: 0, color: '#ffffff'})
+    {x: 0, y: 0, color: colors[0]})
   t.deepEqual(createCell(1, 0, 0),
-    {x: 10, y: 0, color: '#ffffff'})
+    {x: 10, y: 0, color: colors[0]})
   t.deepEqual(createCell(0, 1, 0),
-    {x: 0, y: 10, color: '#ffffff'})
+    {x: 0, y: 10, color: colors[0]})
   t.deepEqual(createCell(0, 0, 1),
-    {x: 0, y: 0, color: '#ff0000'})
+    {x: 0, y: 0, color: colors[1]})
 })
 
 test('valid row', t => {
   const createCell = generateCell(10, colors)
   const expRes = [
-    { x: 0, y: 0, color: '#ffffff' },
-    { x: 0, y: 10, color: '#ff0000' }
+    { x: 0, y: 0, color: colors[0] },
+    { x: 0, y: 10, color: colors[1] }
   ]
   t.deepEqual(createRow(createCell, [0, 1], 0), expRes)
   const expRes2 = [
-    { x: 10, y: 0, color: '#ffffff' },
-    { x: 10, y: 10, color: '#ff0000' }
+    { x: 10, y: 0, color: colors[0] },
+    { x: 10, y: 10, color: colors[1] }
   ]
   t.deepEqual(createRow(createCell, [0, 1], 1), expRes2)
 })
@@ -57,11 +61,11 @@ test('validate slices', t => {
 test('valid field', t => {
   const expRes = [
     [
-      { x: 0, y: 0, color: '#ffffff' },
-      { x: 0, y: 10, color: '#ff0000' }
+      { x: 0, y: 0, color: colors[0] },
+      { x: 0, y: 10, color: colors[1] }
     ], [
-      { x: 10, y: 0, color: '#ffff00' },
-      { x: 10, y: 10, color: '#000000' }
+      { x: 10, y: 0, color: colors[2] },
+      { x: 10, y: 10, color: colors[3] }
     ]
   ]
   t.deepEqual(createField(colors, [0, 1, 2, 3], 2, 2, 10, 0), expRes)
@@ -168,25 +172,27 @@ test('get neighbor position', t => {
 
 test('split matrix neighbor', t => {
   const matrix = [0, 1, 2, 3]
+  const neighbors = splitMatrixToNb(matrix,
+    {
+      dimension: { X: 2, Y: 2 },
+      neighborhood: [{ dx: -1, dy: 0 }]
+    }
+  ).map(({ neighbors }) => neighbors)
   t.deepEqual(
-    splitMatrixToNb(matrix,
-      {
-        dimension: { X: 2, Y: 2 },
-        neighborhood: [{ dx: -1, dy: 0 }]
-      }
-    ),
+    neighbors,
     [[1], [0], [3], [2]])
 })
 
 test('split matrix neighbor', t => {
   const matrix = [3, 2, 1, 0]
+  const neighbors = splitMatrixToNb(matrix,
+    {
+      dimension: { X: 2, Y: 2 },
+      neighborhood: [{ dx: -1, dy: 0 }]
+    }
+  ).map(({ neighbors }) => neighbors)
   t.deepEqual(
-    splitMatrixToNb(matrix,
-      {
-        dimension: { X: 2, Y: 2 },
-        neighborhood: [{ dx: -1, dy: 0 }]
-      }
-    ),
+    neighbors,
     [
       [2], [3],
       [0], [1]
@@ -195,23 +201,57 @@ test('split matrix neighbor', t => {
 })
 
 test('algorithm', t => {
-  t.is(algorithm([0, 0], 1), 0)
-  t.is(algorithm([0, 1], 2), 1)
+  t.is(algorithm(0, [0, 0, 0, 0, 0, 0, 0, 0, 0], 1), 0)
+  t.is(algorithm(0, [0, 0, 0, 0, 0, 0, 0, 0, 0], 1), 0)
 })
 
-test('step', t => {
-  const matrix = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+test('neighborhood', t => {
+  const _moore = [
+    { dx: -1, dy: -1 },
+    { dx: -1, dy: 0 },
+    { dx: -1, dy: 1 },
+    { dx: 0, dy: -1 },
+    { dx: 0, dy: 1 },
+    { dx: 1, dy: -1 },
+    { dx: 1, dy: 0 },
+    { dx: 1, dy: 1 },
+  ]
+  t.deepEqual(_moore, moore(1)())
+
+  const _moore2 = [
+    { dx: -1, dy: -1 },
+    { dx: -1, dy: 0 },
+    { dx: -1, dy: 1 },
+    { dx: 0, dy: -1 },
+    { dx: 0, dy: 1 },
+    { dx: 1, dy: -1 },
+    { dx: 1, dy: 0 },
+    { dx: 1, dy: 1 },
+    { dx: -2, dy: -2 },
+    { dx: -2, dy: 0 },
+    { dx: -2, dy: 2 },
+    { dx: 0, dy: -2 },
+    { dx: 0, dy: 2 },
+    { dx: 2, dy: -2 },
+    { dx: 2, dy: 0 },
+    { dx: 2, dy: 2 },
+  ]
+  t.deepEqual(_moore2, moore(2)())
+})
+
+test('game of life', t => {
+  const matrix = [0, 0, 0, 0, 0, 0, 0, 0, 0]
   const dimension = { X: 3, Y: 3 }
   const neighborhood = [{ dx: 1, dy: 0 }] // right neighbor
   const next = step(matrix,
     {
-      states: 9,
+      states: 2,
       algorithm,
       dimension,
       neighborhood
     }
   )
-  t.deepEqual(next, [1, 2, 0, 4, 5, 3, 7, 8, 6])
+  t.deepEqual(next, [0, 0, 0, 0, 0, 0, 0, 0, 0])
 })
 
 test('state increases', t => {
