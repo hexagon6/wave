@@ -4,7 +4,7 @@ import {
   neumannMoore,
   random,
   schmirdn
-} from './neighborhood.js'
+} from '../matrix/neighborhood.js'
 
 export default {
   get all () {
