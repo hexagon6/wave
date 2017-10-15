@@ -9,20 +9,22 @@
 <li>state:  {{state}}</li>
 </ul>
 {{/if}}
-<Field size={{size}} />
+<Field />
 <Controls
   ref:controls
   :algorithms
   :scaling
   :states
 />
+<!--
 <Canvas
   ref:canvas
   width={{canvas.width}}
   height={{canvas.height}}
 />
+-->
 <script type="buble">
-import algorithms from '../js/algorithms'
+import algorithms from '../modules/algorithms'
 import settings from '../js/settings.js'
 import states from '../js/states.js'
 
@@ -63,7 +65,7 @@ export default {
         height: size,
         width: size
       },
-      debug: false 
+      debug: false
     }
   },
   components: {

@@ -7,13 +7,13 @@
       y="{{canvas.y}}"
       style="fill:{{canvas.background}}"
     />
-  {{#each field.matrix as row, i}}
-    {{#each row as cell, j}}
+  {{#each field as row, y}}
+    {{#each row as cell, x}}
       <rect
-        on:click="click({x: i, y: j})"
+        on:click="click({x, y})"
         :width :height
         x="{{cell.x + gap}}" y="{{cell.y + gap}}"
-        id="cell{{i}}x{{j}}" style="fill:{{cell.color}}"
+        id="cell{{x}}x{{y}}" style="fill:{{cell.color}}"
       />
     {{/each}}
   {{/each}}
@@ -21,14 +21,19 @@
 </svg>
 <FieldDebug
   ref:debug
-  :x
-  :y
+  :X
+  :Y
   :cellsize
   :gap
   :width
   :height
 />
 <style>
+  svg {
+    position: absolute;
+    right: 800px;
+  }
+
   .overflow-visible {
     overflow: visible;
   }
@@ -55,7 +60,7 @@ import {
   spacing,
 } from '../modules/utils'
 
-const frames = 0.5 // Hz
+const frames = 0.03 // Hz
 
 const canvasParams = (cellsize, x, y, gap) => {
   return {
@@ -73,8 +78,8 @@ export default {
       this.set({
         matrix: randomMatrix(colors.length)(x, y)
       })
-    this.refs.debug.observe('x', (x) => { this.set({ x }); updateMatrix(x, this.get('y'))})
-    this.refs.debug.observe('y', (y) => { this.set({ y }); updateMatrix(this.get('x'), y)})
+    this.refs.debug.observe('X', (X) => { this.set({ X }); updateMatrix(X, this.get('Y'))})
+    this.refs.debug.observe('Y', (Y) => { this.set({ Y }); updateMatrix(this.get('X'), Y)})
     this.refs.debug.observe('height', (height) => this.set({ height }))
     this.refs.debug.observe('width', (width) => this.set({ width }))
     this.refs.debug.observe('cellsize', (cellsize) => this.set({ cellsize }))
@@ -85,7 +90,7 @@ export default {
     console.log(`Running simulation at ~${freq} Hz`)
 
     this.interval = setInterval( () => {
-      const dimension = { X: this.get('x'), Y: this.get('y') }
+      const dimension = { X: this.get('X'), Y: this.get('Y') }
       const neighborhood = [
         { dx: -1, dy: -1},
         { dx: -1, dy: 0},
@@ -96,7 +101,7 @@ export default {
         { dx: 1, dy: 0},
         { dx: 1, dy: 1},
       ]
-      console.log('step for matrix')
+      // console.log('step for matrix')
       const matrix = step(this.get('matrix'), {
         neighborhood, dimension, algorithm,
         states: colors.length })
@@ -112,51 +117,45 @@ export default {
     const field = { matrix: [] }
 
     return {
-      x: 3,
-      y: 3,
-      gap: 2,
-      cellsize: 128,
+      X: 64,
+      Y: 64,
+      gap: 1,
+      cellsize: 15,
+      matrix: [],
       field
     }
   },
   computed: {
     gap: (gap) => parse(gap),
-    field: (x, y, cellsize, gap, matrix) => {
-      return {
-        matrix: createField(colors, matrix, x, y, cellsize, gap),
-        cellsize,
-        x,
-        y,
-        gap
-      }
+    field: (X, Y, cellsize, gap, matrix) => {
+      return createField(colors, matrix, X, Y, cellsize, gap)
     },
     width: (cellsize, gap) =>
       spacing(parse(cellsize), parse(gap)),
     height: (cellsize, gap) =>
       spacing(parse(cellsize), parse(gap)),
-    canvas: (cellsize, x, y, gap) =>
-      canvasParams(parse(cellsize), parse(x), parse(y), parse(gap)),
-    x: x => parse(x),
-    y: y => parse(y),
+    canvas: (cellsize, X, Y, gap) =>
+      canvasParams(parse(cellsize), parse(X), parse(Y), parse(gap)),
+    X: X => parse(X),
+    Y: Y => parse(Y),
   },
   components: {
     FieldDebug
   },
   methods: {
     click: function ({x, y}) {
-      console.log(`increase state of ${x}x${y} by 1`)
+      console.log(`clicked on x: ${x} y: ${y}`)
       const matrix = this.get('matrix')
-      const dimension = { X: this.get('x'), Y: this.get('y') }
-      console.log(colors.length)
-      this.set(
-        'matrix',
+      const dimension = { X: this.get('X'), Y: this.get('Y') }
+      this.set({
+        matrix:
         cellstate(
           matrix,
           dimension,
           { x, y },
           state => (state + 1) % colors.length
         )
-      )
+      })
     }
   }
 }

@@ -54,8 +54,8 @@ export const createField = (colors, cells, numRows, numCols, cellsize, states) =
   const createCell = generateCell(cellsize, colors)
   if (cells) {
     const rows = sliceCellstoRows(cells, numRows)
-    return rows.map((row, i) => {
-      return createRow(createCell, row, i)
+    return rows.map((cell, y) => {
+      return createRow(createCell, cell, y)
     })
   }
   return []

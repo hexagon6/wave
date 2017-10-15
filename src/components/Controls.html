@@ -4,12 +4,6 @@ ul {
   list-style: none;
   float: left;
 }
-
-li {
-  float: right;
-  width: 220px;
-  padding-bottom: 5px;
-}
 </style>
 
 <ul>
@@ -37,21 +31,21 @@ export default {
   oncreate() {
     const algorithms = this.get('algorithms')
     const algorithm = algorithms[0]
-    const neighbors = algorithm.neighborhood.map(({type}) => type)
-    const radii = algorithm.neighborhood[0].radius
-    const radius = radii[0]
+    // const neighbors = algorithm.neighborhood.map(({type}) => type)
+    // const radii = algorithm.neighborhood[0].radius
+    // const radius = radii[0]
     this.set({
       algorithm,
-      neighbors,
-      radii,
-      radius
+      // neighbors,
+      // radii,
+      // radius
     })
 
     const observers = [
       'detail',
       'algorithm',
-      'neighbor',
-      'radius',
+    //  'neighbor',
+    //  'radius',
       'state'
     ]
     for (name of observers) {
@@ -68,6 +62,7 @@ export default {
         }
       }
     })
+    /*
     this.observe('neighbor', (v) => {
       if (v) {
         const a = this.get('neighbors')
@@ -77,6 +72,7 @@ export default {
         }
       }
     })
+    */
   },
   ondestroy() {
     Object.keys(observer).map((name) => {

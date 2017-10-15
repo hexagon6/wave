@@ -48,6 +48,13 @@ export const moore = (radius) => {
   }
 }
 
+export const neumannMoore = () => {
+  // FIXME: implement switching between von neumann & moore with
+  // generator function
+  const _moore = moore(1)
+  return () => _moore
+}
+
 export const schmirdn = {
   type: 'schmirdn',
   radius: [1, 2, 3]
@@ -58,6 +65,7 @@ export const random = {
 }
 
 export default {
-  moore: moore(),
-  neumann: neumann()
+  moore: moore,
+  neumann: neumann,
+  neumannMoore: neumannMoore
 }
