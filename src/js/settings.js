@@ -12,10 +12,6 @@ let settings = {
   },
   cycle: 0,
   debug: false,
-  detail: {
-    initial: 4,
-    max: 9
-  },
   grid: {
     lines: false
   },

@@ -5,24 +5,16 @@ ul {
   float: left;
 }
 </style>
-
 <ul>
-  <DetailControl ref:detail :scaling />
-  <Algorithm
-    ref:algorithm
-    :algorithms
-  />
+  <Algorithm ref:algorithm :algorithms />
   <Neighbor ref:neighbor :neighbors />
-  <Radius ref:radius :radii />
   <State ref:state :states />
 </ul>
 <script type="buble">
 import { filter } from 'lodash-es'
 import settings from '../js/settings.js'
-import DetailControl from './DetailControl.html'
 import Algorithm from './Algorithm.html'
 import Neighbor from './Neighbor.html'
-import Radius from './Radius.html'
 import State from './State.html'
 
 const observer = {}
@@ -31,21 +23,15 @@ export default {
   oncreate() {
     const algorithms = this.get('algorithms')
     const algorithm = algorithms[0]
-    // const neighbors = algorithm.neighborhood.map(({type}) => type)
-    // const radii = algorithm.neighborhood[0].radius
-    // const radius = radii[0]
+    const neighbors = algorithm.neighborhood.map(({name}) => name)
     this.set({
       algorithm,
-      // neighbors,
-      // radii,
-      // radius
+      neighbors,
     })
 
     const observers = [
-      'detail',
       'algorithm',
-    //  'neighbor',
-    //  'radius',
+      'neighbor',
       'state'
     ]
     for (name of observers) {
@@ -82,15 +68,12 @@ export default {
   },
   data () {
     return {
-      neighbors: [],
-      radii: []
+      neighbors: []
     }
   },
   components: {
-    DetailControl,
     Algorithm,
     Neighbor,
-    Radius,
     State
   },
   methods: {
@@ -103,6 +86,6 @@ export default {
       })
     }
 },
-  // TODO: how to get out the settings for viewport? detail, algorithm, neighborhood, radius, states
+  // TODO: how to get out the settings for viewport? algorithm, neighborhood, states
 }
 </script>

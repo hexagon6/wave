@@ -1,4 +1,3 @@
-{{#if neighbors}}
 <li>
   <div class="form-group form-group-sm">
     <label id="state_label"
@@ -10,14 +9,18 @@
         bind:value="neighbor"
     >
     {{#each neighbors as nb}}
-      <option>{{nb.type}}</option>
+      <option>{{nb.name}}</option>
     {{/each}}
     </select>
   </div>
 </li>
-{{/if}}
 <script type="buble">
 export default {
+  data () {
+    return {
+      neighbors: []
+    }
+  },
   oncreate () {
     const neighbors = this.get('neighbors')
     if (neighbors && neighbors.length > 0) {

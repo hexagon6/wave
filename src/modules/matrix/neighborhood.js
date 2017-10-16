@@ -55,17 +55,22 @@ export const neumannMoore = () => {
   return () => _moore
 }
 
-export const schmirdn = {
-  type: 'schmirdn',
-  radius: [1, 2, 3]
-}
-export const random = {
-  type: 'random',
-  radius: [1, 2, 3, 4]
+export const random = () => {
+  return []
 }
 
 export default {
+  list: [{
+    name: 'moore'
+  }, {
+    name: 'neumann'
+  }, {
+    name: 'neumannMoore'
+  }, {
+    name: 'random'
+  }],
   moore: moore,
   neumann: neumann,
-  neumannMoore: neumannMoore
+  neumannMoore: neumannMoore,
+  random: random,
 }

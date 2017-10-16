@@ -3,7 +3,6 @@ import {
   neumann,
   neumannMoore,
   random,
-  schmirdn
 } from '../matrix/neighborhood.js'
 
 export default {
@@ -24,7 +23,6 @@ export default {
         neumann,
         moore,
         neumannMoore,
-        schmirdn
       ]
     }
   },
