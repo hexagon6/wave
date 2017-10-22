@@ -2,10 +2,19 @@
   <label>
     <span class="label">{{label}}</span>
     <input bind:value="value" value="{{value}}" maxlength="3" />
-    <button on:click="set({ value: value + 1 })" type="button">+</button>
-    <button on:click="set({ value: value - 1 })" type="button">-</button>
+    <button on:click="set({ value: value + steps})" type="button">+</button>
+    <button on:click="set({ value: value - steps})" type="button">-</button>
   </label>
 </div>
+<script type="buble">
+  export default {
+    data () {
+      return {
+        steps: 1
+      }
+    }
+  }
+</script>
 <style>
 label {
   display: flex;
