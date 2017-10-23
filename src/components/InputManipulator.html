@@ -1,7 +1,7 @@
 <div class="flex-container">
   <label>
     <span class="label">{{label}}</span>
-    <input bind:value="value" value="{{value}}" maxlength="3" />
+    <input bind:value="value" value="{{value}}" maxlength="{{maxlength}}" />
     <button on:click="set({ value: value + steps})" type="button">+</button>
     <button on:click="set({ value: value - steps})" type="button">-</button>
   </label>
@@ -10,7 +10,8 @@
   export default {
     data () {
       return {
-        steps: 1
+        steps: 1,
+        maxlength: 3
       }
     }
   }

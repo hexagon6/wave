@@ -1,4 +1,15 @@
 <div class="debug">
+  <Toggle
+    bind:value="running"
+    value={{running}}
+  />
+  <InputManipulator
+    bind:value="interval"
+    value={{interval}}
+    label="Interval (ms)"
+    steps="100"
+    maxlength="6"
+  />
   <InputManipulator
     bind:value="cellsize"
     value={{cellsize}}
@@ -22,8 +33,10 @@
   <div>
     <ul>
       <li><b>computed values</b></li>
+      <li>frequency: {{1000 / interval}} Hz</li>
       <li>width: {{width}}</li>
       <li>height: {{height}}</li>
+      <li>running: {{running}}</li>
     </ul>
   </div>
 </div>
@@ -43,9 +56,11 @@
 </style>
 <script type="buble">
   import InputManipulator from './InputManipulator.html'
+  import Toggle from './Toggle.html'
 
   export default {
     components: {
+      Toggle,
       InputManipulator
     }
   }

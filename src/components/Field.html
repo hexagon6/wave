@@ -27,6 +27,8 @@
   :gap
   :width
   :height
+  :interval
+  :running
 />
 <style>
   svg {
@@ -60,7 +62,9 @@ import {
   spacing,
 } from '../modules/utils'
 
-const frames = 0.03 // Hz
+import { moore } from '../modules/matrix/neighborhood'
+
+const frequency = 1 // Hz
 
 const canvasParams = (cellsize, x, y, gap) => {
   return {
@@ -74,39 +78,37 @@ const canvasParams = (cellsize, x, y, gap) => {
 
 export default {
   oncreate () {
-    const updateMatrix = (x, y) =>
+    const initialMatrix = (x, y) =>
       this.set({
         matrix: randomMatrix(colors.length)(x, y)
       })
-    this.refs.debug.observe('X', (X) => { this.set({ X }); updateMatrix(X, this.get('Y'))})
-    this.refs.debug.observe('Y', (Y) => { this.set({ Y }); updateMatrix(this.get('X'), Y)})
+    this.refs.debug.observe('X', (X) => { this.set({ X }); initialMatrix(X, this.get('Y'))})
+    this.refs.debug.observe('Y', (Y) => { this.set({ Y }); initialMatrix(this.get('X'), Y)})
     this.refs.debug.observe('height', (height) => this.set({ height }))
     this.refs.debug.observe('width', (width) => this.set({ width }))
     this.refs.debug.observe('cellsize', (cellsize) => this.set({ cellsize }))
     this.refs.debug.observe('gap', (gap) => this.set({ gap }))
+    this.refs.debug.observe('interval', (interval) => this.set({ interval }))
+    this.refs.debug.observe('running', (running) => this.set({ running }))
 
-    const interval = 1 / frames * 1000
-    const freq = 1000 / interval
-    console.log(`Running simulation at ~${freq} Hz`)
+    const interval = 1 / frequency * 1000
+    this.set({ interval })
+    console.log(`Running simulation at ~${frequency} Hz`)
 
-    this.interval = setInterval( () => {
-      const dimension = { X: this.get('X'), Y: this.get('Y') }
-      const neighborhood = [
-        { dx: -1, dy: -1},
-        { dx: -1, dy: 0},
-        { dx: -1, dy: 1},
-        { dx: 0, dy: -1},
-        { dx: 0, dy: 1},
-        { dx: 1, dy: -1},
-        { dx: 1, dy: 0},
-        { dx: 1, dy: 1},
-      ]
-      // console.log('step for matrix')
-      const matrix = step(this.get('matrix'), {
-        neighborhood, dimension, algorithm,
-        states: colors.length })
-      this.set({ matrix });
-    }, interval );
+    const neighborhood = moore(1)()
+    // TODO extract this function and use a callback to update intervals
+    const updateMatrix = () => {
+      if (this.get('running')) {
+        const dimension = { X: this.get('X'), Y: this.get('Y') }
+        console.log('step for matrix')
+        const matrix = step(this.get('matrix'), {
+          neighborhood, dimension, algorithm,
+          states: colors.length })
+        this.set({ matrix })
+      }
+    }
+
+    this.set({ loopHandler: setInterval( updateMatrix, this.get('interval')) });
   },
 
   ondestroy () {
@@ -117,6 +119,9 @@ export default {
     const field = { matrix: [] }
 
     return {
+      running: false,
+      loopHandler: null,
+      interval: 1,
       X: 64,
       Y: 64,
       gap: 1,
