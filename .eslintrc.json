@@ -8,7 +8,11 @@
 	},
     "extends": "standard",
     "parserOptions": {
-        "sourceType": "module"
+        "ecmaVersion": 8,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true
+        }
     },
     "rules": {
         "no-console": "off",
