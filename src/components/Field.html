@@ -78,12 +78,14 @@ const canvasParams = (cellsize, x, y, gap) => {
 
 export default {
   oncreate () {
-    const initialMatrix = (x, y) =>
+    const initialMatrix = (X, Y) =>
       this.set({
-        matrix: randomMatrix(colors.length)(x, y)
+        matrix: randomMatrix(colors.length)(X, Y)
       })
+    // TODO refactor matrix initialization
     this.refs.debug.observe('X', (X) => { this.set({ X }); initialMatrix(X, this.get('Y'))})
     this.refs.debug.observe('Y', (Y) => { this.set({ Y }); initialMatrix(this.get('X'), Y)})
+
     this.refs.debug.observe('height', (height) => this.set({ height }))
     this.refs.debug.observe('width', (width) => this.set({ width }))
     this.refs.debug.observe('cellsize', (cellsize) => this.set({ cellsize }))
