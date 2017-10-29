@@ -22,29 +22,28 @@ import Main from './Main.html'
 import Field from './Field.html'
 
 const algos = [
-	{ key: "addOne", method: (a) => 1 + parseInt(a,10)  },
-	{ key: "addTwo", method: (a) => 2 + parseInt(a,10) }
+  { key: 'addOne', method: (a) => 1 + parseInt(a, 10) },
+  { key: 'addTwo', method: (a) => 2 + parseInt(a, 10) }
 ]
 
-const algomethod = (algorithm) => 
-	algos.filter(
-		({key}) => key === algorithm)
-[0].method
+const algomethod = (algorithm) =>
+  algos.filter(
+    ({key}) => key === algorithm)[0].method
 
 export default {
-	data () {
-		return {
-			algorithms: algos,
-			algorithm: 'addOne',
-			argument: 42
-		}
-	},
-	computed: {
-		out: (algorithm, argument) => algomethod(algorithm)(argument)
-	},
-	components: {
-		Field,
-		Main,
-	}
+  data () {
+    return {
+      algorithms: algos,
+      algorithm: 'addOne',
+      argument: 42
+    }
+  },
+  computed: {
+    out: (algorithm, argument) => algomethod(algorithm)(argument)
+  },
+  components: {
+    Field,
+    Main,
+  }
 }
 </script>
