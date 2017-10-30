@@ -138,12 +138,12 @@ export default {
     this.set({ updateMatrix })
 
     const initLoop = () => {
-      if(this.get('running')) {
+      if (this.get('running')) {
         updateMatrix()
       }
     }
 
-    this.set({ loopHandler: setInterval( initLoop, this.get('interval')) });
+    this.set({ loopHandler: setInterval(initLoop, this.get('interval')) })
 
     console.log('constructor')
     console.log(this.constructor.loopHandler)
