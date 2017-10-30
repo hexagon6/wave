@@ -1,12 +1,39 @@
-<div>
-  <button
-    on:click="set({ value: !value })"
-    value="{{value}}"
-  >
-  {{#if value}}
-  [  On  ]
-  {{else}}
-  [  Off ]
-  {{/if}}
-  </button>
+<div class="flex-container">
+  <label>
+    <span class="label">{{label}}</span>
+    <button
+      on:click="set({ value: !value })"
+      value="{{value}}"
+    >
+    {{#if value}}
+    On
+    {{else}}
+    Off
+    {{/if}}
+    </button>
+  </label>
 </div>
+<style>
+label {
+  display: flex;
+  background: white;
+  justify-content: flex-end;
+  width: 15em;
+  padding: 0.5em;
+}
+
+.label {
+  width: 100%;
+}
+
+button {
+  display: inline-block;
+  min-width: 2em;
+  min-height: 2em;
+}
+
+.flex-container {
+  display: flex;
+  width: 100%;
+}
+</style>
