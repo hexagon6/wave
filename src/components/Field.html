@@ -19,6 +19,9 @@
   {{/each}}
   </g>
 </svg>
+<div class="bottom-right">
+  <button on:click="next()" value="next" >next</button>
+</div>
 <FieldDebug
   ref:debug
   :X
@@ -42,6 +45,12 @@
 
   .container {
     display: flex;
+  }
+
+  .bottom-right {
+    position: absolute;
+    right: 0;
+    bottom: 0;
   }
 </style>
 <script>
@@ -76,6 +85,19 @@ const canvasParams = (cellsize, x, y, gap) => {
   }
 }
 
+const shapePropsForNextStep = (matrix, X, Y, neighborhood, algorithm, states) => [
+  matrix,
+  {
+    dimension: {
+      X,
+      Y,
+    },
+    neighborhood,
+    algorithm,
+    states
+  }
+]
+
 export default {
   oncreate () {
     const initialMatrix = (X, Y) =>
@@ -98,21 +120,34 @@ export default {
     console.log(`Running simulation at ~${frequency} Hz`)
 
     const neighborhood = moore(1)()
+
     // TODO extract this function and use a callback to update intervals
     const updateMatrix = () => {
-      if (this.get('running')) {
-        const dimension = { X: this.get('X'), Y: this.get('Y') }
-        console.log('step for matrix')
-        const matrix = step(this.get('matrix'), {
-          neighborhood,
-          dimension,
-          algorithm,
-          states: colors.length })
-        this.set({ matrix })
+      const [matrix, options] = shapePropsForNextStep(
+        this.get('matrix'),
+        this.get('X'),
+        this.get('Y'),
+        neighborhood,
+        algorithm,
+        colors.length
+      )
+      console.log('step for matrix')
+      this.set({ matrix: step(matrix, options) })
+    }
+
+    this.set({ updateMatrix })
+
+    const initLoop = () => {
+      if(this.get('running')) {
+        updateMatrix()
       }
     }
 
-    this.set({ loopHandler: setInterval(updateMatrix, this.get('interval')) })
+    this.set({ loopHandler: setInterval( initLoop, this.get('interval')) });
+
+    console.log('constructor')
+    console.log(this.constructor.loopHandler)
+    // this.set({ loopHandler: setInterval( this.get('updateMatrix'), this.get('interval')) });
   },
 
   ondestroy () {
@@ -147,6 +182,14 @@ export default {
       canvasParams(parse(cellsize), parse(X), parse(Y), parse(gap)),
     X: X => parse(X),
     Y: Y => parse(Y),
+    running: function (running) {
+      if (running) {
+        console.log('starting')
+      } else {
+        console.log('stopping')
+      }
+      return running
+    }
   },
   components: {
     FieldDebug
@@ -165,7 +208,11 @@ export default {
           state => (state + 1) % colors.length
         )
       })
-    }
+    },
+    next: function () {
+      const next = this.get('updateMatrix')
+      next()
+    },
   }
 }
 </script>
