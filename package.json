@@ -1,10 +1,11 @@
 {
   "scripts": {
     "build": "rollup -c --environment production",
-    "dev": "serve public & rollup -c -w",
-    "start": "serve public",
+    "build:watch": "rollup -c -w",
+    "dev": "run-p --aggregate-output start build:watch tdd",
     "lint": "eslint --ext .html,.js src/",
     "lint:cached": "eslint --cache --ext .html,.js src/",
+    "start": "serve public",
     "test": "npm-run-all -p lint:cached -p test:ava",
     "test:ava": "ava tests/*.js",
     "tdd": "ava -w tests/*.js"
