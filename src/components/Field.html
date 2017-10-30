@@ -83,8 +83,8 @@ export default {
         matrix: randomMatrix(colors.length)(X, Y)
       })
     // TODO refactor matrix initialization
-    this.refs.debug.observe('X', (X) => { this.set({ X }); initialMatrix(X, this.get('Y'))})
-    this.refs.debug.observe('Y', (Y) => { this.set({ Y }); initialMatrix(this.get('X'), Y)})
+    this.refs.debug.observe('X', (X) => { this.set({ X }); initialMatrix(X, this.get('Y')) })
+    this.refs.debug.observe('Y', (Y) => { this.set({ Y }); initialMatrix(this.get('X'), Y) })
 
     this.refs.debug.observe('height', (height) => this.set({ height }))
     this.refs.debug.observe('width', (width) => this.set({ width }))
@@ -104,17 +104,19 @@ export default {
         const dimension = { X: this.get('X'), Y: this.get('Y') }
         console.log('step for matrix')
         const matrix = step(this.get('matrix'), {
-          neighborhood, dimension, algorithm,
+          neighborhood,
+          dimension,
+          algorithm,
           states: colors.length })
         this.set({ matrix })
       }
     }
 
-    this.set({ loopHandler: setInterval( updateMatrix, this.get('interval')) });
+    this.set({ loopHandler: setInterval(updateMatrix, this.get('interval')) })
   },
 
   ondestroy () {
-    clearInterval( this.interval );
+    clearInterval(this.interval)
   },
 
   data () {

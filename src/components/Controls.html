@@ -12,7 +12,7 @@ ul {
 </ul>
 <script>
 import { filter } from 'lodash-es'
-import settings from '../js/settings.js'
+// import settings from '../js/settings.js'
 import Algorithm from './Algorithm.html'
 import Neighbor from './Neighbor.html'
 import State from './State.html'
@@ -20,7 +20,7 @@ import State from './State.html'
 const observer = {}
 
 export default {
-  oncreate() {
+  oncreate () {
     const algorithms = this.get('algorithms')
     const algorithm = algorithms[0]
     const neighbors = algorithm.neighborhood.map(({name}) => name)
@@ -34,8 +34,8 @@ export default {
       'neighbor',
       'state'
     ]
-    for (name of observers) {
-      this.addObserver(name)
+    for (let _observer of observers) {
+      this.addObserver(_observer)
     }
     this.observe('algorithm', (algorithm) => {
       if (algorithm) {
@@ -60,7 +60,7 @@ export default {
     })
     */
   },
-  ondestroy() {
+  ondestroy () {
     Object.keys(observer).map((name) => {
       observer[name].cancel()
       delete observer[name]
@@ -85,7 +85,7 @@ export default {
         }
       })
     }
-},
+  },
   // TODO: how to get out the settings for viewport? algorithm, neighborhood, states
 }
 </script>
