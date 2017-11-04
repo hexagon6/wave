@@ -10,42 +10,44 @@ import {
   cellstate,
   step,
   algorithm,
-  colors
+  colormap,
 } from '../src/modules/matrix'
 
 import {
   splitMatrixToNb,
   getNeighborIndex,
   pos2Index,
-  index2Pos
+  index2Pos,
 } from '../src/modules/matrix/neighbors'
 
 import {
-  moore
+  moore,
 } from '../src/modules/matrix/neighborhood'
 
+const { states } = colormap.two
+
 test('valid transform output', t => {
-  const createCell = generateCell(10, colors)
+  const createCell = generateCell(10, states)
   t.deepEqual(createCell(0, 0, 0),
-    {x: 0, y: 0, color: colors[0]})
+    {x: 0, y: 0, color: states[0]})
   t.deepEqual(createCell(1, 0, 0),
-    {x: 10, y: 0, color: colors[0]})
+    {x: 10, y: 0, color: states[0]})
   t.deepEqual(createCell(0, 1, 0),
-    {x: 0, y: 10, color: colors[0]})
+    {x: 0, y: 10, color: states[0]})
   t.deepEqual(createCell(0, 0, 1),
-    {x: 0, y: 0, color: colors[1]})
+    {x: 0, y: 0, color: states[1]})
 })
 
 test('valid row', t => {
-  const createCell = generateCell(10, colors)
+  const createCell = generateCell(10, states)
   const expRes = [
-    { x: 0, y: 0, color: colors[0] },
-    { x: 0, y: 10, color: colors[1] }
+    { x: 0, y: 0, color: states[0] },
+    { x: 0, y: 10, color: states[1] }
   ]
   t.deepEqual(createRow(createCell, [0, 1], 0), expRes)
   const expRes2 = [
-    { x: 10, y: 0, color: colors[0] },
-    { x: 10, y: 10, color: colors[1] }
+    { x: 10, y: 0, color: states[0] },
+    { x: 10, y: 10, color: states[1] }
   ]
   t.deepEqual(createRow(createCell, [0, 1], 1), expRes2)
 })
@@ -61,14 +63,14 @@ test('validate slices', t => {
 test('valid field', t => {
   const expRes = [
     [
-      { x: 0, y: 0, color: colors[0] },
-      { x: 0, y: 10, color: colors[1] }
+      { x: 0, y: 0, color: states[0] },
+      { x: 0, y: 10, color: states[1] }
     ], [
-      { x: 10, y: 0, color: colors[2] },
-      { x: 10, y: 10, color: colors[3] }
+      { x: 10, y: 0, color: states[2] },
+      { x: 10, y: 10, color: states[3] }
     ]
   ]
-  t.deepEqual(createField(colors, [0, 1, 2, 3], 2, 2, 10, 0), expRes)
+  t.deepEqual(createField(states, [0, 1, 2, 3], 2, 2, 10, 0), expRes)
 })
 
 test('fill matrix', t => {

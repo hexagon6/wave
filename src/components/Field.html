@@ -58,12 +58,11 @@ import FieldDebug from './FieldDebug.html'
 
 import {
   algorithm,
-  background,
   createField,
   randomMatrix,
   step,
   cellstate,
-  colors
+  colormap,
 } from '../modules/matrix'
 
 import {
@@ -73,6 +72,7 @@ import {
 
 import { moore } from '../modules/matrix/neighborhood'
 
+const { states, background } = colormap.two
 const frequency = 1 // Hz
 
 const canvasParams = (cellsize, x, y, gap) => {
@@ -102,7 +102,7 @@ export default {
   oncreate () {
     const initialMatrix = (X, Y) =>
       this.set({
-        matrix: randomMatrix(colors.length)(X, Y)
+        matrix: randomMatrix(states.length)(X, Y)
       })
     // TODO refactor matrix initialization
     this.refs.debug.observe('X', (X) => { this.set({ X }); initialMatrix(X, this.get('Y')) })
@@ -129,7 +129,7 @@ export default {
         this.get('Y'),
         neighborhood,
         algorithm,
-        colors.length
+        states.length,
       )
       console.log('step for matrix')
       this.set({ matrix: step(matrix, options) })
@@ -172,7 +172,7 @@ export default {
   computed: {
     gap: (gap) => parse(gap),
     field: (X, Y, cellsize, gap, matrix) => {
-      return createField(colors, matrix, X, Y, cellsize, gap)
+      return createField(states, matrix, X, Y, cellsize, gap)
     },
     width: (cellsize, gap) =>
       spacing(parse(cellsize), parse(gap)),
@@ -205,7 +205,7 @@ export default {
           matrix,
           dimension,
           { x, y },
-          state => (state + 1) % colors.length
+          state => (state + 1) % states.length
         )
       })
     },

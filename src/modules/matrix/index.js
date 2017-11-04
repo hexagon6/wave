@@ -1,9 +1,8 @@
-import colormap from './colormap'
 import { algorithms } from './algorithm'
 import { pos2Index } from './neighbors'
+import colormap from './colormap'
 
 // TODO: Refactor for switchable colors & algorithms
-const { states, background } = colormap.two
 const algorithm = algorithms[0].method
 
 const cellstate = (matrix, { X, Y }, { x, y }, f) => {
@@ -21,8 +20,7 @@ const cellstate = (matrix, { X, Y }, { x, y }, f) => {
 export {
   algorithm,
   cellstate,
-  states as colors,
-  background
+  colormap,
 }
 
 export {
