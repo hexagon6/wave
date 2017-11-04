@@ -57,7 +57,7 @@
 import FieldDebug from './FieldDebug.html'
 
 import {
-  algorithm,
+  algorithms,
   createField,
   randomMatrix,
   step,
@@ -72,6 +72,9 @@ import {
 
 import { moore } from '../modules/matrix/neighborhood'
 
+const { method: algorithm } = algorithms[0]
+const algos = algorithms.map(({name}) => name)
+console.log(algos)
 const { all_colormaps } = colormap
 const { states, background } = colormap.two
 const frequency = 1 // Hz

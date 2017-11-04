@@ -8,8 +8,6 @@ import {
   fillMatrix,
   randomFieldGenerator,
   cellstate,
-  step,
-  algorithm,
   colormap,
 } from '../src/modules/matrix'
 
@@ -202,11 +200,6 @@ test('split matrix neighbor', t => {
   )
 })
 
-test('algorithm', t => {
-  t.is(algorithm(0, [0, 0, 0, 0, 0, 0, 0, 0, 0], 1), 0)
-  t.is(algorithm(0, [0, 0, 0, 0, 0, 0, 0, 0, 0], 1), 0)
-})
-
 test('neighborhood', t => {
   const _moore = [
     { dx: -1, dy: -1 },
@@ -239,21 +232,6 @@ test('neighborhood', t => {
     { dx: 2, dy: 2 },
   ]
   t.deepEqual(_moore2, moore(2)())
-})
-
-test('game of life', t => {
-  const matrix = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-  const dimension = { X: 3, Y: 3 }
-  const neighborhood = [{ dx: 1, dy: 0 }] // right neighbor
-  const next = step(matrix,
-    {
-      states: 2,
-      algorithm,
-      dimension,
-      neighborhood
-    }
-  )
-  t.deepEqual(next, [0, 0, 0, 0, 0, 0, 0, 0, 0])
 })
 
 test('state increases', t => {
