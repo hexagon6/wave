@@ -99,4 +99,21 @@ const sixteen = {
   ]
 }
 
-export default { bright, dark, two, wave, four, six, sixteen }
+export default {
+  bright,
+  dark,
+  two,
+  wave,
+  four,
+  six,
+  sixteen,
+  all_colormaps: [
+    bright,
+    dark,
+    two,
+    wave,
+    four,
+    six,
+    sixteen,
+  ]
+}
