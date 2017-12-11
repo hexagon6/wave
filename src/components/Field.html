@@ -68,6 +68,9 @@ import {
 import {
   parseUnsignedInt as parse,
   spacing,
+  extractHSLColorComponents,
+  toHSL,
+  rotateHue,
 } from '../modules/utils'
 
 import { moore } from '../modules/matrix/neighborhood'
@@ -78,7 +81,7 @@ console.log(algos)
 const { all_colormaps } = colormap
 const { states, background: backgroundcolor } = colormap.hsl
 
-const frequency = 50 // Hz
+const frequency = 10 // Hz
 
 const canvasParams = (cellsize, x, y, gap) => {
   return {
@@ -146,6 +149,19 @@ export default {
         updateMatrix()
       }
     }
+
+    const rotateHSLColor = () => {
+      const backgroundColor = this.get('backgroundcolor')
+      const backgroundcolor = toHSL(
+        rotateHue(
+          extractHSLColorComponents(backgroundColor)
+          , -0.5
+        )
+      )
+      this.set({ backgroundcolor })
+    }
+
+    setInterval(() => rotateHSLColor(), 100)
 
     this.set({ loopHandler: setInterval(initLoop, this.get('interval')) })
 
