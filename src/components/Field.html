@@ -5,7 +5,7 @@
       height="{{canvas.height}}"
       x="{{canvas.x}}"
       y="{{canvas.y}}"
-      style="fill:{{canvas.background}}"
+      style="fill:{{backgroundcolor}}"
     />
   {{#each field as row, y}}
     {{#each row as cell, x}}
@@ -76,12 +76,12 @@ const { method: algorithm } = algorithms[0]
 const algos = algorithms.map(({name}) => name)
 console.log(algos)
 const { all_colormaps } = colormap
-const { states, background } = colormap.two
-const frequency = 1 // Hz
+const { states, background: backgroundcolor } = colormap.hsl
+
+const frequency = 50 // Hz
 
 const canvasParams = (cellsize, x, y, gap) => {
   return {
-    background,
     width: cellsize * x + gap,
     height: cellsize * y + gap,
     x: 0,
@@ -162,6 +162,7 @@ export default {
     const field = { matrix: [] }
 
     return {
+      backgroundcolor: backgroundcolor,
       running: false,
       loopHandler: null,
       interval: 1,
@@ -174,6 +175,7 @@ export default {
     }
   },
   computed: {
+    backgroundcolor: (backgroundcolor) => backgroundcolor,
     gap: (gap) => parse(gap),
     field: (X, Y, cellsize, gap, matrix) => {
       return createField(states, matrix, X, Y, cellsize, gap)

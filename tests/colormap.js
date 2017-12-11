@@ -5,7 +5,7 @@ import colormap from '../src/modules/matrix/colormap'
 const { all_colormaps } = colormap
 
 test('list all colormaps', t => {
-  t.is(all_colormaps.length, 7)
+  t.is(all_colormaps.length, 8)
 })
 
 test('test props of colormaps', t => {

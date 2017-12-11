@@ -1,12 +1,25 @@
-const defaultPurple = '#673AB7'
-const backgroundColor = '#673AB7'
-const color = '#58FAF4'
+const defaultPurple = 'rgba(103, 58, 183, 0.8)' // '#673AB7'
+const defaultAzure = 'rgba(88, 250, 244, 0.5)' // '#58FAF4'
+
+const backgroundColor = defaultPurple
+const color = defaultAzure
 const borderColor = '#2ECCFA'
+
+const hsl = {
+  name: 'hsl',
+  background: 'hsl(0, 100%, 50%)',
+  states: [
+    'hsl(0, 100%, 70%)',
+    'hsl(120, 100%, 70%)',
+    'hsl(240, 100%, 70%)',
+  ]
+}
 
 const two = {
   // 0: dead, 1: alive
   name: 'two',
-  background: backgroundColor,
+  // background: 'rgba(0, 0, 100, 1)', // backgroundColor,
+  background: 'rgba(0, 127, 255, 1)', // backgroundColor,
   states: [
     backgroundColor,
     color
@@ -102,12 +115,14 @@ const sixteen = {
 export default {
   bright,
   dark,
+  hsl,
   two,
   wave,
   four,
   six,
   sixteen,
   all_colormaps: [
+    hsl,
     bright,
     dark,
     two,
