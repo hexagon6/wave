@@ -78,7 +78,6 @@ import { moore } from '../modules/matrix/neighborhood'
 const { method: algorithm } = algorithms[0]
 const algos = algorithms.map(({name}) => name)
 console.log(algos)
-const { all_colormaps } = colormap
 const { states, background: backgroundcolor } = colormap.hsl
 
 const frequency = 10 // Hz
@@ -178,7 +177,7 @@ export default {
     const field = { matrix: [] }
 
     return {
-      backgroundcolor: backgroundcolor,
+      backgroundcolor,
       running: false,
       loopHandler: null,
       interval: 1,
