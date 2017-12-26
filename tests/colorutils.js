@@ -7,7 +7,7 @@ import {
   toRGBA,
   toHSL,
   rotateHue,
-} from '../src/modules/utils'
+} from '../src/modules/color'
 
 test('rgba number extraction', t => {
   const rgba = extractRGBAColorComponents('rgba(0, 255, 255, 1)')
