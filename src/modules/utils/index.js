@@ -1,11 +1,11 @@
 export const add = (a, b) => a + b
 export const substract = (a, b) => a - b
-export const parseUnsignedInt = (n) => {
+export const parseUnsignedInt = n => {
   const _n = parseInt(n, 10)
-  return (isNaN(_n)) ? 0 : _n
+  return isNaN(_n) ? 0 : _n
 }
 export const spacing = (n, gap) => {
-  const spacing = (gap) ? n - gap : n
+  const spacing = gap ? n - gap : n
   return (spacing > 0) ? spacing : 0
 }
 export const extractRGBAColorComponents = (str) => {
@@ -19,7 +19,7 @@ export const extractRGBAColorComponents = (str) => {
   return [r, g, b, a]
 }
 
-export const toRGBA = (arr) =>
+export const toRGBA = arr =>
   `rgba(${arr[0]},${arr[1]},${arr[2]},${arr[3]})`
 
 export const extractHSLColorComponents = str => {
@@ -32,7 +32,7 @@ export const extractHSLColorComponents = str => {
   return [hue, saturation, lightness]
 }
 
-export const toHSL = (arr) =>
+export const toHSL = arr =>
   `hsl(${arr[0]},${arr[1]}%,${arr[2]}%)`
 
 export const clamp360 = (input) => {
