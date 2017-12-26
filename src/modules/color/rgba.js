@@ -1,6 +1,6 @@
 import {
-  maxFn,
-  minFn,
+  lowerBound,
+  upperBound,
 } from '../utils'
 
 export const toRGBA = arr =>
@@ -9,8 +9,8 @@ export const toRGBA = arr =>
 export const extractRGBAColorComponents = str => {
   const rgba = str.replace(/rgba\((.*)\)/, '$1').split(',')
 
-  const above0 = maxFn(0)
-  const atmost255 = minFn(255)
+  const above0 = lowerBound(0)
+  const atmost255 = upperBound(255)
   const [r, g, b] = rgba
     .map(above0)
     .map(atmost255)

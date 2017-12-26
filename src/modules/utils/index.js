@@ -8,9 +8,9 @@ export const spacing = (n, gap) => {
   const spacing = gap ? n - gap : n
   return (spacing > 0) ? spacing : 0
 }
-export const maxFn = lower => v => Math.max(lower, v)
-export const minFn = upper => v => Math.min(upper, v)
+export const lowerBound = min => v => Math.max(min, v)
+export const upperBound = max => v => Math.min(max, v)
 export const clamp = (min, max) => v => {
-  const mind = minFn(max)(v)
-  return maxFn(min)(mind)
+  const capFn = upperBound(max)
+  return lowerBound(min)(capFn(v))
 }
