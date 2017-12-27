@@ -21,6 +21,8 @@
 </svg>
 <div class="bottom-right">
   <button on:click="next()" value="next" >next</button>
+  <button on:click="save()" value="save" >save</button>
+  <button on:click="load()" value="load" >load</button>
 </div>
 <FieldDebug
   ref:debug
@@ -106,6 +108,15 @@ const shapePropsForNextStep = (matrix, X, Y, neighborhood, algorithm, states) =>
     states
   }
 ]
+
+let matrixState = []
+const saveMatrixState = (ref) => {
+  matrixState = ref.get('matrix')
+}
+
+const loadMatrixState = (ref) => {
+  ref.set({ matrix: matrixState })
+}
 
 export default {
   oncreate () {
@@ -237,6 +248,12 @@ export default {
       const next = this.get('updateMatrix')
       next()
     },
+    save: function () {
+      saveMatrixState(this)
+    },
+    load: function () {
+      loadMatrixState(this)
+    }
   }
 }
 </script>
