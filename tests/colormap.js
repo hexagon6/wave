@@ -1,6 +1,7 @@
 import test from 'ava'
 
 import colormap from '../src/modules/matrix/colormap'
+import { range, hslShiftedColorMap } from '../src/modules/utils'
 
 const { all_colormaps } = colormap
 
@@ -18,4 +19,10 @@ test('test props of colormaps', t => {
     t.is('object', typeof states) // array is of type object
     t.true(states.length > 1)
   })
+})
+
+test('range', t => {
+  t.deepEqual([], range(0))
+  t.deepEqual([0], range(1))
+  t.deepEqual([0, 1, 2], range(3))
 })

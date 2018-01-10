@@ -1,3 +1,5 @@
+import { hslShiftedColorMap } from '../utils'
+
 const defaultPurple = 'rgba(103, 58, 183, 0.8)' // '#673AB7'
 const defaultAzure = 'rgba(88, 250, 244, 0.5)' // '#58FAF4'
 
@@ -5,15 +7,7 @@ const backgroundColor = defaultPurple
 const color = defaultAzure
 const borderColor = '#2ECCFA'
 
-const hsl = {
-  name: 'hsl',
-  background: 'hsl(0, 100%, 50%)',
-  states: [
-    'hsl(0, 100%, 70%)',
-    'hsl(120, 100%, 70%)',
-    'hsl(240, 100%, 70%)',
-  ]
-}
+const hsl = hslShiftedColorMap(2, Math.random() * 360)
 
 const two = {
   // 0: dead, 1: alive
