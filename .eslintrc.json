@@ -6,7 +6,7 @@
 	"globals": {
 		"ENV": true
 	},
-    "extends": "standard",
+    "extends": ["prettier", "plugin:prettier/recommended"],
     "parserOptions": {
         "ecmaVersion": 8,
         "sourceType": "module",
@@ -15,7 +15,8 @@
         }
     },
     "rules": {
-        "no-console": "off",
+        "prettier/prettier": "error",
+        "no-console": "warn",
         "comma-dangle": [0, 2],
         "quotes": [
             "error",
@@ -23,6 +24,7 @@
         ]
     },
     "plugins": [
+        "prettier",
 		"html"
     ]
 }
