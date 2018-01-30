@@ -1,46 +1,27 @@
-var backgroundColor = '#673AB7'
-var color = '#58FAF4'
-var borderColor = '#2ECCFA'
+var backgroundColor = '#673AB7';
+var color = '#58FAF4';
+var borderColor = '#2ECCFA';
 
 var states = [
   {
     // 0: dead, 1: alive
     name: 'two',
-    states: [
-      backgroundColor,
-      color
-    ]
+    states: [backgroundColor, color],
   },
   {
     // 0: resting, 1: excited, 2: refractoring
     name: 'wave',
-    states: [
-      backgroundColor,
-      color,
-      borderColor
-    ]
+    states: [backgroundColor, color, borderColor],
   },
   {
     // 0: resting, 1: excited, 2+: refractoring
     name: 'four',
-    states: [
-      backgroundColor,
-      '#FF6688',
-      '#88FF66',
-      '#6688FF'
-    ]
+    states: [backgroundColor, '#FF6688', '#88FF66', '#6688FF'],
   },
   {
     // 0: resting, 1: excited, 2+: refractoring
     name: 'six',
-    states: [
-      '#4CC3D9',
-      '#93648D',
-      '#404040',
-      '#F16745',
-      '#FFC65D',
-      '#7BC8A4'
-    ]
+    states: ['#4CC3D9', '#93648D', '#404040', '#F16745', '#FFC65D', '#7BC8A4'],
   },
   {
     // 0: resting, 1: excited, 2+: refractoring
@@ -61,9 +42,9 @@ var states = [
       '#9FFFFF',
       '#FFFFFF',
       color,
-      borderColor
-    ]
-  }
-]
+      borderColor,
+    ],
+  },
+];
 
-export default states
+export default states;

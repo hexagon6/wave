@@ -1,7 +1,4 @@
-import settings from 'js/settings'
-import states from 'js/states'
+import settings from 'js/settings';
+import states from 'js/states';
 
-export {
-  settings,
-  states
-}
+export { settings, states };

@@ -1,10 +1,9 @@
-
-import Main from '../components/Main.html'
+import Main from '../components/Main.html';
 
 export default class App {
-  constructor () {
+  constructor() {
     this.main = new Main({
-      target: document.body
-    })
+      target: document.body,
+    });
   }
 }

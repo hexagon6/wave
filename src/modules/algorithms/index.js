@@ -3,49 +3,37 @@ import {
   neumann,
   neumannMoore,
   random,
-} from '../matrix/neighborhood.js'
+} from '../matrix/neighborhood.js';
 
 export default {
-  get all () {
-    return [
-      this.GH,
-      this.TT,
-      this.GoL
-    ]
+  get all() {
+    return [this.GH, this.TT, this.GoL];
   },
 
-  get GH () {
+  get GH() {
     return {
       key: 'GH',
       name: 'Greenberg-Hastings',
       method: null,
-      neighborhood: [
-        neumann,
-        moore,
-        neumannMoore,
-      ]
-    }
+      neighborhood: [neumann, moore, neumannMoore],
+    };
   },
 
-  get TT () {
+  get TT() {
     return {
       key: 'TT',
       name: 'Random',
       method: null,
-      neighborhood: [
-        random
-      ]
-    }
+      neighborhood: [random],
+    };
   },
 
-  get GoL () {
+  get GoL() {
     return {
       key: 'GoL',
       name: 'Game of Life',
       method: null,
-      neighborhood: [
-        moore
-      ]
-    }
-  }
-}
+      neighborhood: [moore],
+    };
+  },
+};

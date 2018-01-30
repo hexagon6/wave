@@ -11,43 +11,39 @@ ul {
   <State ref:state :states />
 </ul>
 <script>
-import { filter } from 'lodash-es'
+import { filter } from 'lodash-es';
 // import settings from '../js/settings.js'
-import Algorithm from './Algorithm.html'
-import Neighbor from './Neighbor.html'
-import State from './State.html'
+import Algorithm from './Algorithm.html';
+import Neighbor from './Neighbor.html';
+import State from './State.html';
 
-const observer = {}
+const observer = {};
 
 export default {
-  oncreate () {
-    const algorithms = this.get('algorithms')
-    const algorithm = algorithms[0]
-    const neighbors = algorithm.neighborhood.map(({name}) => name)
+  oncreate() {
+    const algorithms = this.get('algorithms');
+    const algorithm = algorithms[0];
+    const neighbors = algorithm.neighborhood.map(({ name }) => name);
     this.set({
       algorithm,
       neighbors,
-    })
+    });
 
-    const observers = [
-      'algorithm',
-      'neighbor',
-      'state'
-    ]
+    const observers = ['algorithm', 'neighbor', 'state'];
     for (let _observer of observers) {
-      this.addObserver(_observer)
+      this.addObserver(_observer);
     }
-    this.observe('algorithm', (algorithm) => {
+    this.observe('algorithm', algorithm => {
       if (algorithm) {
-        const a = this.get('algorithms')
-        const selected = filter(a, {key: algorithm})[0]
+        const a = this.get('algorithms');
+        const selected = filter(a, { key: algorithm })[0];
         if (selected) {
           this.set({
-            neighbors: selected.neighborhood
-          })
+            neighbors: selected.neighborhood,
+          });
         }
       }
-    })
+    });
     /*
     this.observe('neighbor', (v) => {
       if (v) {
@@ -60,32 +56,32 @@ export default {
     })
     */
   },
-  ondestroy () {
-    Object.keys(observer).map((name) => {
-      observer[name].cancel()
-      delete observer[name]
-    })
+  ondestroy() {
+    Object.keys(observer).map(name => {
+      observer[name].cancel();
+      delete observer[name];
+    });
   },
-  data () {
+  data() {
     return {
-      neighbors: []
-    }
+      neighbors: [],
+    };
   },
   components: {
     Algorithm,
     Neighbor,
-    State
+    State,
   },
   methods: {
-    addObserver: function (name) {
-      const ref = this.refs[name]
+    addObserver: function(name) {
+      const ref = this.refs[name];
       observer[name] = ref.observe(name, value => {
         if (value && name) {
-          this.set({ [name]: value })
+          this.set({ [name]: value });
         }
-      })
-    }
+      });
+    },
   },
   // TODO: how to get out the settings for viewport? algorithm, neighborhood, states
-}
+};
 </script>

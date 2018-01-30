@@ -24,12 +24,12 @@
 </li>
 <script>
 export default {
-  oncreate () {
-    const states = this.get('states')
+  oncreate() {
+    const states = this.get('states');
     if (states && states.length > 0) {
-      const state = states[0] && states[0].name
-      this.set({ state })
+      const state = states[0] && states[0].name;
+      this.set({ state });
     }
-  }
-}
+  },
+};
 </script>

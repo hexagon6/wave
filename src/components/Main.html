@@ -21,46 +21,41 @@
 />
 -->
 <script>
-import algorithms from '../modules/algorithms'
-import settings from '../js/settings.js'
-import states from '../js/states.js'
+import algorithms from '../modules/algorithms';
+import settings from '../js/settings.js';
+import states from '../js/states.js';
 
-import Canvas from './Canvas.html'
-import Controls from './Controls.html'
-import Field from './Field.html'
+import Canvas from './Canvas.html';
+import Controls from './Controls.html';
+import Field from './Field.html';
 
 export default {
-  oncreate () {
-    const controls = this.refs.controls
-    const components = [
-      'algorithm',
-      'neighbor',
-      'state'
-    ]
-    components.map((component) => {
-      controls.refs[component]
-        .observe(component, (value) => {
-          settings[component] = value
-          this.set({[component]: value})
-        })
-    })
+  oncreate() {
+    const controls = this.refs.controls;
+    const components = ['algorithm', 'neighbor', 'state'];
+    components.map(component => {
+      controls.refs[component].observe(component, value => {
+        settings[component] = value;
+        this.set({ [component]: value });
+      });
+    });
   },
-  data () {
-    const { size } = settings.canvas
+  data() {
+    const { size } = settings.canvas;
     return {
       algorithms: algorithms.all,
       states,
       canvas: {
         height: size,
-        width: size
+        width: size,
       },
-      debug: false
-    }
+      debug: false,
+    };
   },
   components: {
     Controls,
     Canvas,
-    Field
-  }
-}
+    Field,
+  },
+};
 </script>

@@ -16,17 +16,17 @@
 </li>
 <script>
 export default {
-  data () {
+  data() {
     return {
-      neighbors: []
+      neighbors: [],
+    };
+  },
+  oncreate() {
+    const neighbors = this.get('neighbors');
+    if (neighbors && neighbors.length > 0) {
+      const neighbor = neighbors[0];
+      this.set({ neighbor });
     }
   },
-  oncreate () {
-    const neighbors = this.get('neighbors')
-    if (neighbors && neighbors.length > 0) {
-      const neighbor = neighbors[0]
-      this.set({ neighbor })
-    }
-  }
-}
+};
 </script>

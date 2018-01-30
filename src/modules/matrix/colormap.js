@@ -1,86 +1,53 @@
-import { hslShiftedColorMap } from '../utils'
+import { hslShiftedColorMap } from '../utils';
 
-const defaultPurple = 'rgba(103, 58, 183, 0.8)' // '#673AB7'
-const defaultAzure = 'rgba(88, 250, 244, 0.5)' // '#58FAF4'
+const defaultPurple = 'rgba(103, 58, 183, 0.8)'; // '#673AB7'
+const defaultAzure = 'rgba(88, 250, 244, 0.5)'; // '#58FAF4'
 
-const backgroundColor = defaultPurple
-const color = defaultAzure
-const borderColor = '#2ECCFA'
+const backgroundColor = defaultPurple;
+const color = defaultAzure;
+const borderColor = '#2ECCFA';
 
-const hsl = hslShiftedColorMap(2, Math.random() * 360)
+const hsl = hslShiftedColorMap(2, Math.random() * 360);
 
 const two = {
   // 0: dead, 1: alive
   name: 'two',
   // background: 'rgba(0, 0, 100, 1)', // backgroundColor,
   background: 'rgba(0, 127, 255, 1)', // backgroundColor,
-  states: [
-    backgroundColor,
-    color
-  ]
-}
+  states: [backgroundColor, color],
+};
 
 const wave = {
   // 0: resting, 1: excited, 2: refractoring
   name: 'wave',
   background: backgroundColor,
-  states: [
-    backgroundColor,
-    color,
-    borderColor
-  ]
-}
+  states: [backgroundColor, color, borderColor],
+};
 
 const four = {
   // 0: resting, 1: excited, 2+: refractoring
   name: 'four',
   background: backgroundColor,
-  states: [
-    backgroundColor,
-    '#FF6688',
-    '#88FF66',
-    '#6688FF'
-  ]
-}
+  states: [backgroundColor, '#FF6688', '#88FF66', '#6688FF'],
+};
 
 const bright = {
   name: 'bright',
   background: '#33feaf',
-  states: [
-    '#ffffff',
-    '#ff0000',
-    '#ffff00',
-    '#000000',
-    '#3abe00',
-    '#afeefb'
-  ]
-}
+  states: ['#ffffff', '#ff0000', '#ffff00', '#000000', '#3abe00', '#afeefb'],
+};
 
 const dark = {
   name: 'dark',
   background: '#33af33',
-  states: [
-    '#bbbbbb',
-    '#990033',
-    '#333300',
-    '#111111',
-    '#3abe00',
-    '#afaafb'
-  ]
-}
+  states: ['#bbbbbb', '#990033', '#333300', '#111111', '#3abe00', '#afaafb'],
+};
 
 const six = {
   name: 'six',
   background: defaultPurple,
-  states: [
-    '#4CC3D9',
-    '#93648D',
-    '#404040',
-    '#F16745',
-    '#FFC65D',
-    '#7BC8A4'
-  ]
-}
+  states: ['#4CC3D9', '#93648D', '#404040', '#F16745', '#FFC65D', '#7BC8A4'],
+};
 
 const sixteen = {
   // 0: resting, 1: excited, 2+: refractoring
@@ -102,9 +69,9 @@ const sixteen = {
     '#9FFFFF',
     '#FFFFFF',
     color,
-    borderColor
-  ]
-}
+    borderColor,
+  ],
+};
 
 export default {
   bright,
@@ -115,14 +82,5 @@ export default {
   four,
   six,
   sixteen,
-  all_colormaps: [
-    hsl,
-    bright,
-    dark,
-    two,
-    wave,
-    four,
-    six,
-    sixteen,
-  ]
-}
+  all_colormaps: [hsl, bright, dark, two, wave, four, six, sixteen],
+};
