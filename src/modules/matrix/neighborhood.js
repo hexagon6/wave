@@ -4,9 +4,9 @@ export const neumann = radius => {
     { dx: 0, dy: -1 },
     { dx: 0, dy: 1 },
     { dx: 1, dy: 0 },
-  ];
+  ]
   if (radius === 1) {
-    return () => base;
+    return () => base
   } else if (radius === 2) {
     const ret = [
       ...base,
@@ -14,14 +14,14 @@ export const neumann = radius => {
         return {
           dx: dx * radius,
           dy: dy * radius,
-        };
+        }
       }),
-    ];
+    ]
     return () => {
-      return ret;
-    };
+      return ret
+    }
   }
-};
+}
 
 export const moore = radius => {
   const base = [
@@ -33,31 +33,31 @@ export const moore = radius => {
     { dx: 1, dy: -1 },
     { dx: 1, dy: 0 },
     { dx: 1, dy: 1 },
-  ];
+  ]
   if (radius === 1) {
-    return () => base;
+    return () => base
   } else if (radius === 2) {
     const extend = base.map(({ dx, dy }) => {
       return {
         dx: dx * radius,
         dy: dy * radius,
-      };
-    });
-    const ret = [...base, ...extend];
-    return () => ret;
+      }
+    })
+    const ret = [...base, ...extend]
+    return () => ret
   }
-};
+}
 
 export const neumannMoore = () => {
   // FIXME: implement switching between von neumann & moore with
   // generator function
-  const _moore = moore(1);
-  return () => _moore;
-};
+  const _moore = moore(1)
+  return () => _moore
+}
 
 export const random = () => {
-  return [];
-};
+  return []
+}
 
 export default {
   list: [
@@ -78,4 +78,4 @@ export default {
   neumann: neumann,
   neumannMoore: neumannMoore,
   random: random,
-};
+}

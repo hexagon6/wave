@@ -1,6 +1,6 @@
-var backgroundColor = '#673AB7';
-var color = '#58FAF4';
-var borderColor = '#2ECCFA';
+var backgroundColor = '#673AB7'
+var color = '#58FAF4'
+var borderColor = '#2ECCFA'
 
 var states = [
   {
@@ -45,6 +45,6 @@ var states = [
       borderColor,
     ],
   },
-];
+]
 
-export default states;
+export default states

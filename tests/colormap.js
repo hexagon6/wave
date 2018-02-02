@@ -10,7 +10,7 @@ test('list all colormaps', t => {
 })
 
 test('test props of colormaps', t => {
-  all_colormaps.map(({name, background, states}) => {
+  all_colormaps.map(({ name, background, states }) => {
     // console.log({name, background, states})
     t.is('string', typeof name)
     t.not(colormap[name], undefined) // property name is the same as given name

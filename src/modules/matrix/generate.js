@@ -1,22 +1,22 @@
 export const fillMatrix = (func, params, x, y) => {
-  let i = 0;
-  let matrix = [];
+  let i = 0
+  let matrix = []
   while (i < x * y) {
-    matrix.push(func(params));
-    i = i + 1;
+    matrix.push(func(params))
+    i = i + 1
   }
-  return matrix;
-};
+  return matrix
+}
 
 export const randomFieldGenerator = function(range) {
-  const rand = Math.random();
-  return Math.floor(rand * (range[1] - range[0]) + range[0]);
-};
+  const rand = Math.random()
+  return Math.floor(rand * (range[1] - range[0]) + range[0])
+}
 
 export const randomMatrix = (size = 2) => {
-  const range = [0, size];
-  return (x, y) => fillMatrix(randomFieldGenerator, range, x, y);
-};
+  const range = [0, size]
+  return (x, y) => fillMatrix(randomFieldGenerator, range, x, y)
+}
 
 export const generateCell = (size = 1, colors) => {
   return (x, y, index) => {
@@ -24,25 +24,25 @@ export const generateCell = (size = 1, colors) => {
       x: x * size,
       y: y * size,
       color: colors[index],
-    };
-  };
-};
+    }
+  }
+}
 
 export const createRow = (createCell, cells, y) => {
-  return cells.map((cell, i) => createCell(y, i, cell));
-};
+  return cells.map((cell, i) => createCell(y, i, cell))
+}
 
 export const sliceCellstoRows = (cells, numRows) => {
-  const n = cells.length / numRows;
+  const n = cells.length / numRows
   // fixme replace with native function or lodash?
-  let i = 0;
-  let nArr = [];
+  let i = 0
+  let nArr = []
   while (i < n) {
-    nArr.push(i * n);
-    i = i + 1;
+    nArr.push(i * n)
+    i = i + 1
   }
-  return nArr.map(v => cells.slice(v, v + n));
-};
+  return nArr.map(v => cells.slice(v, v + n))
+}
 
 // FIXME: check that matrix dimensions match input parameters x & y
 export const createField = (
@@ -53,12 +53,12 @@ export const createField = (
   cellsize,
   states
 ) => {
-  const createCell = generateCell(cellsize, colors);
+  const createCell = generateCell(cellsize, colors)
   if (cells) {
-    const rows = sliceCellstoRows(cells, numRows);
+    const rows = sliceCellstoRows(cells, numRows)
     return rows.map((cell, y) => {
-      return createRow(createCell, cell, y);
-    });
+      return createRow(createCell, cell, y)
+    })
   }
-  return [];
-};
+  return []
+}

@@ -21,17 +21,17 @@
 <script>
 export default {
   oncreate() {
-    const radii = this.get('radii');
+    const radii = this.get('radii')
     if (radii && radii.length > 0) {
-      console.log(radii);
-      const radius = radii[0];
-      this.set({ radius });
+      console.log(radii)
+      const radius = radii[0]
+      this.set({ radius })
     }
   },
   data() {
     return {
       radius: 1,
-    };
+    }
   },
-};
+}
 </script>

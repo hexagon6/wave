@@ -23,6 +23,6 @@ let settings = {
   steps: 3,
   verbose: false,
   state: 'wave',
-};
+}
 
-export default settings;
+export default settings

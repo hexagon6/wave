@@ -56,7 +56,7 @@
   }
 </style>
 <script>
-import FieldDebug from './FieldDebug.html';
+import FieldDebug from './FieldDebug.html'
 
 import {
   algorithms,
@@ -65,20 +65,20 @@ import {
   step,
   cellstate,
   colormap,
-} from '../modules/matrix';
+} from '../modules/matrix'
 
-import { parseUnsignedInt as parse, spacing } from '../modules/utils';
+import { parseUnsignedInt as parse, spacing } from '../modules/utils'
 
-import { extractHSLColorComponents, toHSL, rotateHue } from '../modules/color';
+import { extractHSLColorComponents, toHSL, rotateHue } from '../modules/color'
 
-import { moore } from '../modules/matrix/neighborhood';
+import { moore } from '../modules/matrix/neighborhood'
 
-const { method: algorithm } = algorithms[0];
-const algos = algorithms.map(({ name }) => name);
-console.log(algos);
-const { states, background: backgroundcolor } = colormap.hsl;
+const { method: algorithm } = algorithms[0]
+const algos = algorithms.map(({ name }) => name)
+console.log(algos)
+const { states, background: backgroundcolor } = colormap.hsl
 
-const frequency = 10; // Hz
+const frequency = 10 // Hz
 
 const canvasParams = (cellsize, x, y, gap) => {
   return {
@@ -86,8 +86,8 @@ const canvasParams = (cellsize, x, y, gap) => {
     height: cellsize * y + gap,
     x: 0,
     y: 0,
-  };
-};
+  }
+}
 
 const shapePropsForNextStep = (
   matrix,
@@ -107,45 +107,45 @@ const shapePropsForNextStep = (
     algorithm,
     states,
   },
-];
+]
 
-let matrixState = [];
+let matrixState = []
 const saveMatrixState = ref => {
-  matrixState = ref.get('matrix');
-};
+  matrixState = ref.get('matrix')
+}
 
 const loadMatrixState = ref => {
-  ref.set({ matrix: matrixState });
-};
+  ref.set({ matrix: matrixState })
+}
 
 export default {
   oncreate() {
     const initialMatrix = (X, Y) =>
       this.set({
         matrix: randomMatrix(states.length)(X, Y),
-      });
+      })
     // TODO refactor matrix initialization
     this.refs.debug.observe('X', X => {
-      this.set({ X });
-      initialMatrix(X, this.get('Y'));
-    });
+      this.set({ X })
+      initialMatrix(X, this.get('Y'))
+    })
     this.refs.debug.observe('Y', Y => {
-      this.set({ Y });
-      initialMatrix(this.get('X'), Y);
-    });
+      this.set({ Y })
+      initialMatrix(this.get('X'), Y)
+    })
 
-    this.refs.debug.observe('height', height => this.set({ height }));
-    this.refs.debug.observe('width', width => this.set({ width }));
-    this.refs.debug.observe('cellsize', cellsize => this.set({ cellsize }));
-    this.refs.debug.observe('gap', gap => this.set({ gap }));
-    this.refs.debug.observe('interval', interval => this.set({ interval }));
-    this.refs.debug.observe('running', running => this.set({ running }));
+    this.refs.debug.observe('height', height => this.set({ height }))
+    this.refs.debug.observe('width', width => this.set({ width }))
+    this.refs.debug.observe('cellsize', cellsize => this.set({ cellsize }))
+    this.refs.debug.observe('gap', gap => this.set({ gap }))
+    this.refs.debug.observe('interval', interval => this.set({ interval }))
+    this.refs.debug.observe('running', running => this.set({ running }))
 
-    const interval = 1 / frequency * 1000;
-    this.set({ interval });
-    console.log(`Running simulation at ~${frequency} Hz`);
+    const interval = 1 / frequency * 1000
+    this.set({ interval })
+    console.log(`Running simulation at ~${frequency} Hz`)
 
-    const neighborhood = moore(1)();
+    const neighborhood = moore(1)()
 
     // TODO extract this function and use a callback to update intervals
     const updateMatrix = () => {
@@ -156,42 +156,42 @@ export default {
         neighborhood,
         algorithm,
         states.length
-      );
-      console.log('step for matrix');
-      this.set({ matrix: step(matrix, options) });
-    };
+      )
+      console.log('step for matrix')
+      this.set({ matrix: step(matrix, options) })
+    }
 
-    this.set({ updateMatrix });
+    this.set({ updateMatrix })
 
     const initLoop = () => {
       if (this.get('running')) {
-        updateMatrix();
+        updateMatrix()
       }
-    };
+    }
 
     const rotateHSLColor = () => {
-      const backgroundColor = this.get('backgroundcolor');
+      const backgroundColor = this.get('backgroundcolor')
       const backgroundcolor = toHSL(
         rotateHue(extractHSLColorComponents(backgroundColor), -0.5)
-      );
-      this.set({ backgroundcolor });
-    };
+      )
+      this.set({ backgroundcolor })
+    }
 
-    setInterval(() => rotateHSLColor(), 100);
+    setInterval(() => rotateHSLColor(), 100)
 
-    this.set({ loopHandler: setInterval(initLoop, this.get('interval')) });
+    this.set({ loopHandler: setInterval(initLoop, this.get('interval')) })
 
-    console.log('constructor');
-    console.log(this.constructor.loopHandler);
+    console.log('constructor')
+    console.log(this.constructor.loopHandler)
     // this.set({ loopHandler: setInterval( this.get('updateMatrix'), this.get('interval')) });
   },
 
   ondestroy() {
-    clearInterval(this.interval);
+    clearInterval(this.interval)
   },
 
   data() {
-    const field = { matrix: [] };
+    const field = { matrix: [] }
 
     return {
       backgroundcolor,
@@ -204,13 +204,13 @@ export default {
       cellsize: 15,
       matrix: [],
       field,
-    };
+    }
   },
   computed: {
     backgroundcolor: backgroundcolor => backgroundcolor,
     gap: gap => parse(gap),
     field: (X, Y, cellsize, gap, matrix) => {
-      return createField(states, matrix, X, Y, cellsize, gap);
+      return createField(states, matrix, X, Y, cellsize, gap)
     },
     width: (cellsize, gap) => spacing(parse(cellsize), parse(gap)),
     height: (cellsize, gap) => spacing(parse(cellsize), parse(gap)),
@@ -220,11 +220,11 @@ export default {
     Y: Y => parse(Y),
     running: function(running) {
       if (running) {
-        console.log('starting');
+        console.log('starting')
       } else {
-        console.log('stopping');
+        console.log('stopping')
       }
-      return running;
+      return running
     },
   },
   components: {
@@ -232,9 +232,9 @@ export default {
   },
   methods: {
     click: function({ x, y }) {
-      console.log(`clicked on x: ${x} y: ${y}`);
-      const matrix = this.get('matrix');
-      const dimension = { X: this.get('X'), Y: this.get('Y') };
+      console.log(`clicked on x: ${x} y: ${y}`)
+      const matrix = this.get('matrix')
+      const dimension = { X: this.get('X'), Y: this.get('Y') }
       this.set({
         matrix: cellstate(
           matrix,
@@ -242,18 +242,18 @@ export default {
           { x, y },
           state => (state + 1) % states.length
         ),
-      });
+      })
     },
     next: function() {
-      const next = this.get('updateMatrix');
-      next();
+      const next = this.get('updateMatrix')
+      next()
     },
     save: function() {
-      saveMatrixState(this);
+      saveMatrixState(this)
     },
     load: function() {
-      loadMatrixState(this);
+      loadMatrixState(this)
     },
   },
-};
+}
 </script>
