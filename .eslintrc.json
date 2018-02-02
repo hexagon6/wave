@@ -24,7 +24,8 @@
         ]
     },
     "plugins": [
-        "prettier",
-		"html"
+        "html",
+        "json",
+        "prettier"
     ]
 }
