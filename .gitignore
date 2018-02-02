@@ -3,4 +3,5 @@ node_modules/
 public/
 .eslintcache
 .vscode
+yarn-error.log
 yarn.lock
