@@ -37,7 +37,8 @@ export default {
       },
 
       // this results in smaller CSS files
-      cascade: false
+      cascade: false,
+      store: true,
     }),
     resolve(),
     commonjs({
