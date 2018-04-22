@@ -14,11 +14,11 @@
       ref:state
       on:click='fire( "select" )'
     >
-    {{#if states}}
-    {{#each states as s}}
-    <option>{{s.name}}</option>
-    {{/each}}
-    {{/if}}
+    {#if states}
+    {#each states as s}
+    <option>{s.name}</option>
+    {/each}
+    {/if}
     </select>
   </div>
 </li>

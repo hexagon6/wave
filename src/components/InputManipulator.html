@@ -1,7 +1,7 @@
 <div class="flex-container">
   <label>
-    <span class="label">{{label}}</span>
-    <input bind:value="value" value="{{value}}" maxlength="{{maxlength}}" />
+    <span class="label">{label}</span>
+    <input bind:value="value" value="{value}" maxlength="{maxlength}" />
     <button on:click="set({ value: value + steps})" type="button">+</button>
     <button on:click="set({ value: value - steps})" type="button">-</button>
   </label>

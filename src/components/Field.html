@@ -1,22 +1,22 @@
 <svg class="container overflow-visible">
   <g>
     <rect
-      width="{{canvas.width}}"
-      height="{{canvas.height}}"
-      x="{{canvas.x}}"
-      y="{{canvas.y}}"
-      style="fill:{{backgroundcolor}}"
+      width="{canvas.width}"
+      height="{canvas.height}"
+      x="{canvas.x}"
+      y="{canvas.y}"
+      style="fill:{backgroundcolor}"
     />
-  {{#each field as row, y}}
-    {{#each row as cell, x}}
+  {#each field as row, y}
+    {#each row as cell, x}
       <rect
         on:click="click({x, y})"
-        :width :height
-        x="{{cell.x + gap}}" y="{{cell.y + gap}}"
-        id="cell{{x}}x{{y}}" style="fill:{{cell.color}}"
+        {width} {height}
+        x="{cell.x + gap}" y="{cell.y + gap}"
+        id="cell{x}x{y}" style="fill:{cell.color}"
       />
-    {{/each}}
-  {{/each}}
+    {/each}
+  {/each}
   </g>
 </svg>
 <div class="bottom-right">
@@ -26,14 +26,14 @@
 </div>
 <FieldDebug
   ref:debug
-  :X
-  :Y
-  :cellsize
-  :gap
-  :width
-  :height
-  :interval
-  :running
+  {X}
+  {Y}
+  {cellsize}
+  {gap}
+  {width}
+  {height}
+  {interval}
+  {running}
 />
 <style>
   svg {
@@ -207,18 +207,18 @@ export default {
     }
   },
   computed: {
-    backgroundcolor: backgroundcolor => backgroundcolor,
-    gap: gap => parse(gap),
-    field: (X, Y, cellsize, gap, matrix) => {
+    backgroundcolor: ({ backgroundcolor }) => backgroundcolor,
+    gap: ({ gap }) => parse(gap),
+    field: ({ X, Y, cellsize, gap, matrix }) => {
       return createField(states, matrix, X, Y, cellsize, gap)
     },
-    width: (cellsize, gap) => spacing(parse(cellsize), parse(gap)),
-    height: (cellsize, gap) => spacing(parse(cellsize), parse(gap)),
-    canvas: (cellsize, X, Y, gap) =>
+    width: ({ cellsize, gap }) => spacing(parse(cellsize), parse(gap)),
+    height: ({ cellsize, gap }) => spacing(parse(cellsize), parse(gap)),
+    canvas: ({ cellsize, X, Y, gap }) =>
       canvasParams(parse(cellsize), parse(X), parse(Y), parse(gap)),
-    X: X => parse(X),
-    Y: Y => parse(Y),
-    running: function(running) {
+    X: ({ X }) => parse(X),
+    Y: ({ Y }) => parse(Y),
+    running: function({ running }) {
       if (running) {
         console.log('starting')
       } else {

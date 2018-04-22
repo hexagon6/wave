@@ -4,16 +4,16 @@
 	<label>
 		algorithm
 	<select bind:value="algorithm">
-		{{#if algorithms}}
-		{{#each algorithms as al}}
-		<option value={{al.key}}>{{al.key}}</option>
-		{{/each}}
-		{{/if}}
+		{#if algorithms}
+		{#each algorithms as al}
+		<option value={al.key}>{al.key}</option>
+		{/each}
+		{/if}
 		</select>
 	</label>
 	</li>
-	<li><input bind:value="argument" value="{{argument}}" /></li>
-	<li>algorithm: {{algorithm}} ({{argument}}) -> {{out}}</li>
+	<li><input bind:value="argument" value="{argument}" /></li>
+	<li>algorithm: {algorithm} ({argument}) -> {out}</li>
 </ul>
 
 
@@ -38,10 +38,9 @@ export default {
     }
   },
   computed: {
-    out: (algorithm, argument) => algomethod(algorithm)(argument),
+    out: ({ algorithm, argument }) => algomethod(algorithm)(argument),
   },
   components: {
-    Field,
     Main,
   },
 }
