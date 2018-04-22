@@ -3,3 +3,6 @@ language: node_js
 sudo: false
 dist: trusty
 
+script:
+- yarn test
+- yarn build
