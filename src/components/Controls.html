@@ -23,7 +23,11 @@ export default {
   oncreate() {
     const algorithms = this.get('algorithms')
     const algorithm = algorithms[0]
-    const neighbors = algorithm && algorithm.neighborhood && algorithm.neighborhood.map(({ name }) => name) || []
+    const neighbors =
+      (algorithm &&
+        algorithm.neighborhood &&
+        algorithm.neighborhood.map(({ name }) => name)) ||
+      []
     this.set({
       algorithm,
       neighbors,
