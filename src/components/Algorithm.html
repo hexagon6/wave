@@ -7,11 +7,11 @@
         class="btn btn-default"
         bind:value="algorithm"
     >
-      {{#if algorithms}}
-        {{#each algorithms as al}}
-        <option value={{al.key}}>{{al.key}}</option>
-        {{/each}}
-      {{/if}}
+      {#if algorithms}
+        {#each algorithms as al}
+        <option value={al.key}>{al.key}</option>
+        {/each}
+      {/if}
       </select>
   </div>
 </li>

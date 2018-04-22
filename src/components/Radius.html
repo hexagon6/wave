@@ -10,11 +10,11 @@
             list="neighborhood_r_list"
             bind:value="radius"
         >
-            {{#if radii}}
-            {{#each radii as r}}
-            <option>{{r}}</option>
-            {{/each}}
-            {{/if}}
+            {#if radii}
+            {#each radii as r}
+            <option>{r}</option>
+            {/each}
+            {/if}
         </select>
     </div>
 </li>

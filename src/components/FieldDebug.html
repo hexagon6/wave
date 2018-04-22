@@ -1,43 +1,43 @@
 <div class="debug">
   <Toggle
     bind:value="running"
-    value={{running}}
+    value={running}
     label="Timer"
   />
   <InputManipulator
     bind:value="interval"
-    value={{interval}}
+    value={interval}
     label="Interval (ms)"
     steps="100"
     maxlength="6"
   />
   <InputManipulator
     bind:value="cellsize"
-    value={{cellsize}}
+    value={cellsize}
     label="Cellsize"
   />
   <InputManipulator
     bind:value="gap"
-    value={{gap}}
+    value={gap}
     label="Gap"
   />
   <InputManipulator
     bind:value="X"
-    value={{X}}
+    value={X}
     label="Cells X"
   />
   <InputManipulator
     bind:value="Y"
-    value={{Y}}
+    value={Y}
     label="Cells Y"
   />
   <div>
     <ul>
       <li><b>computed values</b></li>
-      <li>frequency: {{1000 / interval}} Hz</li>
-      <li>width: {{width}}</li>
-      <li>height: {{height}}</li>
-      <li>running: {{running}}</li>
+      <li>frequency: {1000 / interval} Hz</li>
+      <li>width: {width}</li>
+      <li>height: {height}</li>
+      <li>running: {running}</li>
     </ul>
   </div>
 </div>

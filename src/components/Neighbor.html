@@ -8,9 +8,9 @@
         type="list"
         bind:value="neighbor"
     >
-    {{#each neighbors as nb}}
-      <option>{{nb.name}}</option>
-    {{/each}}
+    {#each neighbors as nb}
+      <option>{nb.name}</option>
+    {/each}
     </select>
   </div>
 </li>
@@ -22,9 +22,8 @@ export default {
     }
   },
   oncreate() {
-    const neighbors = this.get('neighbors')
-    if (neighbors && neighbors.length > 0) {
-      const neighbor = neighbors[0]
+    const [neighbor] = this.get('neighbors')
+    if (neighbor) {
       this.set({ neighbor })
     }
   },
