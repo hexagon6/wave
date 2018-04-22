@@ -1,17 +1,17 @@
-{{#if debug}}
-{{debug}}
+{#if debug}
+{debug}
 <ul>
 <li>settings:</li>
-<li>algorithm:  {{algorithm}}</li>
-<li>neighbor:  {{neighbor}}</li>
-<li>state:  {{state}}</li>
+<li>algorithm:  {algorithm}</li>
+<li>neighbor:  {neighbor}</li>
+<li>state:  {state}</li>
 </ul>
-{{/if}}
+{/if}
 <Field />
 <Controls
   ref:controls
-  :algorithms
-  :states
+  {algorithms}
+  {states}
 />
 <!--
 <Canvas
