@@ -1,10 +1,13 @@
 
-"use strict";
+import { settings } from '/settings.js';
+import { grid, grid_main, log_matrix, matrix, pixel, reset_canvas, set_grid, state, update_steps } from '/grid.js';
+import { algorithms } from '/algo.js';
+import { seq } from '/seq.js';
+import { clock_state, next_cycle, start_clock, stop_clock } from '/tick.js';
+import { parse_url } from '/view.js';
 
 //global vars
-var $, c, cycle, clock_state, grid, grid_main, js, log_matrix, matrix,
-next_cycle, pixel, parse_url, reset_canvas, seq, settings, set_grid, start_clock,
-stop_clock, algorithms, pattern, state;
+var c, cycle, pattern;
 
 var karel = false;
 
@@ -224,7 +227,7 @@ function show_interaction_text() {
     $('#hover_text').show();
 }
 
-function set_ready() {
+export function set_ready() {
     settings.ready = true;
 }
 

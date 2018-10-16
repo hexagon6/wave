@@ -26,11 +26,14 @@ THE SOFTWARE.
 
 //tick.js
 
-"use strict";
+import { js, settings } from '/settings.js';
+import { update_speed, update_cycleview } from '/view.js'
+import { log_matrix, matrix } from '/grid.js';
+import { run_algorithm } from '/algo.js';
+
+let cycle = 0
 
 //global vars
-var js, settings, cycle, matrix;
-var update_cycleview, log_matrix, pixel, update_speed;
 
 js.tick = true;
 
@@ -43,7 +46,7 @@ if (!js.algo) {
 }
 
 var clock, algorithms;
-var clock_state = settings.clock.state;
+export let clock_state = settings.clock.state;
 var speed = settings.speed; //interval time in ms
 var verbose = settings.verbose;
 
@@ -52,7 +55,7 @@ var verbose = settings.verbose;
 *   this function defines the way our cellular algorithm works
 */
 
-function next_cycle() {
+export function next_cycle() {
     if (verbose) {
         console.log('cycle: %s', cycle); 
     }
@@ -68,7 +71,7 @@ function next_cycle() {
     log_matrix(matrix.data);
 }
 
-function start_clock(speed) {
+export function start_clock(speed) {
     if (!speed) {
         speed = settings.speed;
     }
@@ -89,7 +92,7 @@ function start_clock(speed) {
     }
 }
 
-function stop_clock() {
+export function stop_clock() {
     clearInterval(clock);
     if (settings.verbose) {
         console.log('stop');

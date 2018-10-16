@@ -29,10 +29,32 @@ THE SOFTWARE.
 *  is not responsible for the canvas
 */
 
-"use strict";
+import { js, settings } from '/settings.js';
+
+export function parse_url() {
+    var query_string = {};
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length;i++) {
+        var pair =  vars[i].split("=");
+        if (typeof query_string[pair[0]] === "undefined") {
+            query_string[pair[0]] = pair[1];
+        } else if (typeof query_string[pair[0]] === "string") {
+            var arr = [ query_string[pair[0]], pair[1] ];
+            query_string[pair[0]] = arr;
+        } else {
+            query_string[pair[0]].push(pair[1]);
+        }
+    }
+    return query_string;
+}
+
+const query_string = parse_url();
 
 //global vars
-var $, js, settings, query_string, cycle, speed;
+var cycle, speed;
+
+js.grid = true;
 
 js.view = true;
 
@@ -54,12 +76,12 @@ function update_detail(detail) {
 }
 update_detail(detail);
 
-function update_cycleview(cycle) {
+export function update_cycleview(cycle) {
     $('#cycle').html(cycle);
 }
 update_cycleview(cycle);
 
-function update_speed(speed) {
+export function update_speed(speed) {
     $('#speed').html(speed);
 }
 update_speed(settings.speed);

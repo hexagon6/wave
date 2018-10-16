@@ -1,12 +1,10 @@
 //settings.js
 
-"use strict";
-
-var js = {
+export const js = {
     settings: true
 };
 
-var settings = {
+export let settings = {
     version: '0.4',
     date: '2015-02-23',
     algorithms: {

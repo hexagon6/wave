@@ -29,13 +29,15 @@ THE SOFTWARE.
 *
 */
 
-"use strict";
+import { pixel, reset_canvas } from '/grid.js';
+import { start_clock, stop_clock } from '/tick.js'
+import { pattern } from '/pattern.js'
+import { set_ready } from '/control.js'
 
 //global definitions
-var karel, pixel, start_clock, stop_clock, pattern, reset_canvas, 
-show_interaction_text, set_untouched_state;
+var karel, show_interaction_text, set_untouched_state;
 
-var seq = {
+export const seq = {
     intro: function () {
         if (karel) {
             this.karel();
