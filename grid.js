@@ -30,14 +30,10 @@ THE SOFTWARE.
 */
 /*jshint es5: true */
 
-"use strict";
+import { js, settings } from '/settings.js';
+import { update_cycleview } from '/view.js';
 
-//from settings.js
-var js, settings, $;
 js.grid = true;
-
-//from view.js
-var update_cycleview;
 
 function init_2Dcanvas(id) {
     var canvas = document.getElementById(id);
@@ -51,7 +47,7 @@ var c = init_2Dcanvas('c');
 var grid;
 var matrix;
 var cycle = 0;
-var state = { colors: {
+export let state = { colors: {
 	// 0: resting, 1: excited, 2: refractoring
     original: [
 		$('#style').css('background-color'),
@@ -81,27 +77,8 @@ var state = { colors: {
 };
 
 function get_steps() { return state.colors[settings.state].length; }
-function update_steps() { settings.steps = get_steps(); }
+export function update_steps() { settings.steps = get_steps(); }
 update_steps();
-
-function parse_url() {
-    var query_string = {};
-    var query = window.location.search.substring(1);
-    var vars = query.split("&");
-    for (var i = 0; i < vars.length;i++) {
-        var pair =  vars[i].split("=");
-        if (typeof query_string[pair[0]] === "undefined") {
-            query_string[pair[0]] = pair[1];
-        } else if (typeof query_string[pair[0]] === "string") {
-            var arr = [ query_string[pair[0]], pair[1] ];
-            query_string[pair[0]] = arr;
-        } else {
-            query_string[pair[0]].push(pair[1]);
-        }
-    }
-    return query_string;
-}
-var query_string = parse_url();
 
 
 
@@ -175,7 +152,7 @@ function drawGridLines(rel_pos) {
     }
 }
 
-function pixel(x, y) {
+export function pixel(x, y) {
     var rel_pos = {'x': x, 'y': y};
     c.fillStyle = state.colors[settings.state][next_value(x, y)]; 
     draw_pixel(c, rel_pos);
@@ -197,7 +174,7 @@ function fill_rect(start, end) {
     }
 }
 
-function log_matrix(matrix) {
+export function log_matrix(matrix) {
     if (settings.verbose) {
         console.group('matrix data:');
         var x = 0;
@@ -245,7 +222,7 @@ function init_grid() {
 }
 
 
-function set_grid(m) {
+export function set_grid(m) {
     var cycles;
     if (!matrix.cycle) {
         cycles = 0;
@@ -260,7 +237,7 @@ function set_grid(m) {
     }
 }
 
-function reset_canvas() {
+export function reset_canvas() {
     c.canvas.width++;
     c.canvas.width--;
     init_grid();
@@ -268,7 +245,9 @@ function reset_canvas() {
     update_cycleview(cycle);
 }
 
-function grid_main() {
+export function grid_main() {
     init_grid();
   //fill_rect({'x':1,'y':0}, {'x':3,'y':3});
 }
+
+export { cycle, grid, matrix }

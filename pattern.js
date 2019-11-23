@@ -26,13 +26,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-"use strict";
+import { js } from '/settings.js';
+import { pixel } from '/grid.js';
 
 js.pattern = true;
 
 if(!js.grid) { alert('need grid.js to run'); }
 
-var pattern = {
+export const pattern = {
     logo:function (x,y){
       //w
       pixel(1+x,4+y);
